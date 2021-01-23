@@ -8,6 +8,23 @@ defmodule Plaid.MixProject do
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
+      docs: [
+        main: "readme",
+        extras: ["CONTRIBUTING.md", "README.md"],
+        groups_for_modules: [
+          Accounts: [
+            Plaid.Accounts,
+            Plaid.Accounts.Account,
+            Plaid.Accounts.Account.Balances
+          ],
+          Transactions: [
+            Plaid.Transactions,
+            Plaid.Transactions.Transaction,
+            Plaid.Transactions.Transaction.Location,
+            Plaid.Transactions.Transaction.PaymentMeta
+          ]
+        ]
+      ],
       deps: deps()
     ]
   end
@@ -15,7 +32,9 @@ defmodule Plaid.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      # Default Application environment
+      env: [env: :sandbox]
     ]
   end
 
@@ -24,6 +43,7 @@ defmodule Plaid.MixProject do
     [
       {:bypass, "~> 2.1", only: :test},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.23", only: :dev, runtime: false},
       {:httpoison, "~> 1.7"},
       {:jason, "~> 1.2"}
     ]
