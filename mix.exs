@@ -17,6 +17,18 @@ defmodule Plaid.MixProject do
             Plaid.Accounts.Account,
             Plaid.Accounts.Account.Balances
           ],
+          Auth: [
+            Plaid.Auth,
+            Plaid.Auth.Numbers,
+            Plaid.Auth.Numbers.ACH,
+            Plaid.Auth.Numbers.BACS,
+            Plaid.Auth.Numbers.EFT,
+            Plaid.Auth.Numbers.International
+          ],
+          Categories: [
+            Plaid.Categories,
+            Plaid.Categories.Category
+          ],
           Transactions: [
             Plaid.Transactions,
             Plaid.Transactions.Transaction,

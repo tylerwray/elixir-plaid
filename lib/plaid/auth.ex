@@ -17,6 +17,28 @@ defmodule Plaid.Auth do
     :request_id
   ]
 
+  @doc """
+  Get information about account and routing numbers for
+  checking and savings accounts.
+
+  Does a POST /auth/get call which returns high level account information
+  along with account and routing numbers for checking and savings
+  accounts.
+
+  Params:
+  * `access_token` - Token to fetch accounts for.
+
+  Options:
+  * `account_ids` - Specific account ids to fetch balances for.
+
+  Returns a struct of the same module with auth information.
+
+  ## Examples
+
+      get("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Plaid.Auth{}}
+
+  """
   @spec get(String.t(), options, Plaid.config()) ::
           {:ok, t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => list(String.t())}

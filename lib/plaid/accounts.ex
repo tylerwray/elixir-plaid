@@ -11,24 +11,19 @@ defmodule Plaid.Accounts do
 
   defstruct [:accounts, :item, :request_id]
 
-  @typedoc """
-  Options to pass to `get/3`.
-
-  * `account_ids` - Specific account ids to fetch balances for.
-  """
-  @type get_options :: %{
-          account_ids: list(String.t())
-        }
-
   @doc """
   Get information about all available accounts.
 
   Does a `POST /accounts/get` call to retrieve high level account information
   associated with an access_token's item.
 
+  Params:
   * `access_token` - Token to fetch accounts for.
 
-  Returns a struct with of the same module with accounts information.
+  Options:
+  * `account_ids` - Specific account ids to fetch balances for.
+
+  Returns a struct of the same module with accounts information.
 
   ## Examples
 
@@ -36,17 +31,16 @@ defmodule Plaid.Accounts do
       {:ok, %Plaid.Accounts{}}
 
   """
-  @spec get(String.t(), get_options(), Plaid.config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
+  @spec get(String.t(), options, Plaid.config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
+        when options: %{optional(:account_ids) => list(String.t())}
   def get(access_token, options \\ %{}, config) do
-    Plaid.Client.call("/accounts/get", build_payload(access_token, options), __MODULE__, config)
-  end
-
-  @spec build_payload(String.t(), get_options()) :: map()
-  defp build_payload(access_token, options) do
     options_payload = Map.take(options, [:account_ids])
 
-    %{}
-    |> Map.put(:access_token, access_token)
-    |> Map.put(:options, options_payload)
+    payload =
+      %{}
+      |> Map.put(:access_token, access_token)
+      |> Map.put(:options, options_payload)
+
+    Plaid.Client.call("/accounts/get", payload, __MODULE__, config)
   end
 end
