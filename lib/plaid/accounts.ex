@@ -1,7 +1,6 @@
 defmodule Plaid.Accounts do
   @moduledoc """
-  Plaid Accounts API calls and schema.
-  https://plaid.com/docs/api/accounts
+  [Plaid Accounts API](https://plaid.com/docs/api/accounts) calls and schema.
   """
 
   @type t :: %__MODULE__{

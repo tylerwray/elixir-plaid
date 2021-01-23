@@ -5,6 +5,11 @@ defmodule Plaid.Client do
   # Maps API response JSON paths to their structs
   @structs %{
     "accounts" => Plaid.Accounts.Account,
+    "numbers" => Plaid.Auth.Numbers,
+    "ach" => Plaid.Auth.Numbers.ACH,
+    "eft" => Plaid.Auth.Numbers.EFT,
+    "international" => Plaid.Auth.Numbers.International,
+    "bacs" => Plaid.Auth.Numbers.BACS,
     "balances" => Plaid.Accounts.Account.Balances,
     "categories" => Plaid.Categories.Category,
     "error" => Plaid.Error,
