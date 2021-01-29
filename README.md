@@ -51,7 +51,7 @@ For information about what has changed tyler API versions, head to the [version 
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
 | [Auth](https://plaid.com/docs/api/products/#auth)                                                           | ✅     |
 | [Balance](https://plaid.com/docs/api/products/#balance)                                                     | ✅     |
-| [Identity](https://plaid.com/docs/api/products/#identity)                                                   | 🗺      |
+| [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅      |
 | [Assets](https://plaid.com/docs/api/products/#assets)                                                       | 🗺      |
 | [Investments](https://plaid.com/docs/api/products/#investments)                                             | 🗺      |
 | [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | 🗺      |

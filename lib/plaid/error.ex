@@ -1,7 +1,6 @@
 defmodule Plaid.Error do
   @moduledoc """
-  Plaid API Error response Schema.
-  https://plaid.com/docs/errors/
+  [Plaid API Error response Schema.](https://plaid.com/docs/errors/)
   """
 
   @type t :: %__MODULE__{

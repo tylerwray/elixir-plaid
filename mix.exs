@@ -13,12 +13,10 @@ defmodule Plaid.MixProject do
         extras: ["CONTRIBUTING.md", "README.md"],
         groups_for_modules: [
           Accounts: [
-            Plaid.Accounts,
             Plaid.Accounts.Account,
             Plaid.Accounts.Account.Balances
           ],
           Auth: [
-            Plaid.Auth,
             Plaid.Auth.Numbers,
             Plaid.Auth.Numbers.ACH,
             Plaid.Auth.Numbers.BACS,
@@ -26,14 +24,24 @@ defmodule Plaid.MixProject do
             Plaid.Auth.Numbers.International
           ],
           Categories: [
-            Plaid.Categories,
             Plaid.Categories.Category
           ],
+          Identity: [
+            Plaid.Identity.Address,
+            Plaid.Identity.AddressData,
+            Plaid.Identity.Email,
+            Plaid.Identity.PhoneNumber
+          ],
           Transactions: [
-            Plaid.Transactions,
             Plaid.Transactions.Transaction,
             Plaid.Transactions.Transaction.Location,
             Plaid.Transactions.Transaction.PaymentMeta
+          ],
+          Other: [
+            Plaid,
+            Plaid.Error,
+            Plaid.Item,
+            Plaid.SimpleResponse
           ]
         ]
       ],

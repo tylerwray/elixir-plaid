@@ -1,7 +1,6 @@
 defmodule Plaid.Accounts.Account do
   @moduledoc """
-  Plaid Account schema.
-  https://plaid.com/docs/api/accounts
+  [Plaid Account schema.](https://plaid.com/docs/api/accounts)
   """
 
   @type t :: %__MODULE__{
@@ -12,7 +11,9 @@ defmodule Plaid.Accounts.Account do
           official_name: String.t() | nil,
           type: String.t(),
           subtype: String.t(),
-          verification_status: String.t() | nil
+          verification_status: String.t() | nil,
+          item: Plaid.Item.t(),
+          owners: list(Plaid.Identity.t()) | nil
         }
 
   defstruct [
@@ -24,6 +25,7 @@ defmodule Plaid.Accounts.Account do
     :type,
     :subtype,
     :verification_status,
-    :item
+    :item,
+    :owners
   ]
 end

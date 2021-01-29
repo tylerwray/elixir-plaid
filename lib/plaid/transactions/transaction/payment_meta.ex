@@ -1,7 +1,6 @@
 defmodule Plaid.Transactions.Transaction.PaymentMeta do
   @moduledoc """
-  Plaid Transaction Payment-Meta schema.
-  https://plaid.com/docs/api/products/#transactions-get-response-payment-meta
+  [Plaid Transaction Payment-Meta schema.](https://plaid.com/docs/api/products/#transactions-get-response-payment-meta)
   """
 
   @type t :: %__MODULE__{

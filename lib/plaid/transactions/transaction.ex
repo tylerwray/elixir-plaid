@@ -1,7 +1,6 @@
 defmodule Plaid.Transactions.Transaction do
   @moduledoc """
-  Plaid Transaction schema.
-  https://plaid.com/docs/api/transactions
+  [Plaid Transaction schema.](https://plaid.com/docs/api/transactions)
   """
 
   @type t :: %__MODULE__{

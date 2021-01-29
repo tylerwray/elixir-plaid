@@ -1,7 +1,6 @@
 defmodule Plaid.Accounts.Account.Balances do
   @moduledoc """
-  Plaid Balances schema.
-  https://plaid.com/docs/api/accounts
+  [Plaid Balances schema.](https://plaid.com/docs/api/accounts)
   """
 
   @type t :: %__MODULE__{
