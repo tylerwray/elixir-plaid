@@ -5,23 +5,29 @@ defmodule Plaid.Client do
   # Maps API response JSON paths to their structs
   @structs %{
     "accounts" => Plaid.Accounts.Account,
-    "numbers" => Plaid.Auth.Numbers,
     "ach" => Plaid.Auth.Numbers.ACH,
-    "eft" => Plaid.Auth.Numbers.EFT,
-    "international" => Plaid.Auth.Numbers.International,
+    "addresses" => Plaid.Identity.Address,
     "bacs" => Plaid.Auth.Numbers.BACS,
     "balances" => Plaid.Accounts.Account.Balances,
     "categories" => Plaid.Categories.Category,
-    "error" => Plaid.Error,
-    "owners" => Plaid.Identity,
-    "addresses" => Plaid.Identity.Address,
+    "cause" => Plaid.AssetReport.Warning.Cause,
     "data" => Plaid.Identity.AddressData,
+    "eft" => Plaid.Auth.Numbers.EFT,
     "emails" => Plaid.Identity.Email,
-    "phone_numbers" => Plaid.Identity.PhoneNumber,
+    "error" => Plaid.Error,
+    "historical_balances" => Plaid.Accounts.Account.HistoricalBalances,
+    "international" => Plaid.Auth.Numbers.International,
     "item" => Plaid.Item,
+    "items" => Plaid.AssetReport.Report.Item,
     "location" => Plaid.Transactions.Transaction.Location,
+    "numbers" => Plaid.Auth.Numbers,
+    "owners" => Plaid.Identity,
     "payment_meta" => Plaid.Transactions.Transaction.PaymentMeta,
-    "transactions" => Plaid.Transactions.Transaction
+    "phone_numbers" => Plaid.Identity.PhoneNumber,
+    "report" => Plaid.AssetReport.Report,
+    "transactions" => Plaid.Transactions.Transaction,
+    "user" => Plaid.AssetReport.User,
+    "warnings" => Plaid.AssetReport.Warning
   }
 
   def process_request_headers(headers) do

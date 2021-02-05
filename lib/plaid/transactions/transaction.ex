@@ -23,7 +23,9 @@ defmodule Plaid.Transactions.Transaction do
           account_owner: String.t() | nil,
           transaction_id: String.t(),
           transaction_code: String.t() | nil,
-          transaction_type: String.t()
+          transaction_type: String.t(),
+          date_transacted: String.t() | nil,
+          original_description: String.t() | nil
         }
 
   defstruct [
@@ -45,6 +47,8 @@ defmodule Plaid.Transactions.Transaction do
     :account_owner,
     :transaction_id,
     :transaction_code,
-    :transaction_type
+    :transaction_type,
+    :date_transacted,
+    :original_description
   ]
 end

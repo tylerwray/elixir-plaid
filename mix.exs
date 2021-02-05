@@ -14,7 +14,17 @@ defmodule Plaid.MixProject do
         groups_for_modules: [
           Accounts: [
             Plaid.Accounts.Account,
-            Plaid.Accounts.Account.Balances
+            Plaid.Accounts.Account.Balances,
+            Plaid.Accounts.Account.HistoricalBalances
+          ],
+          "Asset Report": [
+            Plaid.AssetReport.CreateResponse,
+            Plaid.AssetReport.GetResponse,
+            Plaid.AssetReport.Report,
+            Plaid.AssetReport.Report.Item,
+            Plaid.AssetReport.User,
+            Plaid.AssetReport.Warning,
+            Plaid.AssetReport.Warning.Cause
           ],
           Auth: [
             Plaid.Auth.Numbers,
