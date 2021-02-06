@@ -8,6 +8,7 @@ defmodule Plaid.Item do
           billed_products: list(String.t()),
           consent_expiration_time: String.t() | nil,
           error: Plaid.Error.t() | nil,
+          has_perpetual_otp: boolean(),
           institution_id: String.t() | nil,
           item_id: String.t(),
           webhook: String.t() | nil
@@ -17,6 +18,7 @@ defmodule Plaid.Item do
     :available_products,
     :billed_products,
     :consent_expiration_time,
+    :has_perpetual_otp,
     :error,
     :institution_id,
     :item_id,

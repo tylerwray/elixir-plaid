@@ -47,7 +47,7 @@ defmodule Plaid.AssetReport do
       |> Map.put(:days_requested, days_requested)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/asset_reports/create", payload, Plaid.AssetReport.CreateResponse, config)
+    Plaid.Client.call("/asset_report/create", payload, Plaid.AssetReport.CreateResponse, config)
   end
 
   @doc """
@@ -78,6 +78,6 @@ defmodule Plaid.AssetReport do
       |> Map.take([:include_insights])
       |> Map.put(:asset_report_token, asset_report_token)
 
-    Plaid.Client.call("/asset_reports/get", payload, Plaid.AssetReport.GetResponse, config)
+    Plaid.Client.call("/asset_report/get", payload, Plaid.AssetReport.GetResponse, config)
   end
 end

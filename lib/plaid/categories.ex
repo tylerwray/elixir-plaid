@@ -14,18 +14,20 @@ defmodule Plaid.Categories do
   ]
 
   @doc """
-  Get information about all Plaid categories
+  Get information about all Plaid categories.
 
   Does a `POST /categories/get` call to retrieve a list of all categories.
 
+  > No authentication required.
+
   ## Example
 
-      get(client_id: "123", secret: "abc")
+      get()
       {:ok, %Plaid.Categories{}}
 
   """
-  @spec get(Plaid.config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
-  def get(config) do
+  @spec get(Plaid.noauth_config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
+  def get(config \\ []) do
     Plaid.Client.call(
       "/categories/get",
       %{},

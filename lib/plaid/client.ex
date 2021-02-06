@@ -63,21 +63,31 @@ defmodule Plaid.Client do
 
   @spec add_auth(String.t(), Plaid.config()) :: map()
   defp add_auth(payload, config) do
-    client_id = Keyword.fetch!(config, :client_id)
-    secret = Keyword.fetch!(config, :secret)
+    auth =
+      config
+      |> Map.new()
+      |> Map.take([:client_id, :secret])
 
-    payload
-    |> Map.put(:client_id, client_id)
-    |> Map.put(:secret, secret)
+    Map.merge(payload, auth)
   end
 
-  def handle_response({:ok, %{body: body}}, struct_module) do
+  def handle_response({:ok, %{body: body, status_code: status_code}}, struct_module)
+      when status_code in 200..299 do
     res =
       body
       |> Jason.decode!()
       |> structify(struct_module)
 
     {:ok, res}
+  end
+
+  def handle_response({:ok, %{body: body}}, _struct_module) do
+    error =
+      body
+      |> Jason.decode!()
+      |> structify(Plaid.Error)
+
+    {:error, error}
   end
 
   def handle_response(res, _), do: res
