@@ -18,7 +18,7 @@ defmodule Plaid.MixProject do
             Plaid.Accounts.Account.HistoricalBalances
           ],
           "Asset Report": [
-            Plaid.AssetReport.CreateResponse,
+            Plaid.AssetReport.AsyncResponse,
             Plaid.AssetReport.GetResponse,
             Plaid.AssetReport.Report,
             Plaid.AssetReport.Report.Item,

@@ -20,7 +20,7 @@ defmodule Plaid.AssetReportTest do
     end)
 
     {:ok,
-     %Plaid.AssetReport.CreateResponse{
+     %Plaid.AssetReport.AsyncResponse{
        asset_report_token: "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
        asset_report_id: "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
        request_id: "Iam3b"
@@ -318,5 +318,42 @@ defmodule Plaid.AssetReportTest do
       )
 
     assert body == <<0, 1, 2, 3>>
+  end
+
+  test "POST /asset_report/refresh", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/refresh", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
+        "asset_report_id": "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
+        "request_id": "Iam3b"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.AssetReport.AsyncResponse{
+       asset_report_token: "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
+       asset_report_id: "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
+       request_id: "Iam3b"
+     }} =
+      Plaid.AssetReport.refresh(
+        "assets-prod-123xxx",
+        %{
+          client_report_id: "crid_123xxx",
+          webhook: "https://localhost:1234/webhooks/plaid",
+          days_requested: 3,
+          user: %Plaid.AssetReport.User{
+            client_user_id: "123",
+            first_name: "John",
+            middle_name: "Henry",
+            last_name: "Henderson",
+            ssn: "123-45-6789",
+            phone_number: "+18013217654",
+            email: "test@example.com"
+          }
+        },
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
   end
 end
