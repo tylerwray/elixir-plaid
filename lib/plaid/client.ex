@@ -71,6 +71,11 @@ defmodule Plaid.Client do
     Map.merge(payload, auth)
   end
 
+  def handle_response({:ok, %{body: body, status_code: status_code}}, :raw)
+      when status_code in 200..299 do
+    {:ok, body}
+  end
+
   def handle_response({:ok, %{body: body, status_code: status_code}}, struct_module)
       when status_code in 200..299 do
     res =

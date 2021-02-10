@@ -6,12 +6,12 @@ defmodule Plaid.AssetReportTest do
 
   setup do
     bypass = Bypass.open()
-    api_host = "http://localhost:#{bypass.port}/"
+    api_host = "http://localhost:#{bypass.port}"
     {:ok, bypass: bypass, api_host: api_host}
   end
 
-  test "POST /asset_reports/create", %{bypass: bypass, api_host: api_host} do
-    Bypass.expect_once(bypass, "POST", "/asset_reports/create", fn conn ->
+  test "POST /asset_report/create", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/create", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
         "asset_report_id": "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
@@ -50,8 +50,8 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_reports/get", %{bypass: bypass, api_host: api_host} do
-    Bypass.expect_once(bypass, "POST", "/asset_reports/get", fn conn ->
+  test "POST /asset_report/get", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "report": {
           "asset_report_id": "bf3a0490-344c-4620-a219-2693162e4b1d",
@@ -300,5 +300,23 @@ defmodule Plaid.AssetReportTest do
         client_id: "123",
         secret: "abc"
       )
+  end
+
+  test "POST /asset_report/pdf/get", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/pdf/get", fn conn ->
+      conn
+      |> Conn.put_resp_header("content-type", "application/pdf")
+      |> Conn.resp(200, <<0, 1, 2, 3>>)
+    end)
+
+    {:ok, body} =
+      Plaid.AssetReport.get_pdf(
+        "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+
+    assert body == <<0, 1, 2, 3>>
   end
 end

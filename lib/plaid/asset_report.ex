@@ -6,7 +6,7 @@ defmodule Plaid.AssetReport do
   @doc """
   Create an Asset Report.
 
-  Does a `POST /asset_reports/create` call to initiate the process of
+  Does a `POST /asset_report/create` call to initiate the process of
   creating an asset report.
 
   Params:
@@ -53,7 +53,7 @@ defmodule Plaid.AssetReport do
   @doc """
   Get an asset report.
 
-  Does a `POST /asset_reports/get` call to fetch an asset report.
+  Does a `POST /asset_report/get` call to fetch an asset report.
 
   Params:
   * `asset_report_token` - The asset report token from the `create_report` response.
@@ -79,5 +79,31 @@ defmodule Plaid.AssetReport do
       |> Map.put(:asset_report_token, asset_report_token)
 
     Plaid.Client.call("/asset_report/get", payload, Plaid.AssetReport.GetResponse, config)
+  end
+
+  @doc """
+  Get an asset report as a PDF.
+
+  Does a `POST /asset_report/pdf/get` call to fetch an asset report as a PDF.
+
+  Params:
+  * `asset_report_token` - The asset report token from the `create_report` response.
+
+  Returns a `Plaid.AssetReport.GetResponse` struct.
+
+  ## Examples
+
+      get_pdf("asset-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, <<0, 1, 2, 3>>}
+
+  """
+  @spec get_pdf(String.t(), Plaid.config()) :: {:ok, bitstring()} | {:error, Plaid.Error.t()}
+  def get_pdf(asset_report_token, config) do
+    Plaid.Client.call(
+      "/asset_report/pdf/get",
+      %{asset_report_token: asset_report_token},
+      :raw,
+      config
+    )
   end
 end
