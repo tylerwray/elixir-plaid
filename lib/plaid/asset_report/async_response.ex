@@ -1,6 +1,6 @@
 defmodule Plaid.AssetReport.AsyncResponse do
   @moduledoc """
-  Plaid asset-report response schema used when generating asset reports.
+  Plaid Asset Report schema used when generating asset reports.
 
   Async because it only returns a token, the actual asset-report needs to
   be fetched after the proper webhook is received. [See docs.](https://plaid.com/docs/api/products/#asset_reportcreate)
