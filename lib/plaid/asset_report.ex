@@ -247,4 +247,32 @@ defmodule Plaid.AssetReport do
       config
     )
   end
+
+  @doc """
+  Remove an Asset Report Audit Copy.
+
+  Does a `POST /asset_report/audit_copy/remove` call to remove an audit copy and
+  invalidate its `audit_copy_token`.
+
+  Params:
+  * `audit_copy_token` - The token for the asset report audit copy you want to remove.
+
+  Returns a `Plaid.AssetReport.RemoveResponse` struct.
+
+  ## Examples
+
+      remove_audit_copy("a-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Plaid.AssetReport.RemoveResponse{}}
+
+  """
+  @spec remove_audit_copy(String.t(), Plaid.config()) ::
+          {:ok, Plaid.AssetReport.RemoveResponse.t()} | {:error, Plaid.Error.t()}
+  def remove_audit_copy(asset_report_token, config) do
+    Plaid.Client.call(
+      "/asset_report/audit_copy/remove",
+      %{asset_report_token: asset_report_token},
+      Plaid.AssetReport.RemoveResponse,
+      config
+    )
+  end
 end
