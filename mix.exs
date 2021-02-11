@@ -20,6 +20,7 @@ defmodule Plaid.MixProject do
           "Asset Report": [
             Plaid.AssetReport.AsyncResponse,
             Plaid.AssetReport.GetResponse,
+            Plaid.AssetReport.RemoveResponse,
             Plaid.AssetReport.Report,
             Plaid.AssetReport.Report.Item,
             Plaid.AssetReport.User,

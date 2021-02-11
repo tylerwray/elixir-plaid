@@ -129,7 +129,7 @@ defmodule Plaid.AssetReport do
   Meaning when not specified, values from the original `create/4` request will be used.
 
   Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
-  that can be used later to fetch the created asset report.
+  that can be used later to fetch the refreshed asset report.
 
   ## Examples
 
@@ -170,7 +170,7 @@ defmodule Plaid.AssetReport do
   * `account_ids_to_exclude` - The accounts to exclude from the original Asset Report.
 
   Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
-  that can be used later to fetch the created asset report.
+  that can be used later to fetch the filtered asset report.
 
   ## Examples
 
@@ -188,6 +188,34 @@ defmodule Plaid.AssetReport do
         account_ids_to_exclude: account_ids_to_exclude
       },
       Plaid.AssetReport.AsyncResponse,
+      config
+    )
+  end
+
+  @doc """
+  Remove an Asset Report.
+
+  Does a `POST /asset_report/remove` call to remove an asset report and
+  invalidate its `asset_report_token`.
+
+  Params:
+  * `asset_report_token` - The token for the asset report you want to remove.
+
+  Returns a `Plaid.AssetReport.RemoveResponse` struct.
+
+  ## Examples
+
+      remove("assets-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Plaid.AssetReport.RemoveResponse{}}
+
+  """
+  @spec remove(String.t(), Plaid.config()) ::
+          {:ok, Plaid.AssetReport.RemoveResponse.t()} | {:error, Plaid.Error.t()}
+  def remove(asset_report_token, config) do
+    Plaid.Client.call(
+      "/asset_report/remove",
+      %{asset_report_token: asset_report_token},
+      Plaid.AssetReport.RemoveResponse,
       config
     )
   end

@@ -380,4 +380,22 @@ defmodule Plaid.AssetReportTest do
         secret: "abc"
       )
   end
+
+  test "POST /asset_report/remove", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/remove", fn conn ->
+      Conn.resp(conn, 200, ~s<{"removed": true, "request_id": "I6Hzd"}>)
+    end)
+
+    {:ok,
+     %Plaid.AssetReport.RemoveResponse{
+       removed: true,
+       request_id: "I6Hzd"
+     }} =
+      Plaid.AssetReport.remove(
+        "assets-prod-123xxx",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
