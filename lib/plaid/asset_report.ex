@@ -111,7 +111,7 @@ defmodule Plaid.AssetReport do
   Create a new, refreshed Asset Report.
 
   Does a `POST /asset_report/refresh` call to initiate the process of
-  creating a new asset report which is based off of a previous one.
+  creating a new asset report with refreshed data, based off of a previous one.
 
   Params:
   * `asset_report_token` - The token for the asset report you want to refresh.
@@ -155,5 +155,40 @@ defmodule Plaid.AssetReport do
       |> Map.put(:options, options_payload)
 
     Plaid.Client.call("/asset_report/refresh", payload, Plaid.AssetReport.AsyncResponse, config)
+  end
+
+  @doc """
+  Create a new, filtered Asset Report.
+
+  Does a `POST /asset_report/filter` call to initiate the process of
+  creating a new asset report with filtered accounts, based off of a previous one.
+
+  Params:
+  * `asset_report_token` - The token for the asset report you want to refresh.
+
+  Options:
+  * `account_ids_to_exclude` - The accounts to exclude from the original Asset Report.
+
+  Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
+  that can be used later to fetch the created asset report.
+
+  ## Examples
+
+      filter("assets-sandbox-123xxx", ["123xxx"], client_id: "123", secret: "abc")
+      {:ok, %Plaid.AssetReport.AsyncResponse{}}
+
+  """
+  @spec filter(String.t(), list(String.t()), Plaid.config()) ::
+          {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
+  def filter(asset_report_token, account_ids_to_exclude, config) do
+    Plaid.Client.call(
+      "/asset_report/filter",
+      %{
+        asset_report_token: asset_report_token,
+        account_ids_to_exclude: account_ids_to_exclude
+      },
+      Plaid.AssetReport.AsyncResponse,
+      config
+    )
   end
 end

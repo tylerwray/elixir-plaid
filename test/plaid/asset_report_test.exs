@@ -356,4 +356,28 @@ defmodule Plaid.AssetReportTest do
         secret: "abc"
       )
   end
+
+  test "POST /asset_report/filter", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/filter", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
+        "asset_report_id": "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
+        "request_id": "Iam3b"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.AssetReport.AsyncResponse{
+       asset_report_token: "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
+       asset_report_id: "1f414183-220c-44f5-b0c8-bc0e6d4053bb",
+       request_id: "Iam3b"
+     }} =
+      Plaid.AssetReport.filter(
+        "assets-prod-123xxx",
+        ["3gE5gnRzNyfXpBK5wEEKcymJ5albGVUqg77gr"],
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
