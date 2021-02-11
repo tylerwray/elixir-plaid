@@ -219,4 +219,32 @@ defmodule Plaid.AssetReport do
       config
     )
   end
+
+  @doc """
+  Create an audit copy token.
+
+  Does a `POST /asset_report/audit_copy/create` call to create an audit copy token
+  which can be sent to participating auditors.
+
+  Params:
+  * `asset_report_token` - The token for which you want to create an audit copy.
+
+  Returns a `Plaid.AssetReport.AuditCopyResponse` struct.
+
+  ## Examples
+
+      create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
+      {:ok, %Plaid.AssetReport.AuditCopyResponse{}}
+
+  """
+  @spec create_audit_copy(String.t(), String.t(), Plaid.config()) ::
+          {:ok, Plaid.AssetReport.AuditCopyResponse.t()} | {:error, Plaid.Error.t()}
+  def create_audit_copy(asset_report_token, auditor_id, config) do
+    Plaid.Client.call(
+      "/asset_report/audit_copy/create",
+      %{asset_report_token: asset_report_token, auditor_id: auditor_id},
+      Plaid.AssetReport.AuditCopyResponse,
+      config
+    )
+  end
 end

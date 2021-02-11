@@ -398,4 +398,26 @@ defmodule Plaid.AssetReportTest do
         secret: "abc"
       )
   end
+
+  test "POST /asset_report/audit_copy/create", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/asset_report/audit_copy/create", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "audit_copy_token": "a-sandbox-3TAU2CWVYBDVRHUCAAAI27ULU4",
+        "request_id": "Iam3b"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.AssetReport.AuditCopyResponse{
+       audit_copy_token: "a-sandbox-3TAU2CWVYBDVRHUCAAAI27ULU4",
+       request_id: "Iam3b"
+     }} =
+      Plaid.AssetReport.create_audit_copy(
+        "assets-prod-123xxx",
+        "fannie_mae",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
