@@ -44,6 +44,11 @@ defmodule Plaid.MixProject do
             Plaid.Identity.Email,
             Plaid.Identity.PhoneNumber
           ],
+          Investments: [
+            Plaid.Investments.GetHoldingsResponse,
+            Plaid.Investments.Holding,
+            Plaid.Investments.Security
+          ],
           Transactions: [
             Plaid.Transactions.Transaction,
             Plaid.Transactions.Transaction.Location,

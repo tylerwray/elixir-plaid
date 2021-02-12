@@ -16,6 +16,7 @@ defmodule Plaid.Client do
     "emails" => Plaid.Identity.Email,
     "error" => Plaid.Error,
     "historical_balances" => Plaid.Accounts.Account.HistoricalBalances,
+    "holdings" => Plaid.Investments.Holding,
     "international" => Plaid.Auth.Numbers.International,
     "item" => Plaid.Item,
     "items" => Plaid.AssetReport.Report.Item,
@@ -25,6 +26,7 @@ defmodule Plaid.Client do
     "payment_meta" => Plaid.Transactions.Transaction.PaymentMeta,
     "phone_numbers" => Plaid.Identity.PhoneNumber,
     "report" => Plaid.AssetReport.Report,
+    "securities" => Plaid.Investments.Security,
     "transactions" => Plaid.Transactions.Transaction,
     "user" => Plaid.AssetReport.User,
     "warnings" => Plaid.AssetReport.Warning
