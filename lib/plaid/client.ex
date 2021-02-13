@@ -2,6 +2,10 @@ defmodule Plaid.Client do
   @moduledoc false
   use HTTPoison.Base
 
+  defmodule MissingStructMappingError do
+    defexception [:message]
+  end
+
   # Maps API response JSON paths to their structs
   @structs %{
     "accounts" => Plaid.Accounts.Account,
@@ -18,6 +22,7 @@ defmodule Plaid.Client do
     "historical_balances" => Plaid.Accounts.Account.HistoricalBalances,
     "holdings" => Plaid.Investments.Holding,
     "international" => Plaid.Auth.Numbers.International,
+    "investment_transactions" => Plaid.Investments.Transaction,
     "item" => Plaid.Item,
     "items" => Plaid.AssetReport.Report.Item,
     "location" => Plaid.Transactions.Transaction.Location,
@@ -100,6 +105,16 @@ defmodule Plaid.Client do
   def handle_response(res, _), do: res
 
   @spec structify(map(), module()) :: module()
+  defp structify(generic_map, nil) when is_map(generic_map) do
+    raise MissingStructMappingError,
+      message: """
+      Could not structify map.
+      Add an internal struct mapping inside Plaid.Client to fix this error.
+
+      Map: #{inspect(generic_map)}
+      """
+  end
+
   defp structify(generic_map, module) when is_map(generic_map) do
     # Convert a generic API response from Plaid to a supported struct.
     # Pass the API response along with it's struct to convert to.

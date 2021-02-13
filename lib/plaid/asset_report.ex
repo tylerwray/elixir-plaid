@@ -10,17 +10,13 @@ defmodule Plaid.AssetReport do
   creating an asset report.
 
   Params:
-  * `access_tokens` - List of tokens coresponding to the items that will be
-  included in the report.
+  * `access_tokens` - List of tokens coresponding to the items that will be included in the report.
   * `days_requested` - The days of history to include in the asset report.
 
   Options:
-  * `client_report_id` - Client-generated identifier, which can be used
-  by lenders to track loan applications.
-  * `webhook` - URL Plaid will use to send webhooks for when the asset report
-  is ready.
-  * `user` - Information about the user to be appended to the asset report. 
-  See `Plaid.AssetReport.User` for available fields.
+  * `client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
+  * `webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
+  * `user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
 
   Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
   that can be used later to fetch the created asset report.
@@ -117,13 +113,10 @@ defmodule Plaid.AssetReport do
   * `asset_report_token` - The token for the asset report you want to refresh.
 
   Options:
-  * `client_report_id` - Client-generated identifier, which can be used
-  by lenders to track loan applications.
+  * `client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
   * `days_requested` - The days of history to include in the asset report.
-  * `webhook` - URL Plaid will use to send webhooks for when the asset report
-  is ready.
-  * `user` - Information about the user to be appended to the asset report. 
-  See `Plaid.AssetReport.User` for available fields.
+  * `webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
+  * `user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
 
   Each option above acts as an "override" of the original values passed to `create/4`.
   Meaning when not specified, values from the original `create/4` request will be used.
@@ -165,8 +158,6 @@ defmodule Plaid.AssetReport do
 
   Params:
   * `asset_report_token` - The token for the asset report you want to refresh.
-
-  Options:
   * `account_ids_to_exclude` - The accounts to exclude from the original Asset Report.
 
   Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
@@ -228,6 +219,7 @@ defmodule Plaid.AssetReport do
 
   Params:
   * `asset_report_token` - The token for which you want to create an audit copy.
+  * `auditor_id` - The auditor_id of the third party with whom you would like to share the Asset Report.
 
   Returns a `Plaid.AssetReport.AuditCopyResponse` struct.
 
@@ -267,10 +259,10 @@ defmodule Plaid.AssetReport do
   """
   @spec remove_audit_copy(String.t(), Plaid.config()) ::
           {:ok, Plaid.AssetReport.RemoveResponse.t()} | {:error, Plaid.Error.t()}
-  def remove_audit_copy(asset_report_token, config) do
+  def remove_audit_copy(audit_copy_token, config) do
     Plaid.Client.call(
       "/asset_report/audit_copy/remove",
-      %{asset_report_token: asset_report_token},
+      %{audit_copy_token: audit_copy_token},
       Plaid.AssetReport.RemoveResponse,
       config
     )
