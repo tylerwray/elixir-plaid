@@ -21,9 +21,7 @@ defmodule Plaid.Accounts do
   * `access_token` - Token to fetch accounts for.
 
   Options:
-  * `account_ids` - Specific account ids to fetch balances for.
-
-  Returns a struct of the same module with accounts information.
+  * `account_ids` - Specific account ids to fetch accounts for.
 
   ## Examples
 
@@ -58,8 +56,6 @@ defmodule Plaid.Accounts do
 
   Options:
   * `account_ids` - Specific account ids to fetch balances for.
-
-  Returns a struct of the same module with accounts information.
 
   ## Examples
 

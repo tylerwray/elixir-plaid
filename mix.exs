@@ -46,8 +46,21 @@ defmodule Plaid.MixProject do
           ],
           Investments: [
             Plaid.Investments.GetHoldingsResponse,
+            Plaid.Investments.GetTransactionsResponse,
             Plaid.Investments.Holding,
-            Plaid.Investments.Security
+            Plaid.Investments.Security,
+            Plaid.Investments.Transaction
+          ],
+          Liabilities: [
+            Plaid.Liabilities.Credit,
+            Plaid.Liabilities.Credit.APR,
+            Plaid.Liabilities.GetResponse,
+            Plaid.Liabilities.Mortgage,
+            Plaid.Liabilities.Mortgage.InterestRate,
+            Plaid.Liabilities.Student,
+            Plaid.Liabilities.Student.LoanStatus,
+            Plaid.Liabilities.Student.PSLFStatus,
+            Plaid.Liabilities.Student.RepaymentPlan
           ],
           Transactions: [
             Plaid.Transactions.Transaction,
@@ -56,6 +69,7 @@ defmodule Plaid.MixProject do
           ],
           Other: [
             Plaid,
+            Plaid.Address,
             Plaid.Error,
             Plaid.Item,
             Plaid.SimpleResponse

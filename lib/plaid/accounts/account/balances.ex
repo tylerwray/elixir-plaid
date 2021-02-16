@@ -4,9 +4,9 @@ defmodule Plaid.Accounts.Account.Balances do
   """
 
   @type t :: %__MODULE__{
-          available: float() | nil,
-          current: float(),
-          limit: float() | nil,
+          available: number() | nil,
+          current: number(),
+          limit: number() | nil,
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil
         }

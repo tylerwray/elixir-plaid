@@ -6,11 +6,11 @@ defmodule Plaid.Investments.Holding do
   @type t :: %__MODULE__{
           account_id: String.t(),
           security_id: String.t(),
-          institution_price: float(),
+          institution_price: number(),
           institution_price_as_of: String.t() | nil,
-          institution_value: float(),
-          cost_basis: float() | nil,
-          quantity: float(),
+          institution_value: number(),
+          cost_basis: number() | nil,
+          quantity: number(),
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil
         }

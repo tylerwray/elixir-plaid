@@ -56,7 +56,7 @@ For information about what has changed tyler API versions, head to the [version 
 | [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅     |
 | [Asset Report](https://plaid.com/docs/api/products/#assets)                                                 | ✅     |
 | [Investments](https://plaid.com/docs/api/products/#investments)                                             | ✅     |
-| [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | 🗺      |
+| [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | 🗺      |
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
 | [Item](https://plaid.com/docs/api/items/)                                                                   | 🗺      |

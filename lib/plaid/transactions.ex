@@ -36,8 +36,6 @@ defmodule Plaid.Transactions do
   * `count`       - Amount of transactions to pull.
   * `offset`      - Offset to start pulling transactions.
 
-  Returns a struct of the same module with transactions information.
-
   ## Example
 
       get("access-sandbox-123xxx", "2019-10-10", "2019-10-20", client_id: "123", secret: "abc")
@@ -77,8 +75,6 @@ defmodule Plaid.Transactions do
   item.
 
   * `access_token` - Token to fetch transactions for.
-
-  Returns a SimpleResponse struct.
 
   ## Examples
 

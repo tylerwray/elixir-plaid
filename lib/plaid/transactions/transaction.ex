@@ -5,7 +5,7 @@ defmodule Plaid.Transactions.Transaction do
 
   @type t :: %__MODULE__{
           account_id: String.t(),
-          amount: float(),
+          amount: number(),
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil,
           category: list(String.t()) | nil,

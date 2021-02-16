@@ -6,7 +6,7 @@ defmodule Plaid.Accounts.Account.HistoricalBalances do
   """
 
   @type t :: %__MODULE__{
-          current: float(),
+          current: number(),
           date: String.t(),
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil

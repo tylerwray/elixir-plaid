@@ -21,7 +21,7 @@ defmodule Plaid.Auth do
   Get information about account and routing numbers for
   checking and savings accounts.
 
-  Does a POST /auth/get call which returns high level account information
+  Does a `POST /auth/get` call which returns high level account information
   along with account and routing numbers for checking and savings
   accounts.
 
@@ -30,8 +30,6 @@ defmodule Plaid.Auth do
 
   Options:
   * `account_ids` - Specific account ids to fetch balances for.
-
-  Returns a struct of the same module with auth information.
 
   ## Examples
 

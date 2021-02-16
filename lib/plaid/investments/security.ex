@@ -4,7 +4,7 @@ defmodule Plaid.Investments.Security do
   """
 
   @type t :: %__MODULE__{
-          close_price: float() | nil,
+          close_price: number() | nil,
           close_price_as_of: String.t() | nil,
           cusip: String.t() | nil,
           institution_id: String.t() | nil,

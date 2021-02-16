@@ -18,9 +18,6 @@ defmodule Plaid.AssetReport do
   * `webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
   * `user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
 
-  Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
-  that can be used later to fetch the created asset report.
-
   ## Examples
 
       create(["access-sandbox-123xxx"], 3, client_id: "123", secret: "abc")
@@ -57,8 +54,6 @@ defmodule Plaid.AssetReport do
   Options: 
   * `include_insights` - Whether we should retrieve the report as an "Assets + Insights" report.
 
-  Returns a `Plaid.AssetReport.GetResponse` struct.
-
   ## Examples
 
       get("asset-prod-123xxx", client_id: "123", secret: "abc")
@@ -84,8 +79,6 @@ defmodule Plaid.AssetReport do
 
   Params:
   * `asset_report_token` - The asset report token from the `create_report` response.
-
-  Returns a `Plaid.AssetReport.GetResponse` struct.
 
   ## Examples
 
@@ -120,9 +113,6 @@ defmodule Plaid.AssetReport do
 
   Each option above acts as an "override" of the original values passed to `create/4`.
   Meaning when not specified, values from the original `create/4` request will be used.
-
-  Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
-  that can be used later to fetch the refreshed asset report.
 
   ## Examples
 
@@ -160,9 +150,6 @@ defmodule Plaid.AssetReport do
   * `asset_report_token` - The token for the asset report you want to refresh.
   * `account_ids_to_exclude` - The accounts to exclude from the original Asset Report.
 
-  Returns a `Plaid.AssetReport.AsyncResponse` struct with information,
-  that can be used later to fetch the filtered asset report.
-
   ## Examples
 
       filter("assets-sandbox-123xxx", ["123xxx"], client_id: "123", secret: "abc")
@@ -192,8 +179,6 @@ defmodule Plaid.AssetReport do
   Params:
   * `asset_report_token` - The token for the asset report you want to remove.
 
-  Returns a `Plaid.AssetReport.RemoveResponse` struct.
-
   ## Examples
 
       remove("assets-sandbox-123xxx", client_id: "123", secret: "abc")
@@ -221,8 +206,6 @@ defmodule Plaid.AssetReport do
   * `asset_report_token` - The token for which you want to create an audit copy.
   * `auditor_id` - The auditor_id of the third party with whom you would like to share the Asset Report.
 
-  Returns a `Plaid.AssetReport.AuditCopyResponse` struct.
-
   ## Examples
 
       create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
@@ -248,8 +231,6 @@ defmodule Plaid.AssetReport do
 
   Params:
   * `audit_copy_token` - The token for the asset report audit copy you want to remove.
-
-  Returns a `Plaid.AssetReport.RemoveResponse` struct.
 
   ## Examples
 

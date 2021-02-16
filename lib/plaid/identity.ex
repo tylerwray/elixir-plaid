@@ -24,8 +24,6 @@ defmodule Plaid.Identity do
   Options:
   * `account_ids` - Specific account ids to fetch identity for.
 
-  Returns a Plaid.Accounts struct with identity information included.
-
   ## Examples
 
       get("access-sandbox-123xxx", client_id: "123", secret: "abc")

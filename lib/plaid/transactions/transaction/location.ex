@@ -9,8 +9,8 @@ defmodule Plaid.Transactions.Transaction.Location do
           region: String.t() | nil,
           postal_code: String.t() | nil,
           country: String.t() | nil,
-          lat: float() | nil,
-          lon: float() | nil,
+          lat: number() | nil,
+          lon: number() | nil,
           store_number: String.t() | nil
         }
 
