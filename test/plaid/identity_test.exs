@@ -194,7 +194,7 @@ defmodule Plaid.IdentityTest do
     end)
 
     {:ok,
-     %Plaid.Accounts{
+     %Plaid.Identity.GetResponse{
        accounts: [
          %Plaid.Accounts.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
@@ -212,7 +212,7 @@ defmodule Plaid.IdentityTest do
              %Plaid.Identity{
                addresses: [
                  %Plaid.Identity.Address{
-                   data: %Plaid.Identity.AddressData{
+                   data: %Plaid.Address{
                      city: "Malakoff",
                      country: "US",
                      postal_code: "14236",
@@ -222,7 +222,7 @@ defmodule Plaid.IdentityTest do
                    primary: true
                  },
                  %Plaid.Identity.Address{
-                   data: %Plaid.Identity.AddressData{
+                   data: %Plaid.Address{
                      city: "San Matias",
                      country: "US",
                      postal_code: "93405-2255",
@@ -290,7 +290,7 @@ defmodule Plaid.IdentityTest do
              %Plaid.Identity{
                addresses: [
                  %Plaid.Identity.Address{
-                   data: %Plaid.Identity.AddressData{
+                   data: %Plaid.Address{
                      city: "Malakoff",
                      country: "US",
                      postal_code: "14236",
@@ -300,7 +300,7 @@ defmodule Plaid.IdentityTest do
                    primary: true
                  },
                  %Plaid.Identity.Address{
-                   data: %Plaid.Identity.AddressData{
+                   data: %Plaid.Address{
                      city: "San Matias",
                      country: "US",
                      postal_code: "93405-2255",

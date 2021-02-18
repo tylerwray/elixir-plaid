@@ -1,8 +1,6 @@
 defmodule Plaid.Identity do
   @moduledoc """
   [Plaid Identity API](https://plaid.com/docs/api/products/#identity) calls and schema.
-
-  TODO: Thought? Maybe move this function into Plaid.Accounts.get_identity?
   """
 
   @behaviour Plaid.Castable
@@ -58,6 +56,6 @@ defmodule Plaid.Identity do
       |> Map.put(:access_token, access_token)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/identity/get", payload, Plaid.Accounts, config)
+    Plaid.Client.call("/identity/get", payload, Plaid.Identity.GetResponse, config)
   end
 end
