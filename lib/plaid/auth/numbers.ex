@@ -3,11 +3,16 @@ defmodule Plaid.Auth.Numbers do
   [Plaid Numbers schema](https://plaid.com/docs/api/products/#auth-get-response-numbers).
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Auth.Numbers.{ACH, EFT, International, BACS}
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
-          ach: list(Plaid.Auth.Numbers.ACH.t()),
-          eft: list(Plaid.Auth.Numbers.EFT.t()),
-          international: list(Plaid.Auth.Numbers.International.t()),
-          bacs: list(Plaid.Auth.Numbers.BACS.t())
+          ach: list(ACH.t()),
+          eft: list(EFT.t()),
+          international: list(International.t()),
+          bacs: list(BACS.t())
         }
 
   defstruct [
@@ -16,4 +21,14 @@ defmodule Plaid.Auth.Numbers do
     :international,
     :bacs
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      ach: Castable.cast_list(ACH, generic_map["ach"]),
+      eft: Castable.cast_list(EFT, generic_map["eft"]),
+      international: Castable.cast_list(International, generic_map["international"]),
+      bacs: Castable.cast_list(BACS, generic_map["bacs"])
+    }
+  end
 end

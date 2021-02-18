@@ -3,6 +3,10 @@ defmodule Plaid.Auth.Numbers.ACH do
   [Plaid Numbers ACH schema](https://plaid.com/docs/api/products/#auth-get-response-ach).
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           account: String.t(),
           account_id: String.t(),
@@ -16,4 +20,14 @@ defmodule Plaid.Auth.Numbers.ACH do
     :routing,
     :wire_routing
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      account: generic_map["account"],
+      account_id: generic_map["account_id"],
+      routing: generic_map["routing"],
+      wire_routing: generic_map["wire_routing"]
+    }
+  end
 end

@@ -84,7 +84,7 @@ defmodule Plaid.AuthTest do
     end)
 
     {:ok,
-     %Plaid.Auth{
+     %Plaid.Auth.GetResponse{
        accounts: [
          %Plaid.Accounts.Account{
            account_id: "vzeNDwK7KQIm4yEog683uElbp9GRLEFXGK98D",
