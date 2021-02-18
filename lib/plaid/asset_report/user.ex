@@ -3,6 +3,10 @@ defmodule Plaid.AssetReport.User do
   [Plaid Asset Report User schema.](https://plaid.com/docs/api/products/#asset_report-create-request-user)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           client_user_id: String.t(),
           first_name: String.t(),
@@ -23,4 +27,17 @@ defmodule Plaid.AssetReport.User do
     :phone_number,
     :email
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      client_user_id: generic_map["client_user_id"],
+      first_name: generic_map["first_name"],
+      middle_name: generic_map["middle_name"],
+      last_name: generic_map["last_name"],
+      ssn: generic_map["ssn"],
+      phone_number: generic_map["phone_number"],
+      email: generic_map["email"]
+    }
+  end
 end

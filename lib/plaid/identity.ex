@@ -1,16 +1,33 @@
 defmodule Plaid.Identity do
   @moduledoc """
   [Plaid Identity API](https://plaid.com/docs/api/products/#identity) calls and schema.
+
+  TODO: Thought? Maybe move this function into Plaid.Accounts.get_identity?
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+  alias Plaid.Identity.{Address, Email, PhoneNumber}
+
   @type t :: %__MODULE__{
-          addresses: list(Plaid.Identity.Address.t()),
-          emails: list(Plaid.Identity.Email.t()),
+          addresses: list(Address.t()),
+          emails: list(Email.t()),
           names: list(String.t()),
-          phone_numbers: list(Plaid.Identity.PhoneNumber.t())
+          phone_numbers: list(PhoneNumber.t())
         }
 
   defstruct [:addresses, :emails, :names, :phone_numbers]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      addresses: Castable.cast_list(Address, generic_map["addresses"]),
+      emails: Castable.cast_list(Email, generic_map["emails"]),
+      names: generic_map["names"],
+      phone_numbers: Castable.cast_list(PhoneNumber, generic_map["phone_numbers"])
+    }
+  end
 
   @doc """
   Get information about all available accounts.
@@ -27,11 +44,11 @@ defmodule Plaid.Identity do
   ## Examples
 
       get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Accounts{}}
+      {:ok, %Plaid.Accounts.GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.Accounts.t()} | {:error, Plaid.Error.t()}
+          {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => list(String.t())}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])

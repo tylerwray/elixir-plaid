@@ -3,6 +3,12 @@ defmodule Plaid.AssetReport.Report do
   [Plaid Asset Report schema](https://plaid.com/docs/api/products/#asset_reportget)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.AssetReport.Report
+  alias Plaid.AssetReport.User
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           asset_report_id: String.t(),
           client_report_id: String.t(),
@@ -21,4 +27,16 @@ defmodule Plaid.AssetReport.Report do
     :items,
     :user
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      asset_report_id: generic_map["asset_report_id"],
+      client_report_id: generic_map["client_report_id"],
+      date_generated: generic_map["date_generated"],
+      days_requested: generic_map["days_requested"],
+      items: Castable.cast_list(Report.Item, generic_map["items"]),
+      user: Castable.cast(User, generic_map["user"])
+    }
+  end
 end

@@ -3,20 +3,28 @@ defmodule Plaid.Accounts.Account do
   [Plaid Account schema.](https://plaid.com/docs/api/accounts)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Accounts.Account.{Balances, HistoricalBalances}
+  alias Plaid.Castable
+  alias Plaid.Transactions.Transaction
+  alias Plaid.Item
+  alias Plaid.Identity
+
   @type t :: %__MODULE__{
           account_id: String.t(),
-          balances: Plaid.Accounts.Account.Balances.t(),
+          balances: Balances.t(),
           days_available: non_neg_integer() | nil,
-          historical_balances: list(Plaid.Accounts.Account.HistoricalBalance.t()) | nil,
+          historical_balances: [HistoricalBalance.t()] | nil,
           mask: String.t() | nil,
           name: String.t(),
           official_name: String.t() | nil,
           type: String.t(),
           subtype: String.t(),
-          transactions: list(Plaid.Transactions.Transaction.t()) | nil,
+          transactions: [Transaction.t()] | nil,
           verification_status: String.t() | nil,
           item: Plaid.Item.t(),
-          owners: list(Plaid.Identity.t()) | nil,
+          owners: [Plaid.Identity.t()] | nil,
           ownership_type: String.t() | nil
         }
 
@@ -36,4 +44,25 @@ defmodule Plaid.Accounts.Account do
     :owners,
     :ownership_type
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      account_id: generic_map["account_id"],
+      balances: Castable.cast(Balances, generic_map["balances"]),
+      days_available: generic_map["days_available"],
+      historical_balances:
+        Castable.cast_list(HistoricalBalances, generic_map["historical_balances"]),
+      mask: generic_map["mask"],
+      name: generic_map["name"],
+      official_name: generic_map["official_name"],
+      type: generic_map["type"],
+      subtype: generic_map["subtype"],
+      transactions: Castable.cast_list(Transaction, generic_map["transactions"]),
+      verification_status: generic_map["verification_status"],
+      item: Castable.cast(Item, generic_map["item"]),
+      owners: Castable.cast_list(Identity, generic_map["owners"]),
+      ownership_type: generic_map["ownership_type"]
+    }
+  end
 end

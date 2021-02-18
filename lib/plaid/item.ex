@@ -3,6 +3,10 @@ defmodule Plaid.Item do
   [Plaid Item API](https://plaid.com/docs/api/items/#itemget) schema.
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           available_products: list(String.t()),
           billed_products: list(String.t()),
@@ -24,4 +28,18 @@ defmodule Plaid.Item do
     :item_id,
     :webhook
   ]
+
+  @impl Plaid.Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      available_products: generic_map["available_products"],
+      billed_products: generic_map["billed_products"],
+      consent_expiration_time: generic_map["consent_expiration_time"],
+      error: Castable.cast(Plaid.Error, generic_map["error"]),
+      has_perpetual_otp: generic_map["has_perpetual_otp"],
+      institution_id: generic_map["institution_id"],
+      item_id: generic_map["item_id"],
+      webhook: generic_map["webhook"]
+    }
+  end
 end

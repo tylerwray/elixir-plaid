@@ -3,6 +3,11 @@ defmodule Plaid.Transactions.Transaction do
   [Plaid Transaction schema.](https://plaid.com/docs/api/transactions)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+  alias Plaid.Transactions.Transaction.{Location, PaymentMeta}
+
   @type t :: %__MODULE__{
           account_id: String.t(),
           amount: number(),
@@ -10,13 +15,12 @@ defmodule Plaid.Transactions.Transaction do
           unofficial_currency_code: String.t() | nil,
           category: list(String.t()) | nil,
           category_id: String.t(),
-          # TODO: Make all dates their own type? Plaid.date()?
           date: String.t(),
           authorized_date: String.t() | nil,
-          location: Plaid.Transactions.Transaction.Location.t(),
+          location: Location.t(),
           name: String.t(),
           merchant_name: String.t() | nil,
-          payment_meta: Plaid.Transactions.Transaction.PaymentMeta.t(),
+          payment_meta: PaymentMeta.t(),
           payment_channel: String.t(),
           pending: boolean(),
           pending_transaction_id: String.t() | nil,
@@ -51,4 +55,31 @@ defmodule Plaid.Transactions.Transaction do
     :date_transacted,
     :original_description
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      account_id: generic_map["account_id"],
+      amount: generic_map["amount"],
+      iso_currency_code: generic_map["iso_currency_code"],
+      unofficial_currency_code: generic_map["unofficial_currency_code"],
+      category: generic_map["category"],
+      category_id: generic_map["category_id"],
+      date: generic_map["date"],
+      authorized_date: generic_map["authorized_date"],
+      location: Castable.cast(Location, generic_map["location"]),
+      name: generic_map["name"],
+      merchant_name: generic_map["merchant_name"],
+      payment_meta: Castable.cast(PaymentMeta, generic_map["payment_meta"]),
+      payment_channel: generic_map["payment_channel"],
+      pending: generic_map["pending"],
+      pending_transaction_id: generic_map["pending_transaction_id"],
+      account_owner: generic_map["account_owner"],
+      transaction_id: generic_map["transaction_id"],
+      transaction_code: generic_map["transaction_code"],
+      transaction_type: generic_map["transaction_type"],
+      date_transacted: generic_map["date_transacted"],
+      original_description: generic_map["original_description"]
+    }
+  end
 end

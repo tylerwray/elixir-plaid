@@ -207,7 +207,7 @@ defmodule Plaid.AssetReportTest do
                    %Plaid.Identity{
                      addresses: [
                        %Plaid.Identity.Address{
-                         data: %Plaid.Identity.AddressData{
+                         data: %Plaid.Address{
                            city: "Malakoff",
                            country: "US",
                            postal_code: "14236",
@@ -408,7 +408,7 @@ defmodule Plaid.AssetReportTest do
     end)
 
     {:ok,
-     %Plaid.AssetReport.AuditCopyResponse{
+     %Plaid.AssetReport.CreateAuditCopyResponse{
        audit_copy_token: "a-sandbox-3TAU2CWVYBDVRHUCAAAI27ULU4",
        request_id: "Iam3b"
      }} =
@@ -430,7 +430,7 @@ defmodule Plaid.AssetReportTest do
     end)
 
     {:ok,
-     %Plaid.AssetReport.RemoveResponse{
+     %Plaid.AssetReport.RemoveAuditCopyResponse{
        removed: true,
        request_id: "Iam3b"
      }} =

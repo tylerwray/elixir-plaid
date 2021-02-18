@@ -5,6 +5,8 @@ defmodule Plaid.Accounts.Account.HistoricalBalances do
   Only used when retrieving Asset Report's.
   """
 
+  @behaviour Plaid.Castable
+
   @type t :: %__MODULE__{
           current: number(),
           date: String.t(),
@@ -18,4 +20,14 @@ defmodule Plaid.Accounts.Account.HistoricalBalances do
     :iso_currency_code,
     :unofficial_currency_code
   ]
+
+  @impl Plaid.Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      current: generic_map["current"],
+      date: generic_map["date"],
+      iso_currency_code: generic_map["iso_currency_code"],
+      unofficial_currency_code: generic_map["unofficial_currency_code"]
+    }
+  end
 end

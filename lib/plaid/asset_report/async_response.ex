@@ -6,6 +6,10 @@ defmodule Plaid.AssetReport.AsyncResponse do
   be fetched after the proper webhook is received. [See docs.](https://plaid.com/docs/api/products/#asset_reportcreate)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           asset_report_token: String.t(),
           asset_report_id: String.t(),
@@ -17,4 +21,13 @@ defmodule Plaid.AssetReport.AsyncResponse do
     :asset_report_id,
     :request_id
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      asset_report_token: generic_map["asset_report_token"],
+      asset_report_id: generic_map["asset_report_id"],
+      request_id: generic_map["request_id"]
+    }
+  end
 end

@@ -82,7 +82,7 @@ defmodule Plaid.AccountsTest do
     end)
 
     {:ok,
-     %Plaid.Accounts{
+     %Plaid.Accounts.GetResponse{
        accounts: [
          %Plaid.Accounts.Account{
            account_id: "blgvvBlXw3cq5GMPwqB6s6q4dLKB9WcVqGDGo",
@@ -229,7 +229,7 @@ defmodule Plaid.AccountsTest do
     end)
 
     {:ok,
-     %Plaid.Accounts{
+     %Plaid.Accounts.GetResponse{
        accounts: [
          %Plaid.Accounts.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
@@ -265,7 +265,7 @@ defmodule Plaid.AccountsTest do
            account_id: "Pp1Vpkl9w8sajvK6oEEKtr7vZxBnGpf7LxxLE",
            balances: %Plaid.Accounts.Account.Balances{
              available: nil,
-             current: 65262,
+             current: 65_262,
              iso_currency_code: "USD",
              limit: nil,
              unofficial_currency_code: nil

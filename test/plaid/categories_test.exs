@@ -43,7 +43,7 @@ defmodule Plaid.CategoriesTest do
     end)
 
     {:ok,
-     %Plaid.Categories{
+     %Plaid.Categories.GetResponse{
        categories: [
          %Plaid.Categories.Category{
            category_id: "10000000",

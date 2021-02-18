@@ -3,14 +3,6 @@ defmodule Plaid.Accounts do
   [Plaid Accounts API](https://plaid.com/docs/api/accounts) calls and schema.
   """
 
-  @type t :: %__MODULE__{
-          accounts: list(Plaid.Accounts.Account.t()),
-          item: Plaid.Item.t(),
-          request_id: String.t()
-        }
-
-  defstruct [:accounts, :item, :request_id]
-
   @doc """
   Get information about all available accounts.
 
@@ -26,10 +18,11 @@ defmodule Plaid.Accounts do
   ## Examples
 
       get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Accounts{}}
+      {:ok, %Plaid.Accounts.GetResponse{}}
 
   """
-  @spec get(String.t(), options, Plaid.config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
+  @spec get(String.t(), options, Plaid.config()) ::
+          {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => list(String.t())}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
@@ -39,7 +32,7 @@ defmodule Plaid.Accounts do
       |> Map.put(:access_token, access_token)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/accounts/get", payload, __MODULE__, config)
+    Plaid.Client.call("/accounts/get", payload, Plaid.Accounts.GetResponse, config)
   end
 
   @doc """
@@ -60,10 +53,11 @@ defmodule Plaid.Accounts do
   ## Examples
 
       get_balance("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Accounts{}}
+      {:ok, %Plaid.Accounts.GetResponse{}}
 
   """
-  @spec get_balance(String.t(), options, Plaid.config()) :: {:ok, t()} | {:error, Plaid.Error.t()}
+  @spec get_balance(String.t(), options, Plaid.config()) ::
+          {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => list(String.t())}
   def get_balance(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
@@ -73,6 +67,6 @@ defmodule Plaid.Accounts do
       |> Map.put(:access_token, access_token)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/accounts/balance/get", payload, __MODULE__, config)
+    Plaid.Client.call("/accounts/balance/get", payload, Plaid.Accounts.GetResponse, config)
   end
 end

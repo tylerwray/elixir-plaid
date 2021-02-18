@@ -209,16 +209,16 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.AuditCopyResponse{}}
+      {:ok, %Plaid.AssetReport.CreateAuditCopyResponse{}}
 
   """
   @spec create_audit_copy(String.t(), String.t(), Plaid.config()) ::
-          {:ok, Plaid.AssetReport.AuditCopyResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, Plaid.AssetReport.CreateAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
   def create_audit_copy(asset_report_token, auditor_id, config) do
     Plaid.Client.call(
       "/asset_report/audit_copy/create",
       %{asset_report_token: asset_report_token, auditor_id: auditor_id},
-      Plaid.AssetReport.AuditCopyResponse,
+      Plaid.AssetReport.CreateAuditCopyResponse,
       config
     )
   end
@@ -235,16 +235,16 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       remove_audit_copy("a-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.RemoveResponse{}}
+      {:ok, %Plaid.AssetReport.RemoveAuditCopyResponse{}}
 
   """
   @spec remove_audit_copy(String.t(), Plaid.config()) ::
-          {:ok, Plaid.AssetReport.RemoveResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, Plaid.AssetReport.RemoveAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
   def remove_audit_copy(audit_copy_token, config) do
     Plaid.Client.call(
       "/asset_report/audit_copy/remove",
       %{audit_copy_token: audit_copy_token},
-      Plaid.AssetReport.RemoveResponse,
+      Plaid.AssetReport.RemoveAuditCopyResponse,
       config
     )
   end

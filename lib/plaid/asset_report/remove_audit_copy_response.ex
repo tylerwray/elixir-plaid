@@ -1,6 +1,6 @@
-defmodule Plaid.AssetReport.RemoveResponse do
+defmodule Plaid.AssetReport.RemoveAuditCopyResponse do
   @moduledoc """
-  [Plaid Asset Report remove response schema.](https://plaid.com/docs/api/products/#asset_reportremove)
+  [Plaid Asset Report remove audit copy response schema.](https://plaid.com/docs/api/products/#asset_reportaudit_copyremove)
   """
 
   @behaviour Plaid.Castable

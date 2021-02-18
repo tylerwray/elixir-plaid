@@ -3,6 +3,8 @@ defmodule Plaid.Categories.Category do
   [Plaid Category schema.](https://plaid.com/docs/api/products/#categoriesget)
   """
 
+  @behaviour Plaid.Castable
+
   @type t :: %__MODULE__{
           category_id: String.t(),
           group: String.t(),
@@ -14,4 +16,13 @@ defmodule Plaid.Categories.Category do
     :group,
     :hierarchy
   ]
+
+  @impl Plaid.Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      category_id: generic_map["category_id"],
+      group: generic_map["group"],
+      hierarchy: generic_map["hierarchy"]
+    }
+  end
 end

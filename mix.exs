@@ -36,7 +36,8 @@ defmodule Plaid.MixProject do
             Plaid.Auth.Numbers.International
           ],
           Categories: [
-            Plaid.Categories.Category
+            Plaid.Categories.Category,
+            Plaid.Categories.GetResponse
           ],
           Identity: [
             Plaid.Identity.Address,
