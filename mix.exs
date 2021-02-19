@@ -5,7 +5,7 @@ defmodule Plaid.MixProject do
     [
       app: :elixir_plaid,
       version: "0.1.0",
-      elixir: "~> 1.11",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
       docs: [
