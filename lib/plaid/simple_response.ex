@@ -3,7 +3,22 @@ defmodule Plaid.SimpleResponse do
   The most simple response that the Plaid API provides.
   """
 
-  @type t :: %__MODULE__{request_id: String.t()}
+  @behaviour Plaid.Castable
 
-  defstruct [:request_id]
+  alias Plaid.Castable
+
+  @type t :: %__MODULE__{
+          request_id: String.t()
+        }
+
+  defstruct [
+    :request_id
+  ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      request_id: generic_map["request_id"]
+    }
+  end
 end

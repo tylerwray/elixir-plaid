@@ -3,22 +3,6 @@ defmodule Plaid.Transactions do
   [Plaid Transactions API](https://plaid.com/docs/api/transactions) calls and schema.
   """
 
-  @type t :: %__MODULE__{
-          accounts: list(Plaid.Accounts.Account.t()),
-          transactions: list(Plaid.Transactions.Transaction.t()),
-          item: Plaid.Item.t(),
-          total_transactions: integer(),
-          request_id: String.t()
-        }
-
-  defstruct [
-    :accounts,
-    :transactions,
-    :item,
-    :total_transactions,
-    :request_id
-  ]
-
   @doc """
   Get information about transactions.
 
@@ -39,11 +23,11 @@ defmodule Plaid.Transactions do
   ## Example
 
       get("access-sandbox-123xxx", "2019-10-10", "2019-10-20", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Transactions{}}
+      {:ok, %Plaid.Transactions.GetResponse{}}
 
   """
   @spec get(String.t(), String.t(), String.t(), options, Plaid.config()) ::
-          {:ok, t()} | {:error, Plaid.Error.t()}
+          {:ok, Plaid.Transactions.GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:account_ids) => list(String.t()),
                optional(:count) => integer(),
@@ -62,7 +46,7 @@ defmodule Plaid.Transactions do
     Plaid.Client.call(
       "/transactions/get",
       payload,
-      __MODULE__,
+      Plaid.Transactions.GetResponse,
       config
     )
   end

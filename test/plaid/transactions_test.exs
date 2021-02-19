@@ -98,7 +98,7 @@ defmodule Plaid.TransactionsTest do
     end)
 
     {:ok,
-     %Plaid.Transactions{
+     %Plaid.Transactions.GetResponse{
        accounts: [
          %Plaid.Accounts.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
