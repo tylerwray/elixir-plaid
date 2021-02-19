@@ -271,8 +271,8 @@ defmodule Plaid.InvestmentsTest do
          %Plaid.Accounts.Account{
            account_id: "5Bvpj4QknlhVWk7GygpwfVKdd133GoCxB814g",
            balances: %Plaid.Accounts.Account.Balances{
-             available: 43200,
-             current: 43200,
+             available: 43_200,
+             current: 43_200,
              iso_currency_code: "USD",
              limit: nil,
              unofficial_currency_code: nil

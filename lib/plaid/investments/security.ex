@@ -3,6 +3,10 @@ defmodule Plaid.Investments.Security do
   [Plaid Investments Security schema](https://plaid.com/docs/api/products/#investments-holdings-get-response-securities)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           close_price: number() | nil,
           close_price_as_of: String.t() | nil,
@@ -38,4 +42,25 @@ defmodule Plaid.Investments.Security do
     :type,
     :unofficial_currency_code
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      close_price: generic_map["close_price"],
+      close_price_as_of: generic_map["close_price_as_of"],
+      cusip: generic_map["cusip"],
+      institution_id: generic_map["institution_id"],
+      institution_security_id: generic_map["institution_security_id"],
+      is_cash_equivalent: generic_map["is_cash_equivalent"],
+      isin: generic_map["isin"],
+      iso_currency_code: generic_map["iso_currency_code"],
+      name: generic_map["name"],
+      proxy_security_id: generic_map["proxy_security_id"],
+      security_id: generic_map["security_id"],
+      sedol: generic_map["sedol"],
+      ticker_symbol: generic_map["ticker_symbol"],
+      type: generic_map["type"],
+      unofficial_currency_code: generic_map["unofficial_currency_code"]
+    }
+  end
 end

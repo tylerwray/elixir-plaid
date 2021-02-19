@@ -3,6 +3,10 @@ defmodule Plaid.Investments.Transaction do
   [Plaid Investments Transaction schema](https://plaid.com/docs/api/products/#investments-transactions-get-response-investment-transactions)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+
   @type t :: %__MODULE__{
           account_id: String.t(),
           amount: number(),
@@ -36,4 +40,24 @@ defmodule Plaid.Investments.Transaction do
     :type,
     :unofficial_currency_code
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      account_id: generic_map["account_id"],
+      amount: generic_map["amount"],
+      cancel_transaction_id: generic_map["cancel_transaction_id"],
+      date: generic_map["date"],
+      fees: generic_map["fees"],
+      investment_transaction_id: generic_map["investment_transaction_id"],
+      iso_currency_code: generic_map["iso_currency_code"],
+      name: generic_map["name"],
+      price: generic_map["price"],
+      quantity: generic_map["quantity"],
+      security_id: generic_map["security_id"],
+      subtype: generic_map["subtype"],
+      type: generic_map["type"],
+      unofficial_currency_code: generic_map["unofficial_currency_code"]
+    }
+  end
 end
