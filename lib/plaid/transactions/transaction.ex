@@ -13,7 +13,7 @@ defmodule Plaid.Transactions.Transaction do
           amount: number(),
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil,
-          category: list(String.t()) | nil,
+          category: [String.t()] | nil,
           category_id: String.t(),
           date: String.t(),
           authorized_date: String.t() | nil,
@@ -56,7 +56,7 @@ defmodule Plaid.Transactions.Transaction do
     :original_description
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

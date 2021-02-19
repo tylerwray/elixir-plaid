@@ -11,7 +11,7 @@ defmodule Plaid.Auth.GetResponse do
   alias Plaid.Item
 
   @type t :: %__MODULE__{
-          accounts: list(Account.t()),
+          accounts: [Account.t()],
           numbers: Numbers.t(),
           item: Item.t(),
           request_id: String.t()
@@ -24,7 +24,7 @@ defmodule Plaid.Auth.GetResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       accounts: Castable.cast_list(Account, generic_map["accounts"]),

@@ -23,7 +23,7 @@ defmodule Plaid.Investments do
   """
   @spec get_holdings(String.t(), options, Plaid.Config.t()) ::
           {:ok, Plaid.Investments.GetHoldingsResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get_holdings(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 
@@ -63,7 +63,7 @@ defmodule Plaid.Investments do
   @spec get_transactions(String.t(), String.t(), String.t(), options, Plaid.Config.t()) ::
           {:ok, Plaid.Investments.GetTransactionsResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
-               optional(:account_ids) => list(String.t()),
+               optional(:account_ids) => [String.t()],
                optional(:count) => integer(),
                optional(:offset) => integer()
              }

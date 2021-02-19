@@ -10,7 +10,7 @@ defmodule Plaid.Liabilities.Credit do
 
   @type t :: %__MODULE__{
           account_id: String.t() | nil,
-          aprs: list(APR.t()),
+          aprs: [APR.t()],
           is_overdue: boolean() | nil,
           last_payment_amount: number(),
           last_payment_date: String.t(),
@@ -32,7 +32,7 @@ defmodule Plaid.Liabilities.Credit do
     :next_payment_due_date
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

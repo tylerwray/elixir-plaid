@@ -5,8 +5,6 @@ defmodule Plaid.Identity.Email do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           data: String.t(),
           primary: boolean(),
@@ -19,7 +17,7 @@ defmodule Plaid.Identity.Email do
     :type
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       data: generic_map["data"],

@@ -8,8 +8,8 @@ defmodule Plaid.Item do
   alias Plaid.Castable
 
   @type t :: %__MODULE__{
-          available_products: list(String.t()),
-          billed_products: list(String.t()),
+          available_products: [String.t()],
+          billed_products: [String.t()],
           consent_expiration_time: String.t() | nil,
           error: Plaid.Error.t() | nil,
           has_perpetual_otp: boolean(),
@@ -29,7 +29,7 @@ defmodule Plaid.Item do
     :webhook
   ]
 
-  @impl Plaid.Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       available_products: generic_map["available_products"],

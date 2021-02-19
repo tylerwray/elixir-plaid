@@ -5,8 +5,6 @@ defmodule Plaid.Investments.Security do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           close_price: number() | nil,
           close_price_as_of: String.t() | nil,
@@ -43,7 +41,7 @@ defmodule Plaid.Investments.Security do
     :unofficial_currency_code
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       close_price: generic_map["close_price"],

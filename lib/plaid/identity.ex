@@ -9,15 +9,15 @@ defmodule Plaid.Identity do
   alias Plaid.Identity.{Address, Email, PhoneNumber}
 
   @type t :: %__MODULE__{
-          addresses: list(Address.t()),
-          emails: list(Email.t()),
-          names: list(String.t()),
-          phone_numbers: list(PhoneNumber.t())
+          addresses: [Address.t()],
+          emails: [Email.t()],
+          names: [String.t()],
+          phone_numbers: [PhoneNumber.t()]
         }
 
   defstruct [:addresses, :emails, :names, :phone_numbers]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       addresses: Castable.cast_list(Address, generic_map["addresses"]),
@@ -47,7 +47,7 @@ defmodule Plaid.Identity do
   """
   @spec get(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 

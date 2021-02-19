@@ -12,7 +12,7 @@ defmodule Plaid.Error do
           display_message: String.t() | nil,
           request_id: String.t() | nil,
           # TODO: Put proper type in this list
-          causes: list(),
+          causes: [],
           status: integer() | nil,
           documentation_url: String.t() | nil,
           suggested_action: String.t() | nil
@@ -30,7 +30,7 @@ defmodule Plaid.Error do
     :suggested_action
   ]
 
-  @impl Plaid.Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       error_type: generic_map["error_type"],

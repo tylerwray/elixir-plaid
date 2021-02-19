@@ -9,10 +9,10 @@ defmodule Plaid.Auth.Numbers do
   alias Plaid.Castable
 
   @type t :: %__MODULE__{
-          ach: list(ACH.t()),
-          eft: list(EFT.t()),
-          international: list(International.t()),
-          bacs: list(BACS.t())
+          ach: [ACH.t()],
+          eft: [EFT.t()],
+          international: [International.t()],
+          bacs: [BACS.t()]
         }
 
   defstruct [
@@ -22,7 +22,7 @@ defmodule Plaid.Auth.Numbers do
     :bacs
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       ach: Castable.cast_list(ACH, generic_map["ach"]),

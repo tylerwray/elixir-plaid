@@ -21,7 +21,7 @@ defmodule Plaid.Accounts.Account.Balances do
     :unofficial_currency_code
   ]
 
-  @impl Plaid.Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       available: generic_map["available"],

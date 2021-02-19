@@ -15,8 +15,8 @@ defmodule Plaid.AssetReport.Report do
           # TODO: Maybe use date string type?
           date_generated: String.t(),
           days_requested: non_neg_integer(),
-          items: list(Plaid.AssetReport.Report.Item.t()),
-          user: Plaid.AssetReport.User.t()
+          items: [Report.Item.t()],
+          user: User.t()
         }
 
   defstruct [
@@ -28,7 +28,7 @@ defmodule Plaid.AssetReport.Report do
     :user
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       asset_report_id: generic_map["asset_report_id"],

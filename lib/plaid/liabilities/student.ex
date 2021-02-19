@@ -12,7 +12,7 @@ defmodule Plaid.Liabilities.Student do
   @type t :: %__MODULE__{
           account_id: String.t() | nil,
           account_number: String.t() | nil,
-          disbursement_dates: list(String.t()) | nil,
+          disbursement_dates: [String.t()] | nil,
           expected_payoff_date: String.t() | nil,
           guarantor: String.t() | nil,
           interest_rate_percentage: number(),
@@ -22,17 +22,17 @@ defmodule Plaid.Liabilities.Student do
           last_statement_balance: number() | nil,
           last_statement_issue_date: String.t() | nil,
           loan_name: String.t() | nil,
-          loan_status: Plaid.Liabilities.Student.LoanStatus.t(),
+          loan_status: LoanStatus.t(),
           minimum_payment_amount: number() | nil,
           next_payment_due_date: String.t() | nil,
           origination_date: String.t() | nil,
           origination_principal_amount: number() | nil,
           outstanding_interest_amount: number() | nil,
           payment_reference_number: String.t() | nil,
-          pslf_status: Plaid.Liabilities.Student.PSLFStatus.t(),
-          repayment_plan: Plaid.Liabilities.Student.RepaymentPlan.t(),
+          pslf_status: PSLFStatus.t(),
+          repayment_plan: RepaymentPlan.t(),
           sequence_number: String.t() | nil,
-          servicer_address: Plaid.Address.t(),
+          servicer_address: Address.t(),
           ytd_interest_paid: number() | nil,
           ytd_principal_paid: number() | nil
         }
@@ -65,7 +65,7 @@ defmodule Plaid.Liabilities.Student do
     :ytd_principal_paid
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

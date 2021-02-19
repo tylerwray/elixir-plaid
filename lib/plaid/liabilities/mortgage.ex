@@ -55,7 +55,7 @@ defmodule Plaid.Liabilities.Mortgage do
     :ytd_principal_paid
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

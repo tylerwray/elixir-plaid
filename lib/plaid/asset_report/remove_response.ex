@@ -5,8 +5,6 @@ defmodule Plaid.AssetReport.RemoveResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           removed: boolean(),
           request_id: String.t()
@@ -17,7 +15,7 @@ defmodule Plaid.AssetReport.RemoveResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       removed: generic_map["removed"],

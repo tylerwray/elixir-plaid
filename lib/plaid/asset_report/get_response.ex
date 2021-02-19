@@ -10,7 +10,7 @@ defmodule Plaid.AssetReport.GetResponse do
 
   @type t :: %__MODULE__{
           report: Report.t(),
-          warnings: list(Warning.t()),
+          warnings: [Warning.t()],
           request_id: String.t()
         }
 
@@ -20,7 +20,7 @@ defmodule Plaid.AssetReport.GetResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       report: Castable.cast(Report, generic_map["report"]),

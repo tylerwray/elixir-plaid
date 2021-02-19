@@ -5,8 +5,6 @@ defmodule Plaid.Liabilities.Student.LoanStatus do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           end_date: String.t() | nil,
           type: String.t() | nil
@@ -17,7 +15,7 @@ defmodule Plaid.Liabilities.Student.LoanStatus do
     :type
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       end_date: generic_map["end_date"],

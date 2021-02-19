@@ -12,9 +12,9 @@ defmodule Plaid.Investments.GetTransactionsResponse do
 
   @type t :: %__MODULE__{
           item: Item.t(),
-          accounts: list(Account.t()),
-          securities: list(Security.t()),
-          investment_transactions: list(Transaction.t()),
+          accounts: [Account.t()],
+          securities: [Security.t()],
+          investment_transactions: [Transaction.t()],
           total_investment_transactions: integer(),
           request_id: String.t()
         }
@@ -28,7 +28,7 @@ defmodule Plaid.Investments.GetTransactionsResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       item: Castable.cast(Item, generic_map["item"]),

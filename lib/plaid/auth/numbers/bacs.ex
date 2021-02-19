@@ -5,8 +5,6 @@ defmodule Plaid.Auth.Numbers.BACS do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           account: String.t(),
           account_id: String.t(),
@@ -19,7 +17,7 @@ defmodule Plaid.Auth.Numbers.BACS do
     :sort_code
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account: generic_map["account"],

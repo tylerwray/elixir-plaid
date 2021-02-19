@@ -11,9 +11,9 @@ defmodule Plaid.Investments.GetHoldingsResponse do
   alias Plaid.Item
 
   @type t :: %__MODULE__{
-          accounts: list(Account.t()),
-          holdings: list(Holding.t()),
-          securities: list(Security.t()),
+          accounts: [Account.t()],
+          holdings: [Holding.t()],
+          securities: [Security.t()],
           item: Item.t(),
           request_id: String.t()
         }
@@ -26,7 +26,7 @@ defmodule Plaid.Investments.GetHoldingsResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       accounts: Castable.cast_list(Account, generic_map["accounts"]),

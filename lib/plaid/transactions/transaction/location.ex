@@ -5,8 +5,6 @@ defmodule Plaid.Transactions.Transaction.Location do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           address: String.t() | nil,
           city: String.t() | nil,
@@ -29,7 +27,7 @@ defmodule Plaid.Transactions.Transaction.Location do
     :store_number
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       address: generic_map["address"],

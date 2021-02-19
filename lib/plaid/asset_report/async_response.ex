@@ -8,8 +8,6 @@ defmodule Plaid.AssetReport.AsyncResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           asset_report_token: String.t(),
           asset_report_id: String.t(),
@@ -22,7 +20,7 @@ defmodule Plaid.AssetReport.AsyncResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       asset_report_token: generic_map["asset_report_token"],

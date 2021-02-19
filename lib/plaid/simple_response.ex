@@ -5,8 +5,6 @@ defmodule Plaid.SimpleResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           request_id: String.t()
         }
@@ -15,7 +13,7 @@ defmodule Plaid.SimpleResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       request_id: generic_map["request_id"]

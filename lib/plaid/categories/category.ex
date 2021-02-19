@@ -8,7 +8,7 @@ defmodule Plaid.Categories.Category do
   @type t :: %__MODULE__{
           category_id: String.t(),
           group: String.t(),
-          hierarchy: list(String.t())
+          hierarchy: [String.t()]
         }
 
   defstruct [
@@ -17,7 +17,7 @@ defmodule Plaid.Categories.Category do
     :hierarchy
   ]
 
-  @impl Plaid.Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       category_id: generic_map["category_id"],

@@ -11,7 +11,7 @@ defmodule Plaid.AssetReport.Warning do
   @type t :: %__MODULE__{
           warning_type: String.t(),
           warning_code: String.t(),
-          cause: Plaid.AssetReport.Warning.Cause.t()
+          cause: Cause.t()
         }
 
   defstruct [
@@ -20,7 +20,7 @@ defmodule Plaid.AssetReport.Warning do
     :cause
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       warning_type: generic_map["warning_type"],

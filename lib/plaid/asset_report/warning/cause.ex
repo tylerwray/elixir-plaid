@@ -17,7 +17,7 @@ defmodule Plaid.AssetReport.Warning.Cause do
     :error
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       item_id: generic_map["item_id"],

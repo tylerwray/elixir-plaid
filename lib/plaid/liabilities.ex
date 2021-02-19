@@ -9,9 +9,9 @@ defmodule Plaid.Liabilities do
   alias Plaid.Liabilities.{Credit, Mortgage, Student}
 
   @type t :: %__MODULE__{
-          credit: list(Credit.t()),
-          mortgage: list(Mortgage.t()),
-          student: list(Student.t())
+          credit: [Credit.t()],
+          mortgage: [Mortgage.t()],
+          student: [Student.t()]
         }
 
   defstruct [
@@ -20,7 +20,7 @@ defmodule Plaid.Liabilities do
     :student
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       credit: Castable.cast_list(Credit, generic_map["credit"]),
@@ -49,7 +49,7 @@ defmodule Plaid.Liabilities do
   """
   @spec get(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Liabilities.GetResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 

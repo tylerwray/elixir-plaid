@@ -23,7 +23,7 @@ defmodule Plaid.Accounts do
   """
   @spec get(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 
@@ -58,7 +58,7 @@ defmodule Plaid.Accounts do
   """
   @spec get_balance(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get_balance(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 

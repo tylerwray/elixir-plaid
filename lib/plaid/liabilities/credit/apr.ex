@@ -5,8 +5,6 @@ defmodule Plaid.Liabilities.Credit.APR do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           apr_percentage: number(),
           apr_type: String.t(),
@@ -21,7 +19,7 @@ defmodule Plaid.Liabilities.Credit.APR do
     :interest_charge_amount
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       apr_percentage: generic_map["apr_percentage"],

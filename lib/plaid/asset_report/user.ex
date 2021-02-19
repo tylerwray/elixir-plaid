@@ -5,8 +5,6 @@ defmodule Plaid.AssetReport.User do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           client_user_id: String.t(),
           first_name: String.t(),
@@ -28,7 +26,7 @@ defmodule Plaid.AssetReport.User do
     :email
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       client_user_id: generic_map["client_user_id"],

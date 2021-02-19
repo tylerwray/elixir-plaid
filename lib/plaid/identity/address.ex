@@ -18,7 +18,7 @@ defmodule Plaid.Identity.Address do
     :primary
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       data: Castable.cast(AddressData, generic_map["data"]),

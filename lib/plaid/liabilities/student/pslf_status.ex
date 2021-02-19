@@ -5,8 +5,6 @@ defmodule Plaid.Liabilities.Student.PSLFStatus do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           estimated_eligibility_date: String.t() | nil,
           payments_made: number() | nil,
@@ -19,7 +17,7 @@ defmodule Plaid.Liabilities.Student.PSLFStatus do
     :payments_remaining
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       estimated_eligibility_date: generic_map["estimated_eligibility_date"],

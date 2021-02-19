@@ -5,6 +5,7 @@ defmodule Plaid.Categories.GetResponse do
 
   @behaviour Plaid.Castable
 
+  alias Plaid.Castable
   alias Plaid.Categories.Category
 
   @type t :: %__MODULE__{
@@ -17,10 +18,10 @@ defmodule Plaid.Categories.GetResponse do
     :request_id
   ]
 
-  @impl Plaid.Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
-      categories: Enum.map(generic_map["categories"], &Category.cast/1),
+      categories: Castable.cast_list(Category, generic_map["categories"]),
       request_id: generic_map["request_id"]
     }
   end

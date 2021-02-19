@@ -29,7 +29,7 @@ defmodule Plaid.Transactions do
   @spec get(String.t(), String.t(), String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Transactions.GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
-               optional(:account_ids) => list(String.t()),
+               optional(:account_ids) => [String.t()],
                optional(:count) => integer(),
                optional(:offset) => integer()
              }

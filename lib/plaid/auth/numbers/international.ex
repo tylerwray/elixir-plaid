@@ -5,8 +5,6 @@ defmodule Plaid.Auth.Numbers.International do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           account_id: String.t(),
           iban: String.t(),
@@ -19,7 +17,7 @@ defmodule Plaid.Auth.Numbers.International do
     :bic
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

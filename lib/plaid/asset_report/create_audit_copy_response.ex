@@ -5,8 +5,6 @@ defmodule Plaid.AssetReport.CreateAuditCopyResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           audit_copy_token: String.t(),
           request_id: String.t()
@@ -17,7 +15,7 @@ defmodule Plaid.AssetReport.CreateAuditCopyResponse do
     :request_id
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       audit_copy_token: generic_map["audit_copy_token"],

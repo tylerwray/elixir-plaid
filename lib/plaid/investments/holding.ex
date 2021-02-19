@@ -5,8 +5,6 @@ defmodule Plaid.Investments.Holding do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           account_id: String.t(),
           security_id: String.t(),
@@ -31,7 +29,7 @@ defmodule Plaid.Investments.Holding do
     :unofficial_currency_code
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

@@ -13,7 +13,7 @@ defmodule Plaid.AssetReport.Report.Item do
           institution_name: String.t(),
           institution_id: String.t(),
           date_last_updated: String.t(),
-          accounts: list(Plaid.Accounts.Account.t())
+          accounts: [Account.t()]
         }
 
   defstruct [
@@ -24,7 +24,7 @@ defmodule Plaid.AssetReport.Report.Item do
     :accounts
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       item_id: generic_map["item_id"],

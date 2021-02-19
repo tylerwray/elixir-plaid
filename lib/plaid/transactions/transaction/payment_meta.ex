@@ -5,8 +5,6 @@ defmodule Plaid.Transactions.Transaction.PaymentMeta do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
-
   @type t :: %__MODULE__{
           reference_number: String.t() | nil,
           ppd_id: String.t() | nil,
@@ -29,7 +27,7 @@ defmodule Plaid.Transactions.Transaction.PaymentMeta do
     :reason
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       reference_number: generic_map["reference_number"],

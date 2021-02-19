@@ -25,7 +25,7 @@ defmodule Plaid.Auth do
   """
   @spec get(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Auth.GetResponse.t()} | {:error, Plaid.Error.t()}
-        when options: %{optional(:account_ids) => list(String.t())}
+        when options: %{optional(:account_ids) => [String.t()]}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
 

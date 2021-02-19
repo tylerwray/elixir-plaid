@@ -45,7 +45,7 @@ defmodule Plaid.Accounts.Account do
     :ownership_type
   ]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       account_id: generic_map["account_id"],

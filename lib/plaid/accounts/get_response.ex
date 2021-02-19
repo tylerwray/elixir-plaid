@@ -10,14 +10,14 @@ defmodule Plaid.Accounts.GetResponse do
   alias Plaid.Item
 
   @type t :: %__MODULE__{
-          accounts: list(Account.t()),
+          accounts: [Account.t()],
           item: Item.t(),
           request_id: String.t()
         }
 
   defstruct [:accounts, :item, :request_id]
 
-  @impl Castable
+  @impl true
   def cast(generic_map) do
     %__MODULE__{
       accounts: Castable.cast_list(Account, generic_map["accounts"]),

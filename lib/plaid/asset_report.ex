@@ -24,7 +24,7 @@ defmodule Plaid.AssetReport do
       {:ok, %Plaid.AssetReport.AsyncResponse{}}
 
   """
-  @spec create(list(String.t()), non_neg_integer(), options, Plaid.config()) ::
+  @spec create([String.t()], non_neg_integer(), options, Plaid.config()) ::
           {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:client_report_id) => String.t(),
@@ -156,7 +156,7 @@ defmodule Plaid.AssetReport do
       {:ok, %Plaid.AssetReport.AsyncResponse{}}
 
   """
-  @spec filter(String.t(), list(String.t()), Plaid.config()) ::
+  @spec filter(String.t(), [String.t()], Plaid.config()) ::
           {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
   def filter(asset_report_token, account_ids_to_exclude, config) do
     Plaid.Client.call(
