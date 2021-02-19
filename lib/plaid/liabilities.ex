@@ -3,10 +3,15 @@ defmodule Plaid.Liabilities do
   [Plaid Liabilities API](https://plaid.com/docs/api/products/#liabilities) calls and schema.
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Castable
+  alias Plaid.Liabilities.{Credit, Mortgage, Student}
+
   @type t :: %__MODULE__{
-          credit: list(Plaid.Liabilities.Credit.t()),
-          mortgage: list(Plaid.Liabilities.Mortgage.t()),
-          student: list(Plaid.Liabilities.Student.t())
+          credit: list(Credit.t()),
+          mortgage: list(Mortgage.t()),
+          student: list(Student.t())
         }
 
   defstruct [
@@ -15,10 +20,19 @@ defmodule Plaid.Liabilities do
     :student
   ]
 
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      credit: Castable.cast_list(Credit, generic_map["credit"]),
+      mortgage: Castable.cast_list(Mortgage, generic_map["mortgage"]),
+      student: Castable.cast_list(Student, generic_map["student"])
+    }
+  end
+
   @doc """
   Get liabilities information.
 
-  Does a `POST /liabilities.get` call which fetches liabilities associated
+  Does a `POST /liabilities/get` call which fetches liabilities associated
   with an access_token's item.
 
   Params:

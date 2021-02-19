@@ -3,6 +3,12 @@ defmodule Plaid.Liabilities.Student do
   [Plaid Liabilities Student Schema.](https://plaid.com/docs/api/products/#liabilities-get-response-student)
   """
 
+  @behaviour Plaid.Castable
+
+  alias Plaid.Address
+  alias Plaid.Castable
+  alias Plaid.Liabilities.Student.{LoanStatus, PSLFStatus, RepaymentPlan}
+
   @type t :: %__MODULE__{
           account_id: String.t() | nil,
           account_number: String.t() | nil,
@@ -58,4 +64,35 @@ defmodule Plaid.Liabilities.Student do
     :ytd_interest_paid,
     :ytd_principal_paid
   ]
+
+  @impl Castable
+  def cast(generic_map) do
+    %__MODULE__{
+      account_id: generic_map["account_id"],
+      account_number: generic_map["account_number"],
+      disbursement_dates: generic_map["disbursement_dates"],
+      expected_payoff_date: generic_map["expected_payoff_date"],
+      guarantor: generic_map["guarantor"],
+      interest_rate_percentage: generic_map["interest_rate_percentage"],
+      is_overdue: generic_map["is_overdue"],
+      last_payment_amount: generic_map["last_payment_amount"],
+      last_payment_date: generic_map["last_payment_date"],
+      last_statement_balance: generic_map["last_statement_balance"],
+      last_statement_issue_date: generic_map["last_statement_issue_date"],
+      loan_name: generic_map["loan_name"],
+      loan_status: Castable.cast(LoanStatus, generic_map["loan_status"]),
+      minimum_payment_amount: generic_map["minimum_payment_amount"],
+      next_payment_due_date: generic_map["next_payment_due_date"],
+      origination_date: generic_map["origination_date"],
+      origination_principal_amount: generic_map["origination_principal_amount"],
+      outstanding_interest_amount: generic_map["outstanding_interest_amount"],
+      payment_reference_number: generic_map["payment_reference_number"],
+      pslf_status: Castable.cast(PSLFStatus, generic_map["pslf_status"]),
+      repayment_plan: Castable.cast(RepaymentPlan, generic_map["repayment_plan"]),
+      sequence_number: generic_map["sequence_number"],
+      servicer_address: Castable.cast(Address, generic_map["servicer_address"]),
+      ytd_interest_paid: generic_map["ytd_interest_paid"],
+      ytd_principal_paid: generic_map["ytd_principal_paid"]
+    }
+  end
 end
