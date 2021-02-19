@@ -15,12 +15,14 @@ defmodule Plaid.MixProject do
           Accounts: [
             Plaid.Accounts.Account,
             Plaid.Accounts.Account.Balances,
-            Plaid.Accounts.Account.HistoricalBalances
+            Plaid.Accounts.Account.HistoricalBalances,
+            Plaid.Accounts.GetResponse
           ],
           "Asset Report": [
             Plaid.AssetReport.AsyncResponse,
-            Plaid.AssetReport.AuditCopyResponse,
+            Plaid.AssetReport.CreateAuditCopyResponse,
             Plaid.AssetReport.GetResponse,
+            Plaid.AssetReport.RemoveAuditCopyResponse,
             Plaid.AssetReport.RemoveResponse,
             Plaid.AssetReport.Report,
             Plaid.AssetReport.Report.Item,
@@ -29,6 +31,7 @@ defmodule Plaid.MixProject do
             Plaid.AssetReport.Warning.Cause
           ],
           Auth: [
+            Plaid.Auth.GetResponse,
             Plaid.Auth.Numbers,
             Plaid.Auth.Numbers.ACH,
             Plaid.Auth.Numbers.BACS,
@@ -43,6 +46,7 @@ defmodule Plaid.MixProject do
             Plaid.Identity.Address,
             Plaid.Identity.AddressData,
             Plaid.Identity.Email,
+            Plaid.Identity.GetResponse,
             Plaid.Identity.PhoneNumber
           ],
           Investments: [
@@ -64,6 +68,7 @@ defmodule Plaid.MixProject do
             Plaid.Liabilities.Student.RepaymentPlan
           ],
           Transactions: [
+            Plaid.Transactions.GetResponse,
             Plaid.Transactions.Transaction,
             Plaid.Transactions.Transaction.Location,
             Plaid.Transactions.Transaction.PaymentMeta

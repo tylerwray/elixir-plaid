@@ -59,12 +59,14 @@ For information about what has changed tyler API versions, head to the [version 
 | [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | 🗺      |
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
+| [Deposit Switch (beta)](https://plaid.com/docs/api/products/#deposit-switch-beta)                           | 🗺      |
 | [Item](https://plaid.com/docs/api/items/)                                                                   | 🗺      |
 | [Institution](https://plaid.com/docs/api/institutions/)                                                     | 🗺      |
 | [Account](https://plaid.com/docs/api/accounts/)                                                             | ✅     |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | 🗺      |
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
+| [Employer](https://plaid.com/docs/api/employers/)                                                           | 🗺      |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🗺      |
 
 ### Usage
