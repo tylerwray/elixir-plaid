@@ -11,7 +11,6 @@ defmodule Plaid.Error do
           error_message: String.t(),
           display_message: String.t() | nil,
           request_id: String.t() | nil,
-          # TODO: Put proper type in this list
           causes: [],
           status: integer() | nil,
           documentation_url: String.t() | nil,

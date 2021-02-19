@@ -302,7 +302,7 @@ defmodule Plaid.InvestmentsTest do
            account_id: "k67E4xKvMlhmleEa4pg9hlwGGNnnEeixPolGm",
            balances: %Plaid.Accounts.Account.Balances{
              available: nil,
-             current: 23631.9805,
+             current: 23_631.9805,
              iso_currency_code: "USD",
              limit: nil,
              unofficial_currency_code: nil
@@ -355,7 +355,7 @@ defmodule Plaid.InvestmentsTest do
            institution_price_as_of: nil,
            institution_value: 110,
            iso_currency_code: "USD",
-           quantity: 10000,
+           quantity: 10_000,
            security_id: "8E4L9XLl6MudjEpwPAAgivmdZRdBPJuvMPlPb",
            unofficial_currency_code: nil
          },
@@ -386,9 +386,9 @@ defmodule Plaid.InvestmentsTest do
            cost_basis: 1,
            institution_price: 1,
            institution_price_as_of: nil,
-           institution_value: 12345.67,
+           institution_value: 12_345.67,
            iso_currency_code: "USD",
-           quantity: 12345.67,
+           quantity: 12_345.67,
            security_id: "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
            unofficial_currency_code: nil
          }
@@ -738,7 +738,7 @@ defmodule Plaid.InvestmentsTest do
            account_id: "rz99ex9ZQotvnjXdgQLEsR81e3ArPgulVWjGj",
            balances: %Plaid.Accounts.Account.Balances{
              available: nil,
-             current: 23631.9805,
+             current: 23_631.9805,
              iso_currency_code: "USD",
              limit: nil,
              unofficial_currency_code: nil

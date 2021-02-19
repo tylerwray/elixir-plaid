@@ -12,7 +12,6 @@ defmodule Plaid.AssetReport.Report do
   @type t :: %__MODULE__{
           asset_report_id: String.t(),
           client_report_id: String.t(),
-          # TODO: Maybe use date string type?
           date_generated: String.t(),
           days_requested: non_neg_integer(),
           items: [Report.Item.t()],
