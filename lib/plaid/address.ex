@@ -13,6 +13,7 @@ defmodule Plaid.Address do
           country: String.t() | nil
         }
 
+  @derive Jason.Encoder
   defstruct [
     :city,
     :region,
