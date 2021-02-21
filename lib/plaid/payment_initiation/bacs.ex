@@ -1,6 +1,6 @@
 defmodule Plaid.PaymentInitiation.BACS do
   @moduledoc """
-  [Plaid API /payment_initiation/recipient/create response schema.](https://plaid.com/docs/api/products/#payment_initiationrecipientcreate)
+  [Plaid payment initiation recipient BACS details.](https://plaid.com/docs/api/products/#payment_initiation-recipient-create-request-bacs)
   """
 
   @behaviour Plaid.Castable

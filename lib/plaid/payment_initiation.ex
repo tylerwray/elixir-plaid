@@ -4,11 +4,14 @@ defmodule Plaid.PaymentInitiation do
   """
 
   alias Plaid.PaymentInitiation.{
+    Amount,
     BACS,
+    CreatePaymentResponse,
     CreateRecipientResponse,
     GetRecipientResponse,
     ListRecipientsResponse,
-    RecipientAddress
+    RecipientAddress,
+    Schedule
   }
 
   @doc """
@@ -107,6 +110,66 @@ defmodule Plaid.PaymentInitiation do
     Plaid.Client.call(
       "/payment_initiation/recipient/list",
       ListRecipientsResponse,
+      config
+    )
+  end
+
+  @doc """
+  Create a payment for a recipient.
+
+  Does a `POST /payment_initiation/payment/create` call which creates
+  a one-time or standing (recurring) payment for a recipient.
+
+  ## Params
+
+  * `recipient_id` - The ID of the recipient the payment is for.
+  * `reference` - A reference for the payment.
+  * `amount` - A payment amount.
+
+  ## Options
+
+  * `:schedule` - The schedule that the payment will be executed on.
+
+  ## Examples
+
+      PaymentInitiation.create_payment(
+        "recipient-id-prod-123xxx",
+        "Purchase Order  123",
+        %PaymentInitiation.Amount{currency: "GBP", value: 200},
+        %{
+          schedule: %Plaid.PaymentInitiation.Schedule{
+            interval: "WEEKLY",
+            interval_execution_day: 2,
+            start_date: "2021-01-01",
+            end_date: "2021-01-31"
+          }
+        },
+        client_id: "123",
+        secret: "abc"
+      )
+      {:ok, %PaymentInitiation.CreateRecipientResponse{}}
+
+  """
+  @spec create_payment(
+          recipient_id :: String.t(),
+          reference :: String.t(),
+          amount :: Amount.t(),
+          options,
+          Plaid.config()
+        ) :: {:ok, CreatePaymentResponse.t()} | {:error, Plaid.Error.t()}
+        when options: %{optional(:schedule) => Schedule.t()}
+  def create_payment(recipient_id, reference, amount, options \\ %{}, config) do
+    payload =
+      %{}
+      |> Map.put(:recipient_id, recipient_id)
+      |> Map.put(:reference, reference)
+      |> Map.put(:amount, amount)
+      |> Plaid.Util.maybe_put(:schedule, options)
+
+    Plaid.Client.call(
+      "/payment_initiation/payment/create",
+      payload,
+      CreatePaymentResponse,
       config
     )
   end

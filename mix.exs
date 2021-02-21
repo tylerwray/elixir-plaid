@@ -71,10 +71,13 @@ defmodule Plaid.MixProject do
             Plaid.Liabilities.Student.RepaymentPlan
           ],
           "Payment Initiation": [
+            Plaid.PaymentInitiation.Amount,
             Plaid.PaymentInitiation.BACS,
+            Plaid.PaymentInitiation.CreatePaymentResponse,
             Plaid.PaymentInitiation.CreateRecipientResponse,
             Plaid.PaymentInitiation.GetRecipientResponse,
-            Plaid.PaymentInitiation.RecipientAddress
+            Plaid.PaymentInitiation.RecipientAddress,
+            Plaid.PaymentInitiation.Schedule
           ],
           Transactions: [
             Plaid.Transactions.GetResponse,

@@ -139,4 +139,40 @@ defmodule Plaid.PaymentInitiationTest do
         secret: "abc"
       )
   end
+
+  test "/payment_initiation/payment/create", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/payment_initiation/payment/create", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "payment_id": "payment-id-sandbox-feca8a7a-5591-4aef-9297-f3062bb735d3",
+        "status": "PAYMENT_STATUS_INPUT_NEEDED",
+        "request_id": "4ciYVmesrySiUAB"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.PaymentInitiation.CreatePaymentResponse{
+       payment_id: "payment-id-sandbox-feca8a7a-5591-4aef-9297-f3062bb735d3",
+       status: "PAYMENT_STATUS_INPUT_NEEDED",
+       request_id: "4ciYVmesrySiUAB"
+     }} =
+      Plaid.PaymentInitiation.create_payment(
+        "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+        "Account Funding 99744",
+        %Plaid.PaymentInitiation.Amount{
+          currency: "GBP",
+          value: 100
+        },
+        %{
+          schedule: %Plaid.PaymentInitiation.Schedule{
+            interval: "WEEKLY",
+            interval_execution_day: 2,
+            start_date: "2021-01-01",
+            end_date: "2021-01-31"
+          }
+        },
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
