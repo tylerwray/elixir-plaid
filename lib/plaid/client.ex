@@ -26,7 +26,7 @@ defmodule Plaid.Client do
   """
   @spec call(String.t(), map(), module(), Plaid.config()) ::
           {:ok, map()} | {:error, Plaid.Error.t()}
-  def call(endpoint, payload, castable_struct, config) do
+  def call(endpoint, payload \\ %{}, castable_struct, config) do
     url = build_url(config, endpoint)
 
     payload =

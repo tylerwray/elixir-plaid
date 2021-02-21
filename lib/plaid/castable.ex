@@ -22,7 +22,7 @@ defmodule Plaid.Castable do
     nil
   end
 
-  def cast(implementation, generic_map) do
+  def cast(implementation, generic_map) when is_map(generic_map) do
     implementation.cast(generic_map)
   end
 
@@ -40,7 +40,7 @@ defmodule Plaid.Castable do
     nil
   end
 
-  def cast_list(implementation, list_of_generic_maps) do
+  def cast_list(implementation, list_of_generic_maps) when is_list(list_of_generic_maps) do
     Enum.map(list_of_generic_maps, &implementation.cast/1)
   end
 end

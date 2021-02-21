@@ -7,6 +7,7 @@ defmodule Plaid.PaymentInitiation do
     BACS,
     CreateRecipientResponse,
     GetRecipientResponse,
+    ListRecipientsResponse,
     RecipientAddress
   }
 
@@ -83,6 +84,29 @@ defmodule Plaid.PaymentInitiation do
       "/payment_initiation/recipient/get",
       %{recipient_id: recipient_id},
       GetRecipientResponse,
+      config
+    )
+  end
+
+  @doc """
+  List the payment recipients that you have previously created.
+
+  Does a `POST /payment_initiation/recipient/list` call to
+  list all recipients you have previously created.
+
+
+  ## Examples
+
+      PaymentInitiation.list_recipients(client_id: "123", secret: "abc")
+      {:ok, %PaymentInitiation.ListRecipientResponse{}}
+
+  """
+  @spec list_recipients(Plaid.config()) ::
+          {:ok, ListRecipientResponse.t()} | {:error, Plaid.Error.t()}
+  def list_recipients(config) do
+    Plaid.Client.call(
+      "/payment_initiation/recipient/list",
+      ListRecipientsResponse,
       config
     )
   end
