@@ -29,7 +29,7 @@ defmodule Plaid.AssetReport do
         when options: %{
                optional(:client_report_id) => String.t(),
                optional(:webhook) => String.t(),
-               optional(:user) => Plaid.Assets.User.t()
+               optional(:user) => Plaid.AssetReport.User.t()
              }
   def create(access_tokens, days_requested, options \\ %{}, config) do
     options_payload = Map.take(options, [:client_report_id, :webhook, :user])
@@ -126,7 +126,7 @@ defmodule Plaid.AssetReport do
                optional(:client_report_id) => String.t(),
                optional(:days_requested) => non_neg_integer(),
                optional(:webhook) => String.t(),
-               optional(:user) => Plaid.Assets.User.t()
+               optional(:user) => Plaid.AssetReport.User.t()
              }
   def refresh(asset_report_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:client_report_id, :webhook, :user])

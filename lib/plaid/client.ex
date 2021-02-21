@@ -51,7 +51,7 @@ defmodule Plaid.Client do
     end
   end
 
-  @spec add_auth(String.t(), Plaid.config()) :: map()
+  @spec add_auth(map(), Plaid.config()) :: map()
   defp add_auth(payload, config) do
     auth =
       config

@@ -21,7 +21,7 @@ defmodule Plaid.Investments do
       {:ok, %Plaid.Investments.GetHoldingsResponse{}}
 
   """
-  @spec get_holdings(String.t(), options, Plaid.Config.t()) ::
+  @spec get_holdings(String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Investments.GetHoldingsResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => [String.t()]}
   def get_holdings(access_token, options \\ %{}, config) do
@@ -60,7 +60,7 @@ defmodule Plaid.Investments do
       {:ok, %Plaid.Investments.GetTransactionsResponse{}}
 
   """
-  @spec get_transactions(String.t(), String.t(), String.t(), options, Plaid.Config.t()) ::
+  @spec get_transactions(String.t(), String.t(), String.t(), options, Plaid.config()) ::
           {:ok, Plaid.Investments.GetTransactionsResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:account_ids) => [String.t()],

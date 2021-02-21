@@ -25,6 +25,7 @@ jobs:
         path: |
           deps
           _build
+          priv/plts
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
     - name: Install dependencies
@@ -33,5 +34,7 @@ jobs:
       run: mix test
     - name: Lint
       run: mix credo
-    - name: Check format
+    - name: Format Check
       run: mix format --check-formatted
+    - name: Type Check
+      run: mix dialyzer

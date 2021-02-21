@@ -8,6 +8,9 @@ defmodule Plaid.MixProject do
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
+      dialyzer: [
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
       docs: [
         main: "readme",
         extras: ["CONTRIBUTING.md", "README.md"],
@@ -100,6 +103,7 @@ defmodule Plaid.MixProject do
     [
       {:bypass, "~> 2.1", only: :test},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
       {:httpoison, "~> 1.7"},
       {:jason, "~> 1.2"}

@@ -15,7 +15,7 @@ defmodule Plaid.Accounts.Account do
           account_id: String.t(),
           balances: Balances.t(),
           days_available: non_neg_integer() | nil,
-          historical_balances: [HistoricalBalance.t()] | nil,
+          historical_balances: [HistoricalBalances.t()] | nil,
           mask: String.t() | nil,
           name: String.t(),
           official_name: String.t() | nil,
