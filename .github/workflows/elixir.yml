@@ -1,4 +1,4 @@
-name: elixir_plaid CI
+name: CI
 
 on:
   push:
