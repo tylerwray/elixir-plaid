@@ -5,8 +5,8 @@ defmodule Plaid.Liabilities.GetResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
   alias Plaid.Accounts.Account
+  alias Plaid.Castable
   alias Plaid.Item
   alias Plaid.Liabilities
 

@@ -7,9 +7,9 @@ defmodule Plaid.Accounts.Account do
 
   alias Plaid.Accounts.Account.{Balances, HistoricalBalances}
   alias Plaid.Castable
-  alias Plaid.Transactions.Transaction
-  alias Plaid.Item
   alias Plaid.Identity
+  alias Plaid.Item
+  alias Plaid.Transactions.Transaction
 
   @type t :: %__MODULE__{
           account_id: String.t(),

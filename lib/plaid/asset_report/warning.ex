@@ -5,8 +5,8 @@ defmodule Plaid.AssetReport.Warning do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
   alias Plaid.AssetReport.Warning.Cause
+  alias Plaid.Castable
 
   @type t :: %__MODULE__{
           warning_type: String.t(),

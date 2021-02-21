@@ -5,10 +5,10 @@ defmodule Plaid.Investments.GetTransactionsResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
   alias Plaid.Accounts.Account
-  alias Plaid.Item
+  alias Plaid.Castable
   alias Plaid.Investments.{Security, Transaction}
+  alias Plaid.Item
 
   @type t :: %__MODULE__{
           item: Item.t(),

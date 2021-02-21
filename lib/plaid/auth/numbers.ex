@@ -5,7 +5,7 @@ defmodule Plaid.Auth.Numbers do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Auth.Numbers.{ACH, EFT, International, BACS}
+  alias Plaid.Auth.Numbers.{ACH, BACS, EFT, International}
   alias Plaid.Castable
 
   @type t :: %__MODULE__{

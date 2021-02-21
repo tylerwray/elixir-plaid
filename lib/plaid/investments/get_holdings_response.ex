@@ -5,8 +5,8 @@ defmodule Plaid.Investments.GetHoldingsResponse do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Castable
   alias Plaid.Accounts.Account
+  alias Plaid.Castable
   alias Plaid.Investments.{Holding, Security}
   alias Plaid.Item
 
