@@ -1,6 +1,6 @@
 # Plaid for Elixir
 
-[![Elixir CI](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
+[![CI](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
 
 Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
