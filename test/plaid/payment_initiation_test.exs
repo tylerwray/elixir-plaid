@@ -31,13 +31,59 @@ defmodule Plaid.PaymentInitiationTest do
             account: "2930499299",
             sort_code: "601613"
           },
-          address: %Plaid.Address{
-            street: "",
-            city: "",
-            postal_code: "",
-            country: ""
+          address: %Plaid.PaymentInitiation.RecipientAddress{
+            street: [
+              "96 Guild Street",
+              "9th Floor"
+            ],
+            city: "London",
+            postal_code: "SE14 8JW",
+            country: "GB"
           }
         },
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
+
+  test "/payment_initiation/recipient/get", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/payment_initiation/recipient/get", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "recipient_id": "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+        "name": "Wonder Wallet",
+        "iban": "GB29NWBK60161331926819",
+        "address": {
+          "street": [
+            "96 Guild Street",
+            "9th Floor"
+          ],
+          "city": "London",
+          "postal_code": "SE14 8JW",
+          "country": "GB"
+        },
+        "request_id": "4zlKapIkTm8p5KM"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.PaymentInitiation.GetRecipientResponse{
+       recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+       name: "Wonder Wallet",
+       iban: "GB29NWBK60161331926819",
+       address: %Plaid.PaymentInitiation.RecipientAddress{
+         street: [
+           "96 Guild Street",
+           "9th Floor"
+         ],
+         city: "London",
+         postal_code: "SE14 8JW",
+         country: "GB"
+       },
+       request_id: "4zlKapIkTm8p5KM"
+     }} =
+      Plaid.PaymentInitiation.get_recipient(
+        "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
         test_api_host: api_host,
         client_id: "123",
         secret: "abc"

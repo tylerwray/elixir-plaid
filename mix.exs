@@ -72,7 +72,9 @@ defmodule Plaid.MixProject do
           ],
           "Payment Initiation": [
             Plaid.PaymentInitiation.BACS,
-            Plaid.PaymentInitiation.CreateRecipientResponse
+            Plaid.PaymentInitiation.CreateRecipientResponse,
+            Plaid.PaymentInitiation.GetRecipientResponse,
+            Plaid.PaymentInitiation.RecipientAddress
           ],
           Transactions: [
             Plaid.Transactions.GetResponse,

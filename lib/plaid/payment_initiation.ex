@@ -3,6 +3,13 @@ defmodule Plaid.PaymentInitiation do
   [Plaid Payment Initiation API](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) calls and schema.
   """
 
+  alias Plaid.PaymentInitiation.{
+    BACS,
+    CreateRecipientResponse,
+    GetRecipientResponse,
+    RecipientAddress
+  }
+
   @doc """
   Create a recipient for payment initiation.
 
@@ -31,11 +38,11 @@ defmodule Plaid.PaymentInitiation do
 
   """
   @spec create_recipient(name :: String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.PaymentInitiation.CreateRecipientResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, CreateRecipientResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:iban) => String.t(),
-               optional(:bacs) => Plaid.PaymentInitiation.BACS.t(),
-               optional(:address) => Plaid.Address.t()
+               optional(:bacs) => BACS.t(),
+               optional(:address) => RecipientAddress.t()
              }
   def create_recipient(name, options \\ %{}, config) do
     options_payload = Map.take(options, [:iban, :bacs, :address])
@@ -48,7 +55,34 @@ defmodule Plaid.PaymentInitiation do
     Plaid.Client.call(
       "/payment_initiation/recipient/create",
       payload,
-      Plaid.PaymentInitiation.CreateRecipientResponse,
+      CreateRecipientResponse,
+      config
+    )
+  end
+
+  @doc """
+  Get a recipient for payment initiation.
+
+  Does a `POST /payment_initiation/recipient/get` call to
+  get details about a payment recipient.
+
+  ## Params
+
+  * `recipient_id` - The ID of the recipient.
+
+  ## Examples
+
+      PaymentInitiation.get_recipient("recipient-id-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %PaymentInitiation.GetRecipientResponse{}}
+
+  """
+  @spec get_recipient(recipient_id :: String.t(), Plaid.config()) ::
+          {:ok, CreateRecipientResponse.t()} | {:error, Plaid.Error.t()}
+  def get_recipient(recipient_id, config) do
+    Plaid.Client.call(
+      "/payment_initiation/recipient/get",
+      %{recipient_id: recipient_id},
+      GetRecipientResponse,
       config
     )
   end
