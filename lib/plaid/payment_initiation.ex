@@ -9,6 +9,7 @@ defmodule Plaid.PaymentInitiation do
     CreatePaymentResponse,
     CreateRecipientResponse,
     GetRecipientResponse,
+    GetPaymentResponse,
     ListRecipientsResponse,
     RecipientAddress,
     Schedule
@@ -170,6 +171,37 @@ defmodule Plaid.PaymentInitiation do
       "/payment_initiation/payment/create",
       payload,
       CreatePaymentResponse,
+      config
+    )
+  end
+
+  @doc """
+  Get payment details.
+
+  Does a `POST /payment_initiation/payment/create` call to get
+  details about a payment.
+
+  ## Params
+
+  * `payment_id` - The payment_id returned from /payment_initiation/payment/create.
+
+  ## Examples
+
+      PaymentInitiation.get_payment(
+        "payment-id-prod-123xxx",
+        client_id: "123",
+        secret: "abc"
+      )
+      {:ok, %PaymentInitiation.GetPaymentResponse{}}
+
+  """
+  @spec get_payment(payment_id :: String.t(), Plaid.config()) ::
+          {:ok, GetPaymentResponse.t()} | {:error, Plaid.Error.t()}
+  def get_payment(payment_id, config) do
+    Plaid.Client.call(
+      "/payment_initiation/payment/get",
+      %{payment_id: payment_id},
+      GetPaymentResponse,
       config
     )
   end

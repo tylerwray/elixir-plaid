@@ -175,4 +175,45 @@ defmodule Plaid.PaymentInitiationTest do
         secret: "abc"
       )
   end
+
+  test "/payment_initiation/payment/get", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/payment_initiation/payment/get", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "payment_id": "payment-id-sandbox-feca8a7a-5591-4aef-9297-f3062bb735d3",
+        "payment_token": "payment-token-sandbox-c6a26505-42b4-46fe-8ecf-bf9edcafbebb",
+        "reference": "Account Funding 99744",
+        "amount": {
+          "currency": "GBP",
+          "value": 100
+        },
+        "status": "PAYMENT_STATUS_INPUT_NEEDED",
+        "last_status_update": "2019-11-06T21:10:52Z",
+        "payment_expiration_time": "2019-11-06T21:25:52Z",
+        "recipient_id": "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+        "request_id": "aEAQmewMzlVa1k6"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.PaymentInitiation.GetPaymentResponse{
+       payment_id: "payment-id-sandbox-feca8a7a-5591-4aef-9297-f3062bb735d3",
+       payment_token: "payment-token-sandbox-c6a26505-42b4-46fe-8ecf-bf9edcafbebb",
+       reference: "Account Funding 99744",
+       amount: %Plaid.PaymentInitiation.Amount{
+         currency: "GBP",
+         value: 100
+       },
+       status: "PAYMENT_STATUS_INPUT_NEEDED",
+       last_status_update: "2019-11-06T21:10:52Z",
+       payment_expiration_time: "2019-11-06T21:25:52Z",
+       recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+       request_id: "aEAQmewMzlVa1k6"
+     }} =
+      Plaid.PaymentInitiation.get_payment(
+        "payment-id-sandbox-feca8a7a-5591-4aef-9297-f3062bb735d3",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
