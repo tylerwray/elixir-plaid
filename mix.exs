@@ -59,6 +59,13 @@ defmodule Plaid.MixProject do
             Plaid.Investments.Security,
             Plaid.Investments.Transaction
           ],
+          Item: [
+            Plaid.Item.GetResponse,
+            Plaid.Item.Status,
+            Plaid.Item.Status.Investments,
+            Plaid.Item.Status.LastWebhook,
+            Plaid.Item.Status.Transactions
+          ],
           Liabilities: [
             Plaid.Liabilities.Credit,
             Plaid.Liabilities.Credit.APR,
@@ -94,7 +101,6 @@ defmodule Plaid.MixProject do
             Plaid,
             Plaid.Address,
             Plaid.Error,
-            Plaid.Item,
             Plaid.SimpleResponse
           ]
         ]

@@ -1,11 +1,12 @@
 defmodule Plaid.Item do
   @moduledoc """
-  [Plaid Item API](https://plaid.com/docs/api/items/#itemget) schema.
+  [Plaid Item API](https://plaid.com/docs/api/items/#itemget) calls and schema.
   """
 
   @behaviour Plaid.Castable
 
   alias Plaid.Castable
+  alias Plaid.Item.GetResponse
 
   @type t :: %__MODULE__{
           available_products: [String.t()],
@@ -15,6 +16,7 @@ defmodule Plaid.Item do
           has_perpetual_otp: boolean(),
           institution_id: String.t() | nil,
           item_id: String.t(),
+          update_type: String.t(),
           webhook: String.t() | nil
         }
 
@@ -26,6 +28,7 @@ defmodule Plaid.Item do
     :error,
     :institution_id,
     :item_id,
+    :update_type,
     :webhook
   ]
 
@@ -39,7 +42,29 @@ defmodule Plaid.Item do
       has_perpetual_otp: generic_map["has_perpetual_otp"],
       institution_id: generic_map["institution_id"],
       item_id: generic_map["item_id"],
+      update_type: generic_map["update_type"],
       webhook: generic_map["webhook"]
     }
+  end
+
+  @doc """
+  Get information about an item.
+
+  Does a `POST /item/get` call which returns information about an item and
+  its status.
+
+  ## Params
+
+  * `access_token` - The access token associated with the item.
+
+  ## Examples
+
+      Item.get("access-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Item.GetResponse{}}
+
+  """
+  @spec get(String.t(), Plaid.config()) :: {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
+  def get(access_token, config) do
+    Plaid.Client.call("/item/get", %{access_token: access_token}, GetResponse, config)
   end
 end
