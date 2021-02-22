@@ -37,4 +37,4 @@ jobs:
     - name: Format Check
       run: mix format --check-formatted
     - name: Type Check
-      run: mix dialyzer
+      run: mix dialyzer --quiet
