@@ -80,4 +80,20 @@ defmodule Plaid.ItemTest do
         secret: "abc"
       )
   end
+
+  test "/item/remove", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/item/remove", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "request_id": "m8MDnv9okwxFNBV"
+      }>)
+    end)
+
+    {:ok, %Plaid.SimpleResponse{request_id: "m8MDnv9okwxFNBV"}} =
+      Plaid.Item.remove(
+        "access-prod-123xxx",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end

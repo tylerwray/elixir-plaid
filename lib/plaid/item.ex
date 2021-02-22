@@ -67,4 +67,25 @@ defmodule Plaid.Item do
   def get(access_token, config) do
     Plaid.Client.call("/item/get", %{access_token: access_token}, GetResponse, config)
   end
+
+  @doc """
+  Removes an item.
+
+  Does a `POST /item/remove` call to remove an item.
+
+  ## Params
+
+  * `access_token` - The access token associated with the item.
+
+  ## Examples
+
+      Item.remove("access-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Plaid.SimpleResponse{}}
+
+  """
+  @spec remove(String.t(), Plaid.config()) ::
+          {:ok, Plaid.SimpleResponse.t()} | {:error, Plaid.Error.t()}
+  def remove(access_token, config) do
+    Plaid.Client.call("/item/remove", %{access_token: access_token}, Plaid.SimpleResponse, config)
+  end
 end
