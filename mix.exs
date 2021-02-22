@@ -64,7 +64,8 @@ defmodule Plaid.MixProject do
             Plaid.Item.Status,
             Plaid.Item.Status.Investments,
             Plaid.Item.Status.LastWebhook,
-            Plaid.Item.Status.Transactions
+            Plaid.Item.Status.Transactions,
+            Plaid.Item.UpdateWebhookResponse
           ],
           Liabilities: [
             Plaid.Liabilities.Credit,

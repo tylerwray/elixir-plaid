@@ -96,4 +96,60 @@ defmodule Plaid.ItemTest do
         secret: "abc"
       )
   end
+
+  test "/item/webhook/update", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/item/webhook/update", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "item": {
+          "available_products": [
+            "balance",
+            "identity",
+            "payment_initiation",
+            "transactions"
+          ],
+          "billed_products": [
+            "assets",
+            "auth"
+          ],
+          "consent_expiration_time": null,
+          "error": null,
+          "institution_id": "ins_117650",
+          "item_id": "DWVAAPWq4RHGlEaNyGKRTAnPLaEmo8Cvq7na6",
+          "update_type": "background",
+          "webhook": "https://www.genericwebhookurl.com/webhook"
+        },
+        "request_id": "vYK11LNTfRoAMbj"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.Item.UpdateWebhookResponse{
+       item: %Plaid.Item{
+         available_products: [
+           "balance",
+           "identity",
+           "payment_initiation",
+           "transactions"
+         ],
+         billed_products: [
+           "assets",
+           "auth"
+         ],
+         consent_expiration_time: nil,
+         error: nil,
+         institution_id: "ins_117650",
+         item_id: "DWVAAPWq4RHGlEaNyGKRTAnPLaEmo8Cvq7na6",
+         update_type: "background",
+         webhook: "https://www.genericwebhookurl.com/webhook"
+       },
+       request_id: "vYK11LNTfRoAMbj"
+     }} =
+      Plaid.Item.update_webhook(
+        "access-prod-123xxx",
+        "https://plaid.com/updated/hook",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
