@@ -8,8 +8,9 @@ defmodule Plaid.PaymentInitiation do
     BACS,
     CreatePaymentResponse,
     CreateRecipientResponse,
-    GetRecipientResponse,
     GetPaymentResponse,
+    GetRecipientResponse,
+    ListPaymentsResponse,
     ListRecipientsResponse,
     RecipientAddress,
     Schedule
@@ -202,6 +203,43 @@ defmodule Plaid.PaymentInitiation do
       "/payment_initiation/payment/get",
       %{payment_id: payment_id},
       GetPaymentResponse,
+      config
+    )
+  end
+
+  @doc """
+  List payments.
+
+  Does a `POST /payment_initiation/payment/list` call to get
+  all created payments.
+
+  ## Options
+
+  * `:count` - The maximum number of payments to return.
+  * `:cursor` - A date string in RFC 3339 format. Only payments created before the cursor will be returned.
+
+  ## Examples
+
+      PaymentInitiation.list_payments(
+        client_id: "123",
+        secret: "abc"
+      )
+      {:ok, %PaymentInitiation.ListPaymentsResponse{}}
+
+  """
+  @spec list_payments(options, Plaid.config()) ::
+          {:ok, ListPaymentsResponse.t()} | {:error, Plaid.Error.t()}
+        when options: %{
+               optional(:count) => integer(),
+               optional(:cursor) => String.t()
+             }
+  def list_payments(options \\ %{}, config) do
+    payload = Map.take(options, [:count, :cursor])
+
+    Plaid.Client.call(
+      "/payment_initiation/payment/list",
+      payload,
+      ListPaymentsResponse,
       config
     )
   end

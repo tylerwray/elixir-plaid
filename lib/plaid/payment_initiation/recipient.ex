@@ -1,6 +1,6 @@
 defmodule Plaid.PaymentInitiation.Recipient do
   @moduledoc """
-  [Plaid API recipient schema.](https://plaid.com/docs/api/products/#payment_initiation-recipient-list-response-recipients)
+  [Plaid API payment initiation recipient schema.](https://plaid.com/docs/api/products/#payment_initiation-recipient-list-response-recipients)
   """
 
   @behaviour Plaid.Castable
