@@ -50,6 +50,8 @@ For information about what has changed tyler API versions, head to the [version 
 
 🗺 - On the Roadmap
 
+> TODO: Waiting on Plaid to give me access to the payment_initiation product so I can test this endpoint in the sandbox.
+
 | API                                                                                                         | Status |
 | ----------------------------------------------------------------------------------------------------------- | ------ |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
