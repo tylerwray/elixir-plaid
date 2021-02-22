@@ -103,11 +103,11 @@ defmodule Plaid.PaymentInitiation do
   ## Examples
 
       PaymentInitiation.list_recipients(client_id: "123", secret: "abc")
-      {:ok, %PaymentInitiation.ListRecipientResponse{}}
+      {:ok, %PaymentInitiation.ListRecipientsResponse{}}
 
   """
   @spec list_recipients(Plaid.config()) ::
-          {:ok, ListRecipientResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, ListRecipientsResponse.t()} | {:error, Plaid.Error.t()}
   def list_recipients(config) do
     Plaid.Client.call(
       "/payment_initiation/recipient/list",
