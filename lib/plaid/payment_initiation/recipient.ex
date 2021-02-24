@@ -6,12 +6,12 @@ defmodule Plaid.PaymentInitiation.Recipient do
   @behaviour Plaid.Castable
 
   alias Plaid.Castable
-  alias Plaid.PaymentInitiation.{BACS, RecipientAddress}
+  alias Plaid.PaymentInitiation.{BACS, Address}
 
   @type t :: %__MODULE__{
           recipient_id: String.t(),
           name: String.t(),
-          address: RecipientAddress.t() | nil,
+          address: Address.t() | nil,
           iban: String.t() | nil,
           bacs: BACS.t() | nil
         }
@@ -29,7 +29,7 @@ defmodule Plaid.PaymentInitiation.Recipient do
     %__MODULE__{
       recipient_id: generic_map["recipient_id"],
       name: generic_map["name"],
-      address: Castable.cast(RecipientAddress, generic_map["address"]),
+      address: Castable.cast(Address, generic_map["address"]),
       iban: generic_map["iban"],
       bacs: Castable.cast(BACS, generic_map["bacs"])
     }

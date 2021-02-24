@@ -4,6 +4,7 @@ defmodule Plaid.PaymentInitiation do
   """
 
   alias Plaid.PaymentInitiation.{
+    Address,
     Amount,
     BACS,
     CreatePaymentResponse,
@@ -12,7 +13,6 @@ defmodule Plaid.PaymentInitiation do
     GetRecipientResponse,
     ListPaymentsResponse,
     ListRecipientsResponse,
-    RecipientAddress,
     Schedule
   }
 
@@ -48,7 +48,7 @@ defmodule Plaid.PaymentInitiation do
         when options: %{
                optional(:iban) => String.t(),
                optional(:bacs) => BACS.t(),
-               optional(:address) => RecipientAddress.t()
+               optional(:address) => Address.t()
              }
   def create_recipient(name, options \\ %{}, config) do
     options_payload = Map.take(options, [:iban, :bacs, :address])
@@ -56,7 +56,7 @@ defmodule Plaid.PaymentInitiation do
     payload =
       %{}
       |> Map.put(:name, name)
-      |> Map.put(:options, options_payload)
+      |> Map.merge(options_payload)
 
     Plaid.Client.call(
       "/payment_initiation/recipient/create",

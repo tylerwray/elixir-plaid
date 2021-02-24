@@ -31,7 +31,7 @@ defmodule Plaid.PaymentInitiationTest do
             account: "2930499299",
             sort_code: "601613"
           },
-          address: %Plaid.PaymentInitiation.RecipientAddress{
+          address: %Plaid.PaymentInitiation.Address{
             street: [
               "96 Guild Street",
               "9th Floor"
@@ -71,7 +71,7 @@ defmodule Plaid.PaymentInitiationTest do
        recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
        name: "Wonder Wallet",
        iban: "GB29NWBK60161331926819",
-       address: %Plaid.PaymentInitiation.RecipientAddress{
+       address: %Plaid.PaymentInitiation.Address{
          street: [
            "96 Guild Street",
            "9th Floor"
@@ -120,7 +120,7 @@ defmodule Plaid.PaymentInitiationTest do
            recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
            name: "Wonder Wallet",
            iban: "GB29NWBK60161331926819",
-           address: %Plaid.PaymentInitiation.RecipientAddress{
+           address: %Plaid.PaymentInitiation.Address{
              street: [
                "96 Guild Street",
                "9th Floor"
@@ -230,7 +230,13 @@ defmodule Plaid.PaymentInitiationTest do
             },
             "status": "PAYMENT_STATUS_INPUT_NEEDED",
             "last_status_update": "2019-11-06T21:10:52Z",
-            "recipient_id": "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6"
+            "recipient_id": "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+            "schedule": {
+              "interval": "WEEKLY",
+              "interval_execution_day": 2,
+              "start_date": "2021-01-01",
+              "end_date": "2021-01-31"
+            }
           }
         ],
         "next_cursor": "2020-01-01T00:00:00Z",
@@ -250,7 +256,13 @@ defmodule Plaid.PaymentInitiationTest do
            },
            status: "PAYMENT_STATUS_INPUT_NEEDED",
            last_status_update: "2019-11-06T21:10:52Z",
-           recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6"
+           recipient_id: "recipient-id-sandbox-9b6b4679-914b-445b-9450-efbdb80296f6",
+           schedule: %Plaid.PaymentInitiation.Schedule{
+             interval: "WEEKLY",
+             interval_execution_day: 2,
+             start_date: "2021-01-01",
+             end_date: "2021-01-31"
+           }
          }
        ],
        next_cursor: "2020-01-01T00:00:00Z",

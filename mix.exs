@@ -52,6 +52,20 @@ defmodule Plaid.MixProject do
             Plaid.Identity.GetResponse,
             Plaid.Identity.PhoneNumber
           ],
+          Institutions: [
+            Plaid.Institutions.GetResponse,
+            Plaid.Institution,
+            Plaid.Institution.Status,
+            Plaid.Institution.Status.ItemLogins,
+            Plaid.Institution.Status.Breakdown,
+            Plaid.Institution.Status.TransactionsUpdates,
+            Plaid.Institution.Status.Auth,
+            Plaid.Institution.Status.Balance,
+            Plaid.Institution.Status.Identity,
+            Plaid.Institution.Status.InvestmentsUpdates,
+            Plaid.Institution.Status.HealthIncident,
+            Plaid.Institution.Status.HealthIncidentUpdate
+          ],
           Investments: [
             Plaid.Investments.GetHoldingsResponse,
             Plaid.Investments.GetTransactionsResponse,
@@ -79,6 +93,7 @@ defmodule Plaid.MixProject do
             Plaid.Liabilities.Student.RepaymentPlan
           ],
           "Payment Initiation": [
+            Plaid.PaymentInitiation.Address,
             Plaid.PaymentInitiation.Amount,
             Plaid.PaymentInitiation.BACS,
             Plaid.PaymentInitiation.CreatePaymentResponse,
@@ -89,7 +104,6 @@ defmodule Plaid.MixProject do
             Plaid.PaymentInitiation.ListRecipientsResponse,
             Plaid.PaymentInitiation.Payment,
             Plaid.PaymentInitiation.Recipient,
-            Plaid.PaymentInitiation.RecipientAddress,
             Plaid.PaymentInitiation.Schedule
           ],
           Transactions: [

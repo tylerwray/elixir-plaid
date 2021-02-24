@@ -1,6 +1,6 @@
-defmodule Plaid.PaymentInitiation.RecipientAddress do
+defmodule Plaid.PaymentInitiation.Address do
   @moduledoc """
-  [Plaid Payment Initiation Recipient Address schema.](https://plaid.com/docs/api/products/#payment_initiation-recipient-get-response-address)
+  [Plaid Payment Initiation Address schema.](https://plaid.com/docs/api/products/#payment_initiation-recipient-get-response-address)
   """
 
   @behaviour Plaid.Castable
