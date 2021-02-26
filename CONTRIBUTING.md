@@ -35,7 +35,7 @@ Response:
 ```json
 {
   "payment": {
-    "customer_name": "Stefani Germanotta"
+    "customer_name": "Stefani Germanotta",
     "items": [
       {
         "amount": 1200,
