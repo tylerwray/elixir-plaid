@@ -56,7 +56,7 @@ You can also pass an `env` option as either `:production`, `:development`, or `:
 > global state. As well as making function calls objectively more "functional".
 
 > Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
-> Therefor using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
+> Therefore using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
 > using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
 ### Installation
