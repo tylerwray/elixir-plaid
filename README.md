@@ -35,16 +35,16 @@ You can also pass an `env` option as either `:production`, `:development`, or `:
 
 ```elixir
 # get auth data
-Plaid.Auth.get("asset-prod-123xxx", client_id: "123", secret: "abc")
+Plaid.Auth.get("access-prod-123xxx", client_id: "123", secret: "abc")
 
 # get item details
-Plaid.Item.get("asset-prod-123xxx", client_id: "123", secret: "abc", env: :production)
+Plaid.Item.get("access-prod-123xxx", client_id: "123", secret: "abc", env: :production)
 
 # refresh transactions
-Plaid.Transactions.refresh("asset-prod-123xxx", client_id: "123", secret: "abc", env: )
+Plaid.Transactions.refresh("access-prod-123xxx", client_id: "123", secret: "abc", env: :development)
 
 # get categories is unauthenticated
-Plaid.Categories.get()
+Plaid.Categories.get(env: :production)
 ```
 
 > The choice to avoid using application configuration is due to the [anti-pattern documented by elixir](https://hexdocs.pm/elixir/master/library-guidelines.html#avoid-application-configuration)
