@@ -35,6 +35,35 @@ defmodule Plaid.Institutions do
     end
   end
 
+  defmodule GetByIdResponse do
+    @moduledoc """
+    [Plaid API /institutions/get_by_id response schema.](https://plaid.com/docs/api/institutions/#institutionsget_by_id)
+    """
+
+    @behaviour Plaid.Castable
+
+    alias Plaid.Castable
+    alias Plaid.Institution
+
+    @type t :: %__MODULE__{
+            institution: Institution.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :institution,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        institution: Castable.cast(Institution, generic_map["institution"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get information about Plaid institutions.
     
@@ -83,6 +112,51 @@ defmodule Plaid.Institutions do
       "/institutions/get",
       payload,
       GetResponse,
+      config
+    )
+  end
+
+  @doc """
+  Get information about a Plaid institution.
+
+  Does a `POST /institutions/get_by_id` call to retrieve a Plaid
+  institution by it's ID.
+
+  ## Params
+  * `institution_id` - The ID of the institution to get details about.
+  * `country_codes` - Array of country codes the institution supports.
+
+  ## Options
+  * `:include_optional_metadata` - When true, return the institution's homepage URL, logo and primary brand color.
+  * `:include_status` - When true, the response will include status information about the institution.
+
+  ## Examples
+
+      Institutions.get_by_id("ins_1", ["CA", "GB], client_id: "123", secret: "abc")
+      {:ok, %Institutions.GetByIdResponse{}}
+
+  """
+  @spec get_by_id(String.t(), [String.t()], options, Plaid.config()) ::
+          {:ok, GetByIdResponse.t()} | {:error, Plaid.Error.t()}
+        when options: %{
+               optional(:products) => [String.t()],
+               optional(:routing_numbers) => [String.t()],
+               optional(:oauth) => boolean(),
+               optional(:include_optional_metadata) => boolean()
+             }
+  def get_by_id(institution_id, country_codes, options \\ %{}, config) do
+    options_payload = Map.take(options, [:include_optional_metadata, :include_status])
+
+    payload =
+      %{}
+      |> Map.put(:institution_id, institution_id)
+      |> Map.put(:country_codes, country_codes)
+      |> Map.merge(%{options: options_payload})
+
+    Plaid.Client.call(
+      "/institutions/get_by_id",
+      payload,
+      GetByIdResponse,
       config
     )
   end

@@ -53,18 +53,19 @@ defmodule Plaid.MixProject do
             Plaid.Identity.PhoneNumber
           ],
           Institutions: [
-            Plaid.Institutions.GetResponse,
             Plaid.Institution,
             Plaid.Institution.Status,
-            Plaid.Institution.Status.ItemLogins,
-            Plaid.Institution.Status.Breakdown,
-            Plaid.Institution.Status.TransactionsUpdates,
             Plaid.Institution.Status.Auth,
             Plaid.Institution.Status.Balance,
+            Plaid.Institution.Status.Breakdown,
+            Plaid.Institution.Status.HealthIncident,
+            Plaid.Institution.Status.HealthIncidentUpdate,
             Plaid.Institution.Status.Identity,
             Plaid.Institution.Status.InvestmentsUpdates,
-            Plaid.Institution.Status.HealthIncident,
-            Plaid.Institution.Status.HealthIncidentUpdate
+            Plaid.Institution.Status.ItemLogins,
+            Plaid.Institution.Status.TransactionsUpdates,
+            Plaid.Institutions.GetByIdResponse,
+            Plaid.Institutions.GetResponse,
           ],
           Investments: [
             Plaid.Investments.GetHoldingsResponse,
