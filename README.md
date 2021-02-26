@@ -4,7 +4,13 @@
 
 Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
-Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
+Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
+
+### Core Principles
+
+1. Provide Fantastic documentation.
+2. Full API coverage.
+3. Always return structs.
 
 ### Installation
 
@@ -18,19 +24,60 @@ def deps do
 end
 ```
 
-### Pillars
+### Example Usage
 
-1. Fantastic documentation
+Get [Auth](https://plaid.com/docs/api/products/#auth) data:
 
-> Provide the right documentation for developers to find what they need.
+```elixir
+iex> Plaid.Auth.get("asset-prod-123xxx", client_id: "123", secret: "abc")
+{:ok, %Plaid.Auth.GetResponse{
+  accounts: [
+    %Plaid.Account{
+      name: "Plaid Checking",
+      type: "depository",
+      subtype: "checking",
+      # ...
+    }
+  ],
+  numbers: %Plaid.Auth.Numbers{
+    ach: %Plaid.Auth.Numbers.ACH{
+      account: "9900009606",
+      account_id: "vzeNDwK7KQIm4yEog683uElbp9GRLEFXGK98D",
+      routing: "011401533",
+      wire_routing: "021000021"
+    }
+  }
+}}
+```
 
-2. Full API coverage
+Get [Item](https://plaid.com/docs/api/items/#itemget) status information:
 
-> Do our best to keep pairity with the production Plaid API.
+```elixir
+iex> Plaid.Item.get("asset-prod-123xxx", client_id: "123", secret: "abc")
+{:ok, %Plaid.Item.GetResponse{
+  item: %Plaid.Item{
+    institution_id: "ins_109508",
+    item_id: "Ed6bjNrDLJfGvZWwnkQlfxwoNz54B5C97ejBr",
+    update_type: "background",
+    webhook: "https://plaid.com/example/hook",
+  },
+  status: %Plaid.Item.Status{
+    transactions: %Plaid.Item.Status.Transactions{
+      last_successful_update: "2019-02-15T15:52:39.000Z",
+      last_failed_update: "2019-01-22T04:32:00.000Z"
+    }
+  }
+}}
+```
 
-3. Always return structs
+Refresh [Transactions](https://plaid.com/docs/api/products/#transactions):
 
-> Structs are a form of documentation, they make it easier for developers to work with responses. Always return them.
+```elixir
+iex> Plaid.Transactions.refresh("asset-prod-123xxx", client_id: "123", secret: "abc")
+{:ok, %Plaid.SimpleResponse{
+  request_id: "ksl9302ksjgkea"
+}}
+```
 
 ### Versioning
 
@@ -71,13 +118,10 @@ For information about what has changed tyler API versions, head to the [version 
 | [Employer](https://plaid.com/docs/api/employers/)                                                           | 🗺      |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🗺      |
 
-### Usage
-
-> TODO: Write popular example instructions
-
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/tylerwray/elixir_plaid. See [contributing guidelines](CONTRIBUTING.md) also.
+Bug reports and pull requests are welcome on [GitHub](https://github.com/tylerwray/elixir_plaid).
+See [contributing guidelines](CONTRIBUTING.md) for more details.
 
 ### License
 
