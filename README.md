@@ -2,15 +2,50 @@
 
 [![CI](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
 
-Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
+> Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
 ### Core Principles
 
-1. Provide Fantastic documentation.
-2. Full API coverage.
-3. Always return structs.
+1. Fantastic documentation
+2. Full plaid API coverage
+3. Always return structs
+
+### Example Usage
+
+```elixir
+# get auth data
+Plaid.Auth.get("access-prod-123xxx", client_id: "123", secret: "abc")
+
+# get item details
+Plaid.Item.get("access-prod-123xxx", client_id: "123", secret: "abc", env: :production)
+
+# refresh transactions
+Plaid.Transactions.refresh("access-prod-123xxx", client_id: "123", secret: "abc", env: :development)
+
+# get categories
+Plaid.Categories.get(env: :production)
+```
+
+## API
+
+Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
+
+<!-- TODO: ADD hexdocs link to Plaid.config type -->
+
+Each function takes a [`Plaid.config`](http://hexdocslinkhere.com) keyword list as it's trailing argument.
+Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
+
+You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
+
+> The choice to avoid using application configuration is due to the [anti-pattern documented by elixir](https://hexdocs.pm/elixir/master/library-guidelines.html#avoid-application-configuration)
+> of libraries using application configuration. Passing "configuration" to each function avoids the library touching any
+> global state. As well as making function calls objectively more "functional".
+
+> Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
+> Therefor using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
+> using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
 ### Installation
 
@@ -23,37 +58,6 @@ def deps do
   ]
 end
 ```
-
-### Example Usage
-
-<!-- TODO: ADD hexdocs link to Plaid.config type -->
-
-Each function takes a [`Plaid.config`](http://hexdocslinkhere.com) keyword list as it's trailing argument.
-Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
-
-You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
-
-```elixir
-# get auth data
-Plaid.Auth.get("access-prod-123xxx", client_id: "123", secret: "abc")
-
-# get item details
-Plaid.Item.get("access-prod-123xxx", client_id: "123", secret: "abc", env: :production)
-
-# refresh transactions
-Plaid.Transactions.refresh("access-prod-123xxx", client_id: "123", secret: "abc", env: :development)
-
-# get categories is unauthenticated
-Plaid.Categories.get(env: :production)
-```
-
-> The choice to avoid using application configuration is due to the [anti-pattern documented by elixir](https://hexdocs.pm/elixir/master/library-guidelines.html#avoid-application-configuration)
-> of libraries using application configuration. Passing "configuration" to each function avoids the library touching any
-> global state. As well as making function calls objectively more "functional".
-
-> Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
-> Therefor using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
-> using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
 ### Versioning
 
