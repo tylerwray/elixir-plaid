@@ -79,7 +79,7 @@ Each major version of `elixir_plaid` targets a specific version of the Plaid API
 | --------------------------------------------------- | --------------- |
 | [`2020-09-14`][api-version-2020-09-14] (**latest**) | `0.x.x`         |
 
-For information about what has changed tyler API versions, head to the [version changelog][version-changelog].
+For information about what has changed between API versions, head to the [version changelog][version-changelog].
 
 ### API Coverage
 
