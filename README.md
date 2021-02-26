@@ -1,4 +1,4 @@
-# Plaid for Elixir
+# Plaid Elixir Library
 
 [![CI](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
 
@@ -29,7 +29,7 @@ end
 <!-- TODO: ADD hexdocs link to Plaid.config type -->
 
 Each function takes a [`Plaid.config`](http://hexdocslinkhere.com) keyword list as it's trailing argument.
-Authenticated requests require a `client_id` and `secert` at minimum for authenication with the plaid API.
+Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
 
 You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
 
