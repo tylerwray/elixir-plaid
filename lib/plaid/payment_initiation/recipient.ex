@@ -6,7 +6,7 @@ defmodule Plaid.PaymentInitiation.Recipient do
   @behaviour Plaid.Castable
 
   alias Plaid.Castable
-  alias Plaid.PaymentInitiation.{BACS, Address}
+  alias Plaid.PaymentInitiation.{Address, BACS}
 
   @type t :: %__MODULE__{
           recipient_id: String.t(),
