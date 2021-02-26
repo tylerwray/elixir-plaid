@@ -26,58 +26,32 @@ end
 
 ### Example Usage
 
-Get [Auth](https://plaid.com/docs/api/products/#auth) data:
+Each function takes a [`Plaid.config`](TODO ADD HEXDOCS LINK) keyword list as it's trailing argument.
+Authenticated requests require a `client_id` and `secert` at minimum for authenication with the plaid API.
+
+You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
 
 ```elixir
-iex> Plaid.Auth.get("asset-prod-123xxx", client_id: "123", secret: "abc")
-{:ok, %Plaid.Auth.GetResponse{
-  accounts: [
-    %Plaid.Account{
-      name: "Plaid Checking",
-      type: "depository",
-      subtype: "checking",
-      # ...
-    }
-  ],
-  numbers: %Plaid.Auth.Numbers{
-    ach: %Plaid.Auth.Numbers.ACH{
-      account: "9900009606",
-      account_id: "vzeNDwK7KQIm4yEog683uElbp9GRLEFXGK98D",
-      routing: "011401533",
-      wire_routing: "021000021"
-    }
-  }
-}}
+# get auth data
+Plaid.Auth.get("asset-prod-123xxx", client_id: "123", secret: "abc")
+
+# get item details
+Plaid.Item.get("asset-prod-123xxx", client_id: "123", secret: "abc", env: :production)
+
+# refresh transactions
+Plaid.Transactions.refresh("asset-prod-123xxx", client_id: "123", secret: "abc", env: )
+
+# get categories is unauthenticated
+Plaid.Categories.get()
 ```
 
-Get [Item](https://plaid.com/docs/api/items/#itemget) status information:
+> The choice to avoid using application configuration is due to the [anti-pattern documented by elixir](https://hexdocs.pm/elixir/master/library-guidelines.html#avoid-application-configuration)
+> of libraries using application configuration. Passing "configuration" to each function avoids the library touching any
+> global state. As well as making function calls objectively more "functional".
 
-```elixir
-iex> Plaid.Item.get("asset-prod-123xxx", client_id: "123", secret: "abc")
-{:ok, %Plaid.Item.GetResponse{
-  item: %Plaid.Item{
-    institution_id: "ins_109508",
-    item_id: "Ed6bjNrDLJfGvZWwnkQlfxwoNz54B5C97ejBr",
-    update_type: "background",
-    webhook: "https://plaid.com/example/hook",
-  },
-  status: %Plaid.Item.Status{
-    transactions: %Plaid.Item.Status.Transactions{
-      last_successful_update: "2019-02-15T15:52:39.000Z",
-      last_failed_update: "2019-01-22T04:32:00.000Z"
-    }
-  }
-}}
-```
-
-Refresh [Transactions](https://plaid.com/docs/api/products/#transactions):
-
-```elixir
-iex> Plaid.Transactions.refresh("asset-prod-123xxx", client_id: "123", secret: "abc")
-{:ok, %Plaid.SimpleResponse{
-  request_id: "ksl9302ksjgkea"
-}}
-```
+> Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
+> Therefor using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
+> using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
 ### Versioning
 
