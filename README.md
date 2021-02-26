@@ -30,17 +30,17 @@ Plaid.Categories.get(env: :production)
 
 ## API
 
-[`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Accounts.html#content)
-[`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/doc/Plaid.AssetReport.html#content)
-[`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Auth.html#content)
-[`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Balance.html#content)
-[`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Identity.html#content)
-[`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Institution.html#content)
-[`Plaid.Investments`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Investments.html#content)
-[`Plaid.Item`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Item.html#content)
-[`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Liabilities.html#content)
-[`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/doc/Plaid.PaymentInitiation.html#content)
-[`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Transactions.html#content)
+- [`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Accounts.html#content)
+- [`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/doc/Plaid.AssetReport.html#content)
+- [`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Auth.html#content)
+- [`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Balance.html#content)
+- [`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Identity.html#content)
+- [`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Institution.html#content)
+- [`Plaid.Investments`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Investments.html#content)
+- [`Plaid.Item`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Item.html#content)
+- [`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Liabilities.html#content)
+- [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/doc/Plaid.PaymentInitiation.html#content)
+- [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Transactions.html#content)
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
