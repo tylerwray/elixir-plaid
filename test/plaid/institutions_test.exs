@@ -300,4 +300,70 @@ defmodule Plaid.InstitutionsTest do
         secret: "abc"
       )
   end
+
+  test "/institutions/search", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/institutions/search", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "institutions": [
+          {
+            "country_codes": [
+              "US"
+            ],
+            "institution_id": "ins_25",
+            "name": "Ally Bank",
+            "oauth": false,
+            "products": [
+              "assets",
+              "auth",
+              "balance",
+              "transactions",
+              "identity"
+            ],
+            "routing_numbers": ["1100000"]
+          }
+        ],
+        "request_id": "Ggmk0enW4smO2Tp"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.Institutions.SearchResponse{
+       institutions: [
+         %Plaid.Institution{
+           country_codes: [
+             "US"
+           ],
+           institution_id: "ins_25",
+           name: "Ally Bank",
+           oauth: false,
+           products: [
+             "assets",
+             "auth",
+             "balance",
+             "transactions",
+             "identity"
+           ],
+           routing_numbers: ["1100000"]
+         }
+       ],
+       request_id: "Ggmk0enW4smO2Tp"
+     }} =
+      Plaid.Institutions.search(
+        %{
+          query: "Ally",
+          products: ["auth", "liabilities"],
+          country_codes: ["US"]
+        },
+        %{
+          oauth: false,
+          include_optional_metadata: true,
+          account_filter: %{
+            loan: ["auto"]
+          }
+        },
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end

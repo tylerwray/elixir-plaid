@@ -63,7 +63,7 @@ For information about what has changed tyler API versions, head to the [version 
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
 | [Deposit Switch (beta)](https://plaid.com/docs/api/products/#deposit-switch-beta)                           | 🗺      |
 | [Item](https://plaid.com/docs/api/items/)                                                                   | ✅     |
-| [Institution](https://plaid.com/docs/api/institutions/)                                                     | 🏗      |
+| [Institution](https://plaid.com/docs/api/institutions/)                                                     | ✅     |
 | [Account](https://plaid.com/docs/api/accounts/)                                                             | ✅     |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | 🗺      |

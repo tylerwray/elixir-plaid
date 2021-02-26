@@ -35,35 +35,6 @@ defmodule Plaid.Institutions do
     end
   end
 
-  defmodule GetByIdResponse do
-    @moduledoc """
-    [Plaid API /institutions/get_by_id response schema.](https://plaid.com/docs/api/institutions/#institutionsget_by_id)
-    """
-
-    @behaviour Plaid.Castable
-
-    alias Plaid.Castable
-    alias Plaid.Institution
-
-    @type t :: %__MODULE__{
-            institution: Institution.t(),
-            request_id: String.t()
-          }
-
-    defstruct [
-      :institution,
-      :request_id
-    ]
-
-    @impl true
-    def cast(generic_map) do
-      %__MODULE__{
-        institution: Castable.cast(Institution, generic_map["institution"]),
-        request_id: generic_map["request_id"]
-      }
-    end
-  end
-
   @doc """
   Get information about Plaid institutions.
     
@@ -116,6 +87,35 @@ defmodule Plaid.Institutions do
     )
   end
 
+  defmodule GetByIdResponse do
+    @moduledoc """
+    [Plaid API /institutions/get_by_id response schema.](https://plaid.com/docs/api/institutions/#institutionsget_by_id)
+    """
+
+    @behaviour Plaid.Castable
+
+    alias Plaid.Castable
+    alias Plaid.Institution
+
+    @type t :: %__MODULE__{
+            institution: Institution.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :institution,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        institution: Castable.cast(Institution, generic_map["institution"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get information about a Plaid institution.
 
@@ -157,6 +157,87 @@ defmodule Plaid.Institutions do
       "/institutions/get_by_id",
       payload,
       GetByIdResponse,
+      config
+    )
+  end
+
+  defmodule SearchResponse do
+    @moduledoc """
+    [Plaid API /institutions/search response schema.](https://plaid.com/docs/api/institutions/#institutionssearch)
+    """
+
+    @behaviour Plaid.Castable
+
+    alias Plaid.Castable
+    alias Plaid.Institution
+
+    @type t :: %__MODULE__{
+            institutions: [Institution.t()],
+            request_id: String.t()
+          }
+
+    defstruct [
+      :institutions,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        institutions: Castable.cast_list(Institution, generic_map["institutions"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
+  @doc """
+  Get information about all Plaid institutions matching the search params.
+
+  Does a `POST /institutions/search` call to list the supported Plaid
+  institutions with their details based on your search query.
+
+  ## Params
+  * `:query` - The search query. Institutions with names matching the query are returned
+  * `:products` - Filter the Institutions based on whether they support listed products.
+  * `:country_codes` - Array of country codes the institution supports.
+
+  ## Options
+  * `:include_optional_metadata` - When true, return the institution's homepage URL, logo and primary brand color.
+  * `:oauth` - Filter institutions with or without OAuth login flows.
+  * `:account_filter` - Object allowing account type -> sub-type filtering.
+
+  > See [Account Type Schema](https://plaid.com/docs/api/accounts/#account-type-schema) for more details on the `account_filter` option.
+
+  ## Examples
+
+      Institutions.search(%{query: "Ally", products: ["auth"], country_codes: ["US"]}, client_id: "123", secret: "abc")
+      {:ok, %Institutions.SearchResponse{}}
+
+  """
+  @spec search(params, options, Plaid.config()) ::
+          {:ok, SearchResponse.t()} | {:error, Plaid.Error.t()}
+        when params: %{
+               required(:query) => String.t(),
+               required(:products) => [String.t()],
+               required(:country_codes) => [String.t()]
+             },
+             options: %{
+               optional(:include_optional_metadata) => boolean(),
+               optional(:oauth) => boolean(),
+               optional(:account_filter) => map()
+             }
+  def search(params, options \\ %{}, config) do
+    options_payload = Map.take(options, [:oauth, :include_optional_metadata, :account_filter])
+
+    payload =
+      params
+      |> Map.take([:query, :products, :country_codes])
+      |> Map.merge(%{options: options_payload})
+
+    Plaid.Client.call(
+      "/institutions/search",
+      payload,
+      SearchResponse,
       config
     )
   end

@@ -66,6 +66,7 @@ defmodule Plaid.MixProject do
             Plaid.Institution.Status.TransactionsUpdates,
             Plaid.Institutions.GetByIdResponse,
             Plaid.Institutions.GetResponse,
+            Plaid.Institutions.SearchResponse
           ],
           Investments: [
             Plaid.Investments.GetHoldingsResponse,
