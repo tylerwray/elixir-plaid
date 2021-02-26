@@ -30,6 +30,18 @@ Plaid.Categories.get(env: :production)
 
 ## API
 
+[`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Accounts.html#content)
+[`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/doc/Plaid.AssetReport.html#content)
+[`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Auth.html#content)
+[`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Balance.html#content)
+[`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Identity.html#content)
+[`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Institution.html#content)
+[`Plaid.Investments`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Investments.html#content)
+[`Plaid.Item`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Item.html#content)
+[`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Liabilities.html#content)
+[`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/doc/Plaid.PaymentInitiation.html#content)
+[`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Transactions.html#content)
+
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
 <!-- TODO: ADD hexdocs link to Plaid.config type -->
@@ -79,23 +91,23 @@ For information about what has changed tyler API versions, head to the [version 
 
 | API                                                                                                         | Status |
 | ----------------------------------------------------------------------------------------------------------- | ------ |
-| [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
+| [Account](https://plaid.com/docs/api/accounts/)                                                             | ✅     |
+| [Asset Report](https://plaid.com/docs/api/products/#assets)                                                 | ✅     |
 | [Auth](https://plaid.com/docs/api/products/#auth)                                                           | ✅     |
 | [Balance](https://plaid.com/docs/api/products/#balance)                                                     | ✅     |
-| [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅     |
-| [Asset Report](https://plaid.com/docs/api/products/#assets)                                                 | ✅     |
-| [Investments](https://plaid.com/docs/api/products/#investments)                                             | ✅     |
-| [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
-| [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
 | [Deposit Switch (beta)](https://plaid.com/docs/api/products/#deposit-switch-beta)                           | 🗺      |
-| [Item](https://plaid.com/docs/api/items/)                                                                   | ✅     |
+| [Employer](https://plaid.com/docs/api/employers/)                                                           | 🗺      |
+| [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅     |
 | [Institution](https://plaid.com/docs/api/institutions/)                                                     | ✅     |
-| [Account](https://plaid.com/docs/api/accounts/)                                                             | ✅     |
-| [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
+| [Investments](https://plaid.com/docs/api/products/#investments)                                             | ✅     |
+| [Item](https://plaid.com/docs/api/items/)                                                                   | ✅     |
+| [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
+| [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | 🗺      |
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
-| [Employer](https://plaid.com/docs/api/employers/)                                                           | 🗺      |
+| [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
+| [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🗺      |
 
 ### Contributing
