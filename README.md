@@ -6,11 +6,12 @@
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
-### Core Principles
+### Motivation & Principles
 
-1. Fantastic documentation
+1. Provide FANTASTIC documentation
 2. Full plaid API coverage
-3. Always return structs
+3. Sync with the plaid API versioning plan
+4. Use well-defined structs for everything
 
 ### Example Usage
 
