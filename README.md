@@ -4,6 +4,8 @@
 
 > Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
+BETA: I'm working to get this library to a v1 state, and then I'll be publishing it to HEx. It is not yet intended for production use.
+
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
 ### Motivation & Principles
