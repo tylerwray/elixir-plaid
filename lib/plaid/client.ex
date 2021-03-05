@@ -46,7 +46,7 @@ defmodule Plaid.Client do
     if is_binary(test_api_host) do
       test_api_host <> endpoint
     else
-      env = Keyword.get(config, :env, Application.fetch_env!(:elixir_plaid, :env))
+      env = Keyword.get(config, :env, :sandbox)
       "https://#{env}.plaid.com#{endpoint}"
     end
   end
@@ -66,23 +66,19 @@ defmodule Plaid.Client do
     {:ok, body}
   end
 
-  def handle_response({:ok, %{body: body, status_code: status_code}}, castable_struct)
+  def handle_response({:ok, %{body: json_body, status_code: status_code}}, castable_struct)
       when status_code in 200..299 do
-    res =
-      body
-      |> Jason.decode!()
-      |> castable_struct.cast()
-
-    {:ok, res}
+    case Jason.decode(json_body) do
+      {:ok, body} -> {:ok, castable_struct.cast(body)}
+      _ -> {:error, Plaid.Error.cast(%{})}
+    end
   end
 
-  def handle_response({:ok, %{body: body}}, _castable_struct) do
-    error =
-      body
-      |> Jason.decode!()
-      |> Plaid.Error.cast()
-
-    {:error, error}
+  def handle_response({:ok, %{body: json_body}}, _castable_struct) do
+    case Jason.decode(json_body) do
+      {:ok, body} -> {:error, Plaid.Error.cast(body)}
+      _ -> {:error, Plaid.Error.cast(%{})}
+    end
   end
 
   def handle_response(res, _), do: res

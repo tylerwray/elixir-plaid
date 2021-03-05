@@ -1,8 +1,6 @@
 defmodule Plaid do
   @moduledoc """
-  ## Installation
-  ## Usage
-  ## Configuration
+  Shared types used in the library.
   """
 
   @typedoc "Supported environments in the Plaid API."

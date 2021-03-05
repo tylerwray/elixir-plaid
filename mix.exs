@@ -114,6 +114,9 @@ defmodule Plaid.MixProject do
             Plaid.Transactions.Transaction.Location,
             Plaid.Transactions.Transaction.PaymentMeta
           ],
+          Webhooks: [
+            Plaid.Webhooks.ItemError
+          ],
           Other: [
             Plaid,
             Plaid.Address,
@@ -129,9 +132,7 @@ defmodule Plaid.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      # Default Application environment
-      env: [env: :sandbox]
+      extra_applications: [:logger]
     ]
   end
 
@@ -143,7 +144,9 @@ defmodule Plaid.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
       {:httpoison, "~> 1.7"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:joken, "~> 2.0"},
+      {:secure_compare, "~> 0.1.0"}
     ]
   end
 end

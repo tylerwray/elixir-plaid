@@ -1,6 +1,6 @@
 # Plaid Elixir Library
 
-[![CI](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
+[![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
 
 > Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
@@ -44,6 +44,7 @@ Plaid.Categories.get(env: :production)
 - [`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Liabilities.html#content)
 - [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/doc/Plaid.PaymentInitiation.html#content)
 - [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Transactions.html#content)
+- [`Plaid.Webhooks`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Webhooks.html#content)
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
@@ -111,7 +112,7 @@ For information about what has changed between API versions, head to the [versio
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
-| [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🗺      |
+| [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🏗      |
 
 ### Contributing
 
