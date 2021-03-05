@@ -5,6 +5,8 @@ defmodule Plaid.MixProject do
     [
       app: :elixir_plaid,
       version: "0.1.0",
+      description: description(),
+      package: package(),
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
@@ -147,6 +149,17 @@ defmodule Plaid.MixProject do
       {:jason, "~> 1.2"},
       {:joken, "~> 2.0"},
       {:secure_compare, "~> 0.1.0"}
+    ]
+  end
+
+  defp description() do
+    "Simply Beautiful Elixir bindings for the Plaid API."
+  end
+
+  defp package() do
+    [
+      licenses: ["AML"],
+      links: %{"GitHub" => "https://github.com/tylerwray/elixir-plaid"}
     ]
   end
 end

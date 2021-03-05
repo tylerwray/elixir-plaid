@@ -1,6 +1,4 @@
 defmodule Plaid.WebhooksTest do
-  # PlaidJWT: eyJhbGciOiJFUzI1NiIsImtpZCI6IjZjNTUxNmUxLTkyZGMtNDc5ZS1hOGZmLTVhNTE5OTJlMDAwMSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTQ1Nzg2MTcsInJlcXVlc3RfYm9keV9zaGEyNTYiOiIyM2JhM2IxNzcwMjk0ZWVlYWJhM2JmZjc1NTdjNjJlZDZkNmU4MzMzYjZkMmFmZjcyNDIxMWI0N2FkYjVhYWYyIn0.TClT2hrFCjlQSc3WbQ0GpBdwjP9InvTXaMfDYbtFJTlKXua_3tejuuHm4NzYQtCV-lXJ4fub3kLoQFkfi234_Q
-  # @webhook_body ~s<{\n  \"error\": null,\n  \"item_id\": \"lvMEnMo5m9ivMdZeemZVtJP8zGXVJDiLPKkEp\",\n  \"new_transactions\": 0,\n  \"webhook_code\": \"DEFAULT_UPDATE\",\n  \"webhook_type\": \"TRANSACTIONS\"\n}>
   use ExUnit.Case, async: true
 
   alias Plug.Conn

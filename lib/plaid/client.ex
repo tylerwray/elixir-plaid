@@ -26,7 +26,7 @@ defmodule Plaid.Client do
   """
   @spec call(String.t(), map(), module(), Plaid.config()) ::
           {:ok, map()} | {:error, Plaid.Error.t()}
-  def call(endpoint, payload \\ %{}, castable_struct, config) do
+  def call(endpoint, payload \\ %{}, castable_module, config) do
     url = build_url(config, endpoint)
 
     payload =
@@ -36,7 +36,7 @@ defmodule Plaid.Client do
 
     :post
     |> request(url, payload)
-    |> handle_response(castable_struct)
+    |> handle_response(castable_module)
   end
 
   @spec build_url(Plaid.config(), String.t()) :: String.t()
@@ -61,20 +61,28 @@ defmodule Plaid.Client do
     Map.merge(payload, auth)
   end
 
+  @spec handle_response(
+          {:ok,
+           HTTPoison.Response.t()
+           | HTTPoison.AsyncResponse.t()
+           | HTTPoison.MaybeRedirect.t()}
+          | {:error, HTTPoison.Error.t()},
+          module() | :raw
+        ) :: {:ok, any()} | {:error, struct()}
   def handle_response({:ok, %{body: body, status_code: status_code}}, :raw)
       when status_code in 200..299 do
     {:ok, body}
   end
 
-  def handle_response({:ok, %{body: json_body, status_code: status_code}}, castable_struct)
+  def handle_response({:ok, %{body: json_body, status_code: status_code}}, castable_module)
       when status_code in 200..299 do
     case Jason.decode(json_body) do
-      {:ok, body} -> {:ok, castable_struct.cast(body)}
+      {:ok, body} -> {:ok, castable_module.cast(body)}
       _ -> {:error, Plaid.Error.cast(%{})}
     end
   end
 
-  def handle_response({:ok, %{body: json_body}}, _castable_struct) do
+  def handle_response({:ok, %{body: json_body}}, _castable_module) do
     case Jason.decode(json_body) do
       {:ok, body} -> {:error, Plaid.Error.cast(body)}
       _ -> {:error, Plaid.Error.cast(%{})}

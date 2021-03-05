@@ -51,7 +51,7 @@ defmodule Plaid.Webhooks do
       {:ok, %Plaid.Webhooks.ItemError{}}
 
   """
-  @spec verify_and_construct(String.t(), String.t(), Plaid.Config.t()) ::
+  @spec verify_and_construct(String.t(), String.t(), Plaid.config()) ::
           {:ok, struct()} | {:error, any()}
   def verify_and_construct(jwt, raw_body, config) do
     token_config = %{
@@ -75,6 +75,7 @@ defmodule Plaid.Webhooks do
       {:ok, Plaid.Castable.cast(struct_module(type, code), body)}
     else
       {:ok, %{"alg" => _alg}} -> {:error, :invalid_algorithm}
+      _ -> {:error, :unknown}
     end
   end
 
