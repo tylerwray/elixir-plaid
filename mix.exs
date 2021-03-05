@@ -152,13 +152,13 @@ defmodule Plaid.MixProject do
     ]
   end
 
-  defp description() do
+  defp description do
     "Simply Beautiful Elixir bindings for the Plaid API."
   end
 
-  defp package() do
+  defp package do
     [
-      licenses: ["AML"],
+      licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/tylerwray/elixir-plaid"}
     ]
   end

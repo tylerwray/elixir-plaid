@@ -1,10 +1,8 @@
 # Plaid Elixir Library
 
-[![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml)
+[![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml) [![Hex Version](https://img.shields.io/hexpm/v/elixir_plaid.svg)](https://hex.pm/packages/elixir_plaid) [![Hex Docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/elixir_plaid) [![MIT License](https://img.shields.io/hexpm/l/elixir_plaid)](https://opensource.org/licenses/MIT)
 
 > Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
-
-Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
 ## Beware of v0
 
