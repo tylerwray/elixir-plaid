@@ -8,14 +8,14 @@ BETA: I'm working to get this library to a v1 state, and then I'll be publishing
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
-### Motivation & Principles
+## Motivation & Principles
 
 1. Provide FANTASTIC documentation
 2. Full plaid API coverage
-3. Sync with the plaid API versioning plan
-4. Use well-defined structs for everything
+3. Use the plaid API versioning plan
+4. Return well-defined structs, always
 
-### Example Usage
+## Example Usage
 
 ```elixir
 # get auth data
@@ -48,9 +48,7 @@ Plaid.Categories.get(env: :production)
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
-<!-- TODO: ADD hexdocs link to Plaid.config type -->
-
-Each function takes a [`Plaid.config`](http://hexdocslinkhere.com) keyword list as it's trailing argument.
+Each function takes a [`Plaid.config`](https://hexdocs.pm/elixir_plaid/doc/Plaid.html#t:config/0) keyword list as it's trailing argument.
 Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
 
 You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
@@ -63,7 +61,7 @@ You can also pass an `env` option as either `:production`, `:development`, or `:
 > Therefore using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
 > using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
-### Installation
+## Installation
 
 Add `elixir_plaid` to your list of dependencies in `mix.exs`:
 
@@ -75,7 +73,7 @@ def deps do
 end
 ```
 
-### Versioning
+## Versioning
 
 Each major version of `elixir_plaid` targets a specific version of the Plaid API:
 
@@ -85,7 +83,7 @@ Each major version of `elixir_plaid` targets a specific version of the Plaid API
 
 For information about what has changed between API versions, head to the [version changelog][version-changelog].
 
-### API Coverage
+## API Coverage
 
 ✅ - Full Coverage
 
@@ -114,12 +112,12 @@ For information about what has changed between API versions, head to the [versio
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🏗      |
 
-### Contributing
+## Contributing
 
 Bug reports and pull requests are welcome on [GitHub](https://github.com/tylerwray/elixir_plaid).
 See [contributing guidelines](CONTRIBUTING.md) for more details.
 
-### License
+## License
 
 The package is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
