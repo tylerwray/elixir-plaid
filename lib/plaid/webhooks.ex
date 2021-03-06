@@ -291,6 +291,58 @@ defmodule Plaid.Webhooks do
     end
   end
 
+  defmodule AssetsProductReady do
+    @moduledoc """
+    [Plaid ASSETS: PRODUCT_READY webhooks schema](https://plaid.com/docs/api/webhooks/#assets-product_ready)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            asset_report_id: String.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :asset_report_id]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        asset_report_id: generic_map["asset_report_id"]
+      }
+    end
+  end
+
+  defmodule AssetsError do
+    @moduledoc """
+    [Plaid ASSETS: ERROR webhooks schema](https://plaid.com/docs/api/webhooks/#assets-error)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            asset_report_id: String.t(),
+            error: Plaid.Error.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :asset_report_id, :error]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        asset_report_id: generic_map["asset_report_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"])
+      }
+    end
+  end
+
   @spec struct_module(String.t(), String.t()) :: module()
   defp struct_module("ITEM", "ERROR"), do: ItemError
   defp struct_module("ITEM", "PENDING_EXPIRATION"), do: ItemPendingExpiration
@@ -302,4 +354,6 @@ defmodule Plaid.Webhooks do
   defp struct_module("TRANSACTIONS", "TRANSACTIONS_REMOVED"), do: TransactionsRemoved
   defp struct_module("AUTH", "AUTOMATICALLY_VERIFIED"), do: Auth
   defp struct_module("AUTH", "VERIFICATION_EXPIRED"), do: Auth
+  defp struct_module("ASSETS", "PRODUCT_READY"), do: AssetsProductReady
+  defp struct_module("ASSETS", "ERROR"), do: AssetsError
 end

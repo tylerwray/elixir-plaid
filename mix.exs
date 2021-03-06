@@ -117,7 +117,15 @@ defmodule Plaid.MixProject do
             Plaid.Transactions.Transaction.PaymentMeta
           ],
           Webhooks: [
-            Plaid.Webhooks.ItemError
+            Plaid.Webhooks.ItemError,
+            Plaid.Webhooks.ItemPendingExpiration,
+            Plaid.Webhooks.ItemUserPermissionRevoked,
+            Plaid.Webhooks.ItemWebhookUpdateAcknowledged,
+            Plaid.Webhooks.Auth,
+            Plaid.Webhooks.AssetsError,
+            Plaid.Webhooks.AssetsProductReady,
+            Plaid.Webhooks.TransactionsUpdate,
+            Plaid.Webhooks.TransactionsRemoved
           ],
           Other: [
             Plaid,

@@ -289,5 +289,50 @@ defmodule Plaid.WebhooksTest do
           test_api_host: api_host
         )
     end
+
+    test "assets product ready webhook", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "ASSETS", "webhook_code": "PRODUCT_READY", "asset_report_id": "47dfc92b-bba3-4583-809e-ce871b321f05"}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %Plaid.Webhooks.AssetsProductReady{
+         webhook_type: "ASSETS",
+         webhook_code: "PRODUCT_READY",
+         asset_report_id: "47dfc92b-bba3-4583-809e-ce871b321f05"
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
+    test "assets error webhook", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "ASSETS", "webhook_code": "ERROR", "asset_report_id": "47dfc92b-bba3-4583-809e-ce871b321f05", "error": {"display_message": null, "error_code": "PRODUCT_NOT_ENABLED", "error_message": "the 'assets' product is not enabled", "error_type": "ASSET_REPORT_ERROR", "request_id": "m8MDnv9okwxFNBV"}}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %Plaid.Webhooks.AssetsError{
+         webhook_type: "ASSETS",
+         webhook_code: "ERROR",
+         asset_report_id: "47dfc92b-bba3-4583-809e-ce871b321f05",
+         error: %Plaid.Error{
+           display_message: nil,
+           error_code: "PRODUCT_NOT_ENABLED",
+           error_message: "the 'assets' product is not enabled",
+           error_type: "ASSET_REPORT_ERROR",
+           request_id: "m8MDnv9okwxFNBV"
+         }
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
   end
 end
