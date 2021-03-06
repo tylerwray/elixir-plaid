@@ -5,33 +5,6 @@ defmodule Plaid.Webhooks do
 
   alias Plaid.Castable
 
-  defmodule ItemError do
-    @moduledoc """
-    [Plaid webhooks ITEM_ERROR schema](https://plaid.com/docs/api/webhooks/#item-error)
-    """
-
-    @behaviour Castable
-
-    @type t :: %__MODULE__{
-            webhook_type: String.t(),
-            webhook_code: String.t(),
-            item_id: String.t(),
-            error: Plaid.Error.t()
-          }
-
-    defstruct [:webhook_type, :webhook_code, :item_id, :error]
-
-    @impl true
-    def cast(generic_map) do
-      %__MODULE__{
-        webhook_type: generic_map["webhook_type"],
-        webhook_code: generic_map["webhook_code"],
-        item_id: generic_map["item_id"],
-        error: Castable.cast(Plaid.Error, generic_map["error"])
-      }
-    end
-  end
-
   @doc """
   Verify that a webhook is actually from plaid, constructing the raw body into an event struct.
 
@@ -119,6 +92,214 @@ defmodule Plaid.Webhooks do
     )
   end
 
+  defmodule ItemError do
+    @moduledoc """
+    [Plaid webhooks ITEM: ERROR schema](https://plaid.com/docs/api/webhooks/#item-error)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"])
+      }
+    end
+  end
+
+  defmodule ItemPendingExpiration do
+    @moduledoc """
+    [Plaid webhooks ITEM: PENDING_EXPIRATION schema](https://plaid.com/docs/api/webhooks/#item-pending_expiration)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            consent_expiration_time: String.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :consent_expiration_time]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        consent_expiration_time: generic_map["consent_expiration_time"]
+      }
+    end
+  end
+
+  defmodule ItemUserPermissionRevoked do
+    @moduledoc """
+    [Plaid webhooks ITEM: USER_PERMISSION_REVOKED schema](https://plaid.com/docs/api/webhooks/#item-user_permission_revoked)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"])
+      }
+    end
+  end
+
+  defmodule ItemWebhookUpdateAcknowledged do
+    @moduledoc """
+    [Plaid webhooks ITEM: WEBHOOK_UPDATE_ACKNOWLEDGED schema](https://plaid.com/docs/api/webhooks/#item-webhook_update_acknowledged)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t(),
+            new_webhook_url: String.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error, :new_webhook_url]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        new_webhook_url: generic_map["new_webhook_url"]
+      }
+    end
+  end
+
+  defmodule TransactionsUpdate do
+    @moduledoc """
+    [Plaid webhooks transactions update schema](https://plaid.com/docs/api/webhooks/#transactions-historical_update)
+
+    Used with `INITIAL_UPDATE`, `HISTORICAL_UPDATE`, and `DEFAULT_UPDATE` webhooks.
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t(),
+            new_transactions: number()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error, :new_transactions]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        new_transactions: generic_map["new_transactions"]
+      }
+    end
+  end
+
+  defmodule TransactionsRemoved do
+    @moduledoc """
+    [Plaid webhooks TRANSACTIONS: TRANSACTIONS_REMOVED schema](https://plaid.com/docs/api/webhooks/#transactions-transactions_removed)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t(),
+            removed_transactions: [String.t()]
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error, :removed_transactions]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        removed_transactions: generic_map["removed_transactions"]
+      }
+    end
+  end
+
+  defmodule Auth do
+    @moduledoc """
+    [Plaid auth webhooks schema](https://plaid.com/docs/api/webhooks/#auth-automatically_verified)
+
+    Used with `AUTOMATICALLY_VERIFIED` and `VERIFICATION_EXPIRED` webhooks.
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            account_id: String.t()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :account_id]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        account_id: generic_map["account_id"]
+      }
+    end
+  end
+
   @spec struct_module(String.t(), String.t()) :: module()
   defp struct_module("ITEM", "ERROR"), do: ItemError
+  defp struct_module("ITEM", "PENDING_EXPIRATION"), do: ItemPendingExpiration
+  defp struct_module("ITEM", "USER_PERMISSION_REVOKED"), do: ItemUserPermissionRevoked
+  defp struct_module("ITEM", "WEBHOOK_UPDATE_ACKNOWLEDGED"), do: ItemWebhookUpdateAcknowledged
+  defp struct_module("TRANSACTIONS", "INITIAL_UPDATE"), do: TransactionsUpdate
+  defp struct_module("TRANSACTIONS", "HISTORICAL_UPDATE"), do: TransactionsUpdate
+  defp struct_module("TRANSACTIONS", "DEFAULT_UPDATE"), do: TransactionsUpdate
+  defp struct_module("TRANSACTIONS", "TRANSACTIONS_REMOVED"), do: TransactionsRemoved
+  defp struct_module("AUTH", "AUTOMATICALLY_VERIFIED"), do: Auth
+  defp struct_module("AUTH", "VERIFICATION_EXPIRED"), do: Auth
 end

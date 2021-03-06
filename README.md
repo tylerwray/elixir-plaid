@@ -34,22 +34,22 @@ Plaid.Categories.get(env: :production)
 
 ## API
 
-- [`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Accounts.html#content)
-- [`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/doc/Plaid.AssetReport.html#content)
-- [`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Auth.html#content)
-- [`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Balance.html#content)
-- [`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Identity.html#content)
-- [`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Institution.html#content)
-- [`Plaid.Investments`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Investments.html#content)
-- [`Plaid.Item`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Item.html#content)
-- [`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Liabilities.html#content)
-- [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/doc/Plaid.PaymentInitiation.html#content)
-- [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Transactions.html#content)
-- [`Plaid.Webhooks`](https://hexdocs.pm/elixir_plaid/doc/Plaid.Webhooks.html#content)
+- [`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/Plaid.Accounts.html#content)
+- [`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/Plaid.AssetReport.html#content)
+- [`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/Plaid.Auth.html#content)
+- [`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/Plaid.Balance.html#content)
+- [`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/Plaid.Identity.html#content)
+- [`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/Plaid.Institution.html#content)
+- [`Plaid.Investments`](https://hexdocs.pm/elixir_plaid/Plaid.Investments.html#content)
+- [`Plaid.Item`](https://hexdocs.pm/elixir_plaid/Plaid.Item.html#content)
+- [`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/Plaid.Liabilities.html#content)
+- [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/Plaid.PaymentInitiation.html#content)
+- [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/Plaid.Transactions.html#content)
+- [`Plaid.Webhooks`](https://hexdocs.pm/elixir_plaid/Plaid.Webhooks.html#content)
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
-Each function takes a [`Plaid.config`](https://hexdocs.pm/elixir_plaid/doc/Plaid.html#t:config/0) keyword list as it's trailing argument.
+Each function takes a [`Plaid.config`](https://hexdocs.pm/elixir_plaid/Plaid.html#t:config/0) keyword list as it's trailing argument.
 Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
 
 You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
