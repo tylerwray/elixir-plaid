@@ -343,6 +343,128 @@ defmodule Plaid.Webhooks do
     end
   end
 
+  defmodule HoldingsUpdate do
+    @moduledoc """
+    [Plaid HOLDINGS: DEFAULT_UPDATE webhooks schema](https://plaid.com/docs/api/webhooks/#holdings-default_update)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t(),
+            new_holdings: number(),
+            updated_holdings: number()
+          }
+
+    defstruct [:webhook_type, :webhook_code, :item_id, :error, :new_holdings, :updated_holdings]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        new_holdings: generic_map["new_holdings"],
+        updated_holdings: generic_map["updated_holdings"]
+      }
+    end
+  end
+
+  defmodule InvestmentsTransactionsUpdate do
+    @moduledoc """
+    [Plaid INVESTMENTS_TRANSACTIONS: DEFAULT_UPDATE webhooks schema](https://plaid.com/docs/api/webhooks/#investments_transactions-default_update)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            item_id: String.t(),
+            error: Plaid.Error.t(),
+            new_investments_transactions: number(),
+            canceled_investments_transactions: number()
+          }
+
+    defstruct [
+      :webhook_type,
+      :webhook_code,
+      :item_id,
+      :error,
+      :new_investments_transactions,
+      :canceled_investments_transactions
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        item_id: generic_map["item_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        new_investments_transactions: generic_map["new_investments_transactions"],
+        canceled_investments_transactions: generic_map["canceled_investments_transactions"]
+      }
+    end
+  end
+
+  defmodule PaymentInitiationPaymentStatusUpdate do
+    @moduledoc """
+    [Plaid PAYMENT_INITIATION: PAYMENT_STATUS_UPDATE webhook schema](https://plaid.com/docs/api/webhooks/#payment-initiation-webhooks)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            webhook_type: String.t(),
+            webhook_code: String.t(),
+            payment_id: String.t(),
+            error: Plaid.Error.t(),
+            new_payment_status: String.t(),
+            old_payment_status: String.t(),
+            original_reference: String.t(),
+            adjusted_reference: String.t(),
+            original_start_date: String.t(),
+            adjusted_start_date: String.t(),
+            timestamp: String.t()
+          }
+
+    defstruct [
+      :webhook_type,
+      :webhook_code,
+      :payment_id,
+      :error,
+      :new_payment_status,
+      :old_payment_status,
+      :original_reference,
+      :adjusted_reference,
+      :original_start_date,
+      :adjusted_start_date,
+      :timestamp
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        webhook_type: generic_map["webhook_type"],
+        webhook_code: generic_map["webhook_code"],
+        payment_id: generic_map["payment_id"],
+        error: Castable.cast(Plaid.Error, generic_map["error"]),
+        new_payment_status: generic_map["new_payment_status"],
+        old_payment_status: generic_map["old_payment_status"],
+        original_reference: generic_map["original_reference"],
+        adjusted_reference: generic_map["adjusted_reference"],
+        original_start_date: generic_map["original_start_date"],
+        adjusted_start_date: generic_map["adjusted_start_date"],
+        timestamp: generic_map["timestamp"]
+      }
+    end
+  end
+
   @spec struct_module(String.t(), String.t()) :: module()
   defp struct_module("ITEM", "ERROR"), do: ItemError
   defp struct_module("ITEM", "PENDING_EXPIRATION"), do: ItemPendingExpiration
@@ -356,4 +478,11 @@ defmodule Plaid.Webhooks do
   defp struct_module("AUTH", "VERIFICATION_EXPIRED"), do: Auth
   defp struct_module("ASSETS", "PRODUCT_READY"), do: AssetsProductReady
   defp struct_module("ASSETS", "ERROR"), do: AssetsError
+  defp struct_module("HOLDINGS", "DEFAULT_UPDATE"), do: HoldingsUpdate
+
+  defp struct_module("INVESTMENTS_TRANSACTIONS", "DEFAULT_UPDATE"),
+    do: InvestmentsTransactionsUpdate
+
+  defp struct_module("PAYMENT_INITIATION", "PAYMENT_STATUS_UPDATE"),
+    do: PaymentInitiationPaymentStatusUpdate
 end

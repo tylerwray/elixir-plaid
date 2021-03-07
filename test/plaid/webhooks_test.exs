@@ -334,5 +334,76 @@ defmodule Plaid.WebhooksTest do
           test_api_host: api_host
         )
     end
+
+    test "holdings default update webhook", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "HOLDINGS", "webhook_code": "DEFAULT_UPDATE", "item_id": "wz666MBjYWTp2PDzzggYhM6oWWmBb", "error": null, "new_holdings": 19, "updated_holdings": 0}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %Plaid.Webhooks.HoldingsUpdate{
+         webhook_type: "HOLDINGS",
+         webhook_code: "DEFAULT_UPDATE",
+         item_id: "wz666MBjYWTp2PDzzggYhM6oWWmBb",
+         error: nil,
+         new_holdings: 19,
+         updated_holdings: 0
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
+    test "investments transactions default update webhook", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "INVESTMENTS_TRANSACTIONS", "webhook_code": "DEFAULT_UPDATE", "item_id": "wz666MBjYWTp2PDzzggYhM6oWWmBb", "error": null, "new_investments_transactions": 16, "canceled_investments_transactions": 0}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %Plaid.Webhooks.InvestmentsTransactionsUpdate{
+         webhook_type: "INVESTMENTS_TRANSACTIONS",
+         webhook_code: "DEFAULT_UPDATE",
+         item_id: "wz666MBjYWTp2PDzzggYhM6oWWmBb",
+         error: nil,
+         new_investments_transactions: 16,
+         canceled_investments_transactions: 0
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
+    test "payment inititation payment status update webhook", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "PAYMENT_INITIATION", "webhook_code": "PAYMENT_STATUS_UPDATE", "payment_id": "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2", "new_payment_status": "PAYMENT_STATUS_INITIATED", "old_payment_status": "PAYMENT_STATUS_PROCESSING", "original_reference": "Account Funding 99744", "adjusted_reference": "Account Funding 99", "original_start_date": "2017-09-14", "adjusted_start_date": "2017-09-15", "timestamp": "2017-09-14T14:42:19.350Z", "error": null}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %Plaid.Webhooks.PaymentInitiationPaymentStatusUpdate{
+         webhook_type: "PAYMENT_INITIATION",
+         webhook_code: "PAYMENT_STATUS_UPDATE",
+         payment_id: "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2",
+         new_payment_status: "PAYMENT_STATUS_INITIATED",
+         old_payment_status: "PAYMENT_STATUS_PROCESSING",
+         original_reference: "Account Funding 99744",
+         adjusted_reference: "Account Funding 99",
+         original_start_date: "2017-09-14",
+         adjusted_start_date: "2017-09-15",
+         timestamp: "2017-09-14T14:42:19.350Z",
+         error: nil
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
   end
 end
