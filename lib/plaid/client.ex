@@ -2,6 +2,8 @@ defmodule Plaid.Client do
   @moduledoc false
   use HTTPoison.Base
 
+  alias Plaid.Castable
+
   def process_request_headers(headers) do
     [{"Content-Type", "application/json"}] ++ headers
   end
@@ -77,15 +79,15 @@ defmodule Plaid.Client do
   def handle_response({:ok, %{body: json_body, status_code: status_code}}, castable_module)
       when status_code in 200..299 do
     case Jason.decode(json_body) do
-      {:ok, body} -> {:ok, castable_module.cast(body)}
-      _ -> {:error, Plaid.Error.cast(%{})}
+      {:ok, generic_map} -> {:ok, Castable.cast(castable_module, generic_map)}
+      _ -> {:error, Castable.cast(Plaid.Error, %{})}
     end
   end
 
   def handle_response({:ok, %{body: json_body}}, _castable_module) do
     case Jason.decode(json_body) do
-      {:ok, body} -> {:error, Plaid.Error.cast(body)}
-      _ -> {:error, Plaid.Error.cast(%{})}
+      {:ok, generic_map} -> {:error, Castable.cast(Plaid.Error, generic_map)}
+      _ -> {:error, Castable.cast(Plaid.Error, %{})}
     end
   end
 

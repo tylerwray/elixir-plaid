@@ -3,6 +3,8 @@ defmodule Plaid.Webhooks do
   Verify webhooks from plaid and construct the raw body into structs
   """
 
+  require Logger
+
   alias Plaid.Castable
 
   @doc """
@@ -10,6 +12,8 @@ defmodule Plaid.Webhooks do
 
   Adheres to the guidelines outlined in [this guide](https://plaid.com/docs/api/webhook-verification/) 
   from plaid to verify webhooks. 
+
+  > In-Progress: Only missing piece from the plaid guidelines is public key caching.
 
   Also constructs the `raw_body` into an event struct.
 
@@ -25,7 +29,8 @@ defmodule Plaid.Webhooks do
 
   """
   @spec verify_and_construct(String.t(), String.t(), Plaid.config()) ::
-          {:ok, struct()} | {:error, any()}
+          {:ok, struct()}
+          | {:error, :invalid_algorithm | :invalid_body | :unknown | Plaid.Error.t()}
   def verify_and_construct(jwt, raw_body, config) do
     token_config = %{
       "iat" => %Joken.Claim{
@@ -47,8 +52,18 @@ defmodule Plaid.Webhooks do
          {:ok, %{"webhook_type" => type, "webhook_code" => code} = body} <- Jason.decode(raw_body) do
       {:ok, Plaid.Castable.cast(struct_module(type, code), body)}
     else
-      {:ok, %{"alg" => _alg}} -> {:error, :invalid_algorithm}
-      _ -> {:error, :unknown}
+      {:ok, %{"alg" => _alg}} ->
+        {:error, :invalid_algorithm}
+
+      {:error, %Plaid.Error{} = error} ->
+        {:error, error}
+
+      false ->
+        {:error, :invalid_body}
+
+      error ->
+        Logger.debug("[#{__MODULE__}] unknown error verifying webhook: #{inspect(error)}")
+        {:error, :unknown}
     end
   end
 
@@ -485,4 +500,15 @@ defmodule Plaid.Webhooks do
 
   defp struct_module("PAYMENT_INITIATION", "PAYMENT_STATUS_UPDATE"),
     do: PaymentInitiationPaymentStatusUpdate
+
+  defp struct_module(webhook_type, webhook_code) do
+    Logger.warn([
+      "[#{__MODULE__}]",
+      " webhook cast not implemented for",
+      " webhook_type: #{webhook_type} and webhook_code: #{webhook_code}.",
+      " Returning raw webhook."
+    ])
+
+    :raw
+  end
 end

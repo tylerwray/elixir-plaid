@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.1.1",
+      version: "0.1.2",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -15,7 +15,7 @@ defmodule Plaid.MixProject do
       ],
       docs: [
         main: "readme",
-        extras: ["CONTRIBUTING.md", "README.md"],
+        extras: ["README.md", "CONTRIBUTING.md", "guides/webhooks.md"],
         groups_for_modules: [
           Accounts: [
             Plaid.Accounts.Account,

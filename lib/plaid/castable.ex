@@ -139,15 +139,24 @@ defmodule Plaid.Castable do
   @doc """
   Take a generic string-key map and cast it into a well defined struct.
 
+  Passing `:raw` as the module will just give back the string-key map; Useful for fallbacks.
+
   ## Examples
 
       cast(MyStruct, %{"key" => "value"})
       %MyStruct{key: "value"}
+      
+      cast(:raw, %{"key" => "value"})
+      %{"key" => "value"}
 
   """
-  @spec cast(module(), generic_map() | nil) :: generic_map() | nil
+  @spec cast(module() | :raw, generic_map() | nil) :: generic_map() | nil
   def cast(_implementation, nil) do
     nil
+  end
+
+  def cast(:raw, generic_map) do
+    generic_map
   end
 
   def cast(implementation, generic_map) when is_map(generic_map) do
@@ -169,6 +178,6 @@ defmodule Plaid.Castable do
   end
 
   def cast_list(implementation, list_of_generic_maps) when is_list(list_of_generic_maps) do
-    Enum.map(list_of_generic_maps, &implementation.cast/1)
+    Enum.map(list_of_generic_maps, &cast(implementation, &1))
   end
 end

@@ -71,6 +71,50 @@ defmodule Plaid.WebhooksTest do
         Plaid.Webhooks.verify_and_construct(jwt, "{}", client_id: "abc", secret: "123")
     end
 
+    test "errors when plaid public key request fails", %{bypass: bypass, api_host: api_host} do
+      Bypass.expect_once(bypass, "POST", "/webhook_verification_key/get", fn conn ->
+        Conn.resp(
+          conn,
+          400,
+          ~s<{
+            "display_message": null,
+            "documentation_url": "https://plaid.com/docs/?ref=error#invalid-request-errors",
+            "error_code": "MISSING_FIELDS",
+            "error_message": "the following required fields are missing: client_id, secret",
+            "error_type": "INVALID_REQUEST",
+            "request_id": "TN8syo3X9zbu1z1",
+            "suggested_action": null
+          }>
+        )
+      end)
+
+      raw_body =
+        ~s<{"webhook_type": "PAYMENT_INITIATION", "webhook_code": "PAYMENT_STATUS_UPDATE", "payment_id": "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2", "new_payment_status": "PAYMENT_STATUS_INITIATED", "old_payment_status": "PAYMENT_STATUS_PROCESSING", "original_reference": "Account Funding 99744", "adjusted_reference": "Account Funding 99", "original_start_date": "2017-09-14", "adjusted_start_date": "2017-09-15", "timestamp": "2017-09-14T14:42:19.350Z", "error": null}>
+
+      jwt = create_jwt(raw_body)
+
+      {:error, %Plaid.Error{}} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
+    test "errors when request body doesn't match token sha256", %{api_host: api_host} do
+      token_body =
+        ~s<{"webhook_type": "PAYMENT_INITIATION", "webhook_code": "PAYMENT_STATUS_UPDATE", "payment_id": "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2", "new_payment_status": "PAYMENT_STATUS_INITIATED", "old_payment_status": "PAYMENT_STATUS_PROCESSING", "original_reference": "Account Funding 99744", "adjusted_reference": "Account Funding 99", "original_start_date": "2017-09-14", "adjusted_start_date": "2017-09-15", "timestamp": "2017-09-14T14:42:19.350Z", "error": null}>
+
+      jwt = create_jwt(token_body)
+
+      {:error, :invalid_body} =
+        Plaid.Webhooks.verify_and_construct(jwt, "{}",
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
     test "Item error webhook", %{api_host: api_host} do
       raw_body =
         ~s<{"webhook_type": "ITEM", "webhook_code": "ERROR", "item_id": "wz666MBjYWTp2PDzzggYhM6oWWmBb", "error": {"display_message": null, "error_code": "ITEM_LOGIN_REQUIRED", "error_message": "the login details of this item have changed", "error_type": "ITEM_ERROR", "status": 400}}>
@@ -398,6 +442,26 @@ defmodule Plaid.WebhooksTest do
          adjusted_start_date: "2017-09-15",
          timestamp: "2017-09-14T14:42:19.350Z",
          error: nil
+       }} =
+        Plaid.Webhooks.verify_and_construct(jwt, raw_body,
+          client_id: "abc",
+          secret: "123",
+          test_api_host: api_host
+        )
+    end
+
+    @tag capture_log: true
+    test "unrecognized webhook still returns raw response", %{api_host: api_host} do
+      raw_body =
+        ~s<{"webhook_type": "IDK", "webhook_code": "NEVER_HEARD_OF_IT", "payment_id": "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2"}>
+
+      jwt = create_jwt(raw_body)
+
+      {:ok,
+       %{
+         "webhook_type" => "IDK",
+         "webhook_code" => "NEVER_HEARD_OF_IT",
+         "payment_id" => "payment-id-production-2ba30780-d549-4335-b1fe-c2a938aa39d2"
        }} =
         Plaid.Webhooks.verify_and_construct(jwt, raw_body,
           client_id: "abc",
