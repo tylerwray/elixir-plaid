@@ -7,6 +7,7 @@ defmodule Plaid.Liabilities do
 
   alias Plaid.Castable
   alias Plaid.Liabilities.{Credit, Mortgage, Student}
+  alias __MODULE__
 
   @type t :: %__MODULE__{
           credit: [Credit.t()],
@@ -27,6 +28,41 @@ defmodule Plaid.Liabilities do
       mortgage: Castable.cast_list(Mortgage, generic_map["mortgage"]),
       student: Castable.cast_list(Student, generic_map["student"])
     }
+  end
+
+  defmodule GetResponse do
+    @moduledoc """
+    [Plaid API /liabilities/get response schema.](https://plaid.com/docs/api/products/#liabilitiesget)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.Accounts.Account
+    alias Plaid.Item
+
+    @type t :: %__MODULE__{
+            accounts: [Account.t()],
+            item: Item.t(),
+            liabilities: Liabilities.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :accounts,
+      :item,
+      :liabilities,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        accounts: Castable.cast_list(Account, generic_map["accounts"]),
+        item: Castable.cast(Item, generic_map["item"]),
+        liabilities: Castable.cast(Liabilities, generic_map["liabilities"]),
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -58,7 +94,7 @@ defmodule Plaid.Liabilities do
     Plaid.Client.call(
       "/liabilities/get",
       payload,
-      Plaid.Liabilities.GetResponse,
+      GetResponse,
       config
     )
   end

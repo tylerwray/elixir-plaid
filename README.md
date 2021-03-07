@@ -95,12 +95,12 @@ For information about what has changed between API versions, head to the [versio
 | API                                                                                                         | Status |
 | ----------------------------------------------------------------------------------------------------------- | ------ |
 | [Account](https://plaid.com/docs/api/accounts/)                                                             | ✅     |
-| [Asset Report](https://plaid.com/docs/api/products/#assets)                                                 | ✅     |
+| [Assets](https://plaid.com/docs/api/products/#assets)                                                       | ✅     |
 | [Auth](https://plaid.com/docs/api/products/#auth)                                                           | ✅     |
 | [Balance](https://plaid.com/docs/api/products/#balance)                                                     | ✅     |
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
 | [Deposit Switch (beta)](https://plaid.com/docs/api/products/#deposit-switch-beta)                           | 🗺      |
-| [Employer](https://plaid.com/docs/api/employers/)                                                           | 🗺      |
+| [Employer](https://plaid.com/docs/api/employers/)                                                           | 🏗      |
 | [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅     |
 | [Institution](https://plaid.com/docs/api/institutions/)                                                     | ✅     |
 | [Investments](https://plaid.com/docs/api/products/#investments)                                             | ✅     |

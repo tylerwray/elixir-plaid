@@ -47,6 +47,9 @@ defmodule Plaid.MixProject do
             Plaid.Categories.Category,
             Plaid.Categories.GetResponse
           ],
+          Employer: [
+            Plaid.Employer.SearchResponse
+          ],
           Identity: [
             Plaid.Identity.Address,
             Plaid.Identity.AddressData,
