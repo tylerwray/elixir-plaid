@@ -1,6 +1,6 @@
 # Plaid Elixir Library
 
-[![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml) [![Hex Version](https://img.shields.io/hexpm/v/elixir_plaid.svg)](https://hex.pm/packages/elixir_plaid) [![Hex Docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/elixir_plaid) [![MIT License](https://img.shields.io/hexpm/l/elixir_plaid)](https://opensource.org/licenses/MIT)
+[![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml) [![Hex Version](https://img.shields.io/hexpm/v/elixir_plaid.svg)](https://hex.pm/packages/elixir_plaid) [![Hex Docs](https://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/elixir_plaid) [![MIT License](https://img.shields.io/hexpm/l/elixir_plaid)](https://opensource.org/licenses/MIT)
 
 > Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
 
@@ -60,7 +60,7 @@ You can also pass an `env` option as either `:production`, `:development`, or `:
 > global state. As well as making function calls objectively more "functional".
 
 > Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
-> Therefore using patterns like those outlined in [this blog post](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
+> Therefore using patterns like those outlined in [this blog post](https://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
 > using a test mocking library like [Mox](https://hexdocs.pm/mox/Mox.html) help aid in making code more clear.
 
 ## Installation
@@ -121,7 +121,7 @@ See [contributing guidelines](CONTRIBUTING.md) for more details.
 
 ## License
 
-The package is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The package is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 [version-changelog]: https://plaid.com/docs/api/versioning/
 [api-version-2020-09-14]: https://plaid.com/docs/api/versioning/#2020-09-14
