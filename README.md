@@ -37,7 +37,7 @@ Plaid.Categories.get(env: :production)
 - [`Plaid.Accounts`](https://hexdocs.pm/elixir_plaid/Plaid.Accounts.html#content)
 - [`Plaid.AssetReport`](https://hexdocs.pm/elixir_plaid/Plaid.AssetReport.html#content)
 - [`Plaid.Auth`](https://hexdocs.pm/elixir_plaid/Plaid.Auth.html#content)
-- [`Plaid.Balance`](https://hexdocs.pm/elixir_plaid/Plaid.Balance.html#content)
+- [`Plaid.Categories`](https://hexdocs.pm/elixir_plaid/Plaid.Categories.html#content)
 - [`Plaid.Employer`](https://hexdocs.pm/elixir_plaid/Plaid.Employer.html#content)
 - [`Plaid.Identity`](https://hexdocs.pm/elixir_plaid/Plaid.Identity.html#content)
 - [`Plaid.Institution`](https://hexdocs.pm/elixir_plaid/Plaid.Institution.html#content)
@@ -45,6 +45,7 @@ Plaid.Categories.get(env: :production)
 - [`Plaid.Item`](https://hexdocs.pm/elixir_plaid/Plaid.Item.html#content)
 - [`Plaid.Liabilities`](https://hexdocs.pm/elixir_plaid/Plaid.Liabilities.html#content)
 - [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/Plaid.PaymentInitiation.html#content)
+- [`Plaid.Processor`](https://hexdocs.pm/elixir_plaid/Plaid.Processor.html#content)
 - [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/Plaid.Transactions.html#content)
 - [`Plaid.Webhooks`](https://hexdocs.pm/elixir_plaid/Plaid.Webhooks.html#content)
 
@@ -108,7 +109,7 @@ For information about what has changed between API versions, head to the [versio
 | [Item](https://plaid.com/docs/api/items/)                                                                   | ✅     |
 | [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
-| [Processor](https://plaid.com/docs/api/processors/)                                                         | 🗺      |
+| [Processor](https://plaid.com/docs/api/processors/)                                                         | 🏗      |
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🗺      |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |

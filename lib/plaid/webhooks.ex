@@ -13,9 +13,7 @@ defmodule Plaid.Webhooks do
   Adheres to the guidelines outlined in [this guide](https://plaid.com/docs/api/webhook-verification/) 
   from plaid to verify webhooks. 
 
-  > In-Progress: Only missing piece from the plaid guidelines is public key caching.
-
-  Also constructs the `raw_body` into an event struct.
+  > 🏗  Only missing piece from the plaid guidelines is public key caching.
 
   ## Examples
 
