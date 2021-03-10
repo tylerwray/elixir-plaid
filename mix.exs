@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.1.5",
+      version: "0.1.6",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -112,6 +112,10 @@ defmodule Plaid.MixProject do
             Plaid.PaymentInitiation.Payment,
             Plaid.PaymentInitiation.Recipient,
             Plaid.PaymentInitiation.Schedule
+          ],
+          Processor: [
+            Plaid.Processor.CreateStripeBankAccountTokenResponse,
+            Plaid.Processor.CreateTokenResponse
           ],
           Transactions: [
             Plaid.Transactions.GetResponse,
