@@ -31,4 +31,26 @@ defmodule Plaid.ProcessorTest do
         secret: "abc"
       )
   end
+
+  test "/processor/stripe/bank_account_token/create", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/processor/stripe/bank_account_token/create", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "stripe_bank_account_token": "btok_5oEetfLzPklE1fwJZ7SG",
+        "request_id": "xrQNYZ7Zoh6R7gV"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.Processor.CreateStripeBankAccountTokenResponse{
+       stripe_bank_account_token: "btok_5oEetfLzPklE1fwJZ7SG",
+       request_id: "xrQNYZ7Zoh6R7gV"
+     }} =
+      Plaid.Processor.create_stripe_bank_account_token(
+        "access-prod-123xxx",
+        "blgjekslk3k2l2kkbvjkds",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
