@@ -3,18 +3,42 @@ defmodule Plaid.PaymentInitiation do
   [Plaid Payment Initiation API](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) calls and schema.
   """
 
+  alias Plaid.Castable
+
   alias Plaid.PaymentInitiation.{
     Address,
     Amount,
     BACS,
-    CreatePaymentResponse,
-    CreateRecipientResponse,
-    GetPaymentResponse,
-    GetRecipientResponse,
-    ListPaymentsResponse,
-    ListRecipientsResponse,
+    Payment,
+    Recipient,
     Schedule
   }
+
+  defmodule CreateRecipientResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/recipient/create response schema.](https://plaid.com/docs/api/products/#payment_initiationrecipientcreate)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            recipient_id: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :recipient_id,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        recipient_id: generic_map["recipient_id"],
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
 
   @doc """
   Create a recipient for payment initiation.
@@ -66,6 +90,44 @@ defmodule Plaid.PaymentInitiation do
     )
   end
 
+  defmodule GetRecipientResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/recipient/get response schema.](https://plaid.com/docs/api/products/#payment_initiationrecipientget)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            recipient_id: String.t(),
+            name: String.t(),
+            address: Address.t() | nil,
+            iban: String.t() | nil,
+            bacs: BACS.t() | nil,
+            request_id: String.t()
+          }
+
+    defstruct [
+      :recipient_id,
+      :name,
+      :address,
+      :iban,
+      :bacs,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        recipient_id: generic_map["recipient_id"],
+        name: generic_map["name"],
+        address: Castable.cast(Address, generic_map["address"]),
+        iban: generic_map["iban"],
+        bacs: Castable.cast(BACS, generic_map["bacs"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get a recipient for payment initiation.
 
@@ -93,6 +155,32 @@ defmodule Plaid.PaymentInitiation do
     )
   end
 
+  defmodule ListRecipientsResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/recipient/list response schema.](https://plaid.com/docs/api/products/#payment_initiationrecipientlist)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            recipients: [Recipient.t()],
+            request_id: String.t()
+          }
+
+    defstruct [
+      :recipients,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        recipients: Castable.cast_list(Recipient, generic_map["recipients"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   List the payment recipients that you have previously created.
 
@@ -114,6 +202,35 @@ defmodule Plaid.PaymentInitiation do
       ListRecipientsResponse,
       config
     )
+  end
+
+  defmodule CreatePaymentResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/payment/create response schema.](https://plaid.com/docs/api/products/#payment_initiationpaymentcreate)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            payment_id: String.t(),
+            status: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :payment_id,
+      :status,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        payment_id: generic_map["payment_id"],
+        status: generic_map["status"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -176,6 +293,59 @@ defmodule Plaid.PaymentInitiation do
     )
   end
 
+  defmodule GetPaymentResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/payment/get response schema.](https://plaid.com/docs/api/products/#payment_initiationpaymentget)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            payment_id: String.t(),
+            payment_token: String.t(),
+            amount: Amount.t(),
+            status: String.t(),
+            recipient_id: String.t(),
+            reference: String.t(),
+            last_status_update: String.t(),
+            schedule: Schedule.t() | nil,
+            adjusted_reference: String.t() | nil,
+            payment_expiration_time: String.t() | nil,
+            request_id: String.t()
+          }
+
+    defstruct [
+      :payment_id,
+      :payment_token,
+      :amount,
+      :status,
+      :recipient_id,
+      :reference,
+      :last_status_update,
+      :schedule,
+      :adjusted_reference,
+      :payment_expiration_time,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        payment_id: generic_map["payment_id"],
+        payment_token: generic_map["payment_token"],
+        amount: Castable.cast(Amount, generic_map["amount"]),
+        status: generic_map["status"],
+        recipient_id: generic_map["recipient_id"],
+        reference: generic_map["reference"],
+        last_status_update: generic_map["last_status_update"],
+        schedule: Castable.cast(Schedule, generic_map["schedule"]),
+        adjusted_reference: generic_map["adjust_reference"],
+        payment_expiration_time: generic_map["payment_expiration_time"],
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get payment details.
 
@@ -205,6 +375,35 @@ defmodule Plaid.PaymentInitiation do
       GetPaymentResponse,
       config
     )
+  end
+
+  defmodule ListPaymentsResponse do
+    @moduledoc """
+    [Plaid API /payment_initiation/payment/list response schema.](https://plaid.com/docs/api/products/#payment_initiationpaymentlist)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            payments: [Payment.t()],
+            next_cursor: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :payments,
+      :next_cursor,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        payments: Castable.cast_list(Payment, generic_map["payments"]),
+        next_cursor: generic_map["next_cursor"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
