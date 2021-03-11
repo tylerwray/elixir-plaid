@@ -3,6 +3,47 @@ defmodule Plaid.Investments do
   [Plaid Investments APIs](https://plaid.com/docs/api/products/#investments)
   """
 
+  alias Plaid.Castable
+
+  defmodule Plaid.Investments.GetHoldingsResponse do
+    @moduledoc """
+    [Plaid API /investments/holdings/get response schema](https://plaid.com/docs/api/products/#investmentsholdingsget)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.Accounts.Account
+    alias Plaid.Investments.{Holding, Security}
+    alias Plaid.Item
+
+    @type t :: %__MODULE__{
+            accounts: [Account.t()],
+            holdings: [Holding.t()],
+            securities: [Security.t()],
+            item: Item.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :accounts,
+      :holdings,
+      :securities,
+      :item,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        accounts: Castable.cast_list(Account, generic_map["accounts"]),
+        holdings: Castable.cast_list(Holding, generic_map["holdings"]),
+        securities: Castable.cast_list(Security, generic_map["securities"]),
+        item: Castable.cast(Item, generic_map["item"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get user-authorized stock position data for investment-type accounts.
 
@@ -18,11 +59,11 @@ defmodule Plaid.Investments do
   ## Examples
 
       get_holdings("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Investments.GetHoldingsResponse{}}
+      {:ok, %GetHoldingsResponse{}}
 
   """
   @spec get_holdings(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.Investments.GetHoldingsResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, GetHoldingsResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => [String.t()]}
   def get_holdings(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
@@ -32,9 +73,52 @@ defmodule Plaid.Investments do
     Plaid.Client.call(
       "/investments/holdings/get",
       payload,
-      Plaid.Investments.GetHoldingsResponse,
+      GetHoldingsResponse,
       config
     )
+  end
+
+  defmodule GetTransactionsResponse do
+    @moduledoc """
+    [Plaid API /investments/transactions/get response schema](https://plaid.com/docs/api/products/#investmentstransactionsget)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.Accounts.Account
+    alias Plaid.Investments.{Security, Transaction}
+    alias Plaid.Item
+
+    @type t :: %__MODULE__{
+            item: Item.t(),
+            accounts: [Account.t()],
+            securities: [Security.t()],
+            investment_transactions: [Transaction.t()],
+            total_investment_transactions: integer(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :item,
+      :accounts,
+      :securities,
+      :investment_transactions,
+      :total_investment_transactions,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        item: Castable.cast(Item, generic_map["item"]),
+        accounts: Castable.cast_list(Account, generic_map["accounts"]),
+        securities: Castable.cast_list(Security, generic_map["securities"]),
+        investment_transactions:
+          Castable.cast_list(Transaction, generic_map["investment_transactions"]),
+        total_investment_transactions: generic_map["total_investment_transactions"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -57,11 +141,11 @@ defmodule Plaid.Investments do
   ## Examples
 
       get_transactions("access-sandbox-123xxx", "2020-01-01", "2020-01-31", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Investments.GetTransactionsResponse{}}
+      {:ok, %GetTransactionsResponse{}}
 
   """
   @spec get_transactions(String.t(), String.t(), String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.Investments.GetTransactionsResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, GetTransactionsResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:account_ids) => [String.t()],
                optional(:count) => integer(),
@@ -80,7 +164,7 @@ defmodule Plaid.Investments do
     Plaid.Client.call(
       "/investments/transactions/get",
       payload,
-      Plaid.Investments.GetTransactionsResponse,
+      GetTransactionsResponse,
       config
     )
   end
