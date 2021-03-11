@@ -3,6 +3,41 @@ defmodule Plaid.AssetReport do
   [Plaid Asset Reports API](https://plaid.com/docs/api/products/#assets) calls and schema.
   """
 
+  alias Plaid.Castable
+  alias Plaid.AssetReport.User
+
+  defmodule AsyncResponse do
+    @moduledoc """
+    Plaid Asset Report schema used when generating asset reports.
+
+    Async because it only returns a token, the actual asset-report needs to
+    be fetched after the proper webhook is received. [See docs.](https://plaid.com/docs/api/products/#asset_reportcreate)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            asset_report_token: String.t(),
+            asset_report_id: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :asset_report_token,
+      :asset_report_id,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        asset_report_token: generic_map["asset_report_token"],
+        asset_report_id: generic_map["asset_report_id"],
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Create an Asset Report.
 
@@ -21,15 +56,15 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       create(["access-sandbox-123xxx"], 3, client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.AsyncResponse{}}
+      {:ok, %AsyncResponse{}}
 
   """
   @spec create([String.t()], non_neg_integer(), options, Plaid.config()) ::
-          {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, AsyncResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:client_report_id) => String.t(),
                optional(:webhook) => String.t(),
-               optional(:user) => Plaid.AssetReport.User.t()
+               optional(:user) => User.t()
              }
   def create(access_tokens, days_requested, options \\ %{}, config) do
     options_payload = Map.take(options, [:client_report_id, :webhook, :user])
@@ -40,7 +75,38 @@ defmodule Plaid.AssetReport do
       |> Map.put(:days_requested, days_requested)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/asset_report/create", payload, Plaid.AssetReport.AsyncResponse, config)
+    Plaid.Client.call("/asset_report/create", payload, AsyncResponse, config)
+  end
+
+  defmodule GetResponse do
+    @moduledoc """
+    [Plaid API /asset_report/get response schema](https://plaid.com/docs/api/products/#asset_reportget)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.AssetReport.{Report, Warning}
+
+    @type t :: %__MODULE__{
+            report: Report.t(),
+            warnings: [Warning.t()],
+            request_id: String.t()
+          }
+
+    defstruct [
+      :report,
+      :warnings,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        report: Castable.cast(Report, generic_map["report"]),
+        warnings: Castable.cast_list(Warning, generic_map["warnings"]),
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -57,11 +123,11 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       get("asset-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.GetResponse{}}
+      {:ok, %GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.AssetReport.GetResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:include_insights) => boolean()}
   def get(asset_report_token, options \\ %{}, config) do
     payload =
@@ -69,7 +135,7 @@ defmodule Plaid.AssetReport do
       |> Map.take([:include_insights])
       |> Map.put(:asset_report_token, asset_report_token)
 
-    Plaid.Client.call("/asset_report/get", payload, Plaid.AssetReport.GetResponse, config)
+    Plaid.Client.call("/asset_report/get", payload, GetResponse, config)
   end
 
   @doc """
@@ -117,16 +183,16 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       refresh("assets-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.AsyncResponse{}}
+      {:ok, %AsyncResponse{}}
 
   """
   @spec refresh(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, AsyncResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{
                optional(:client_report_id) => String.t(),
                optional(:days_requested) => non_neg_integer(),
                optional(:webhook) => String.t(),
-               optional(:user) => Plaid.AssetReport.User.t()
+               optional(:user) => User.t()
              }
   def refresh(asset_report_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:client_report_id, :webhook, :user])
@@ -137,7 +203,7 @@ defmodule Plaid.AssetReport do
       |> Map.put(:asset_report_token, asset_report_token)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/asset_report/refresh", payload, Plaid.AssetReport.AsyncResponse, config)
+    Plaid.Client.call("/asset_report/refresh", payload, AsyncResponse, config)
   end
 
   @doc """
@@ -153,11 +219,11 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       filter("assets-sandbox-123xxx", ["123xxx"], client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.AsyncResponse{}}
+      {:ok, %AsyncResponse{}}
 
   """
   @spec filter(String.t(), [String.t()], Plaid.config()) ::
-          {:ok, Plaid.AssetReport.AsyncResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, AsyncResponse.t()} | {:error, Plaid.Error.t()}
   def filter(asset_report_token, account_ids_to_exclude, config) do
     Plaid.Client.call(
       "/asset_report/filter",
@@ -165,9 +231,35 @@ defmodule Plaid.AssetReport do
         asset_report_token: asset_report_token,
         account_ids_to_exclude: account_ids_to_exclude
       },
-      Plaid.AssetReport.AsyncResponse,
+      AsyncResponse,
       config
     )
+  end
+
+  defmodule RemoveResponse do
+    @moduledoc """
+    [Plaid /asset_report/remove response schema.](https://plaid.com/docs/api/products/#asset_reportremove)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            removed: boolean(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :removed,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        removed: generic_map["removed"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -182,18 +274,44 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       remove("assets-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.RemoveResponse{}}
+      {:ok, %RemoveResponse{}}
 
   """
   @spec remove(String.t(), Plaid.config()) ::
-          {:ok, Plaid.AssetReport.RemoveResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, RemoveResponse.t()} | {:error, Plaid.Error.t()}
   def remove(asset_report_token, config) do
     Plaid.Client.call(
       "/asset_report/remove",
       %{asset_report_token: asset_report_token},
-      Plaid.AssetReport.RemoveResponse,
+      RemoveResponse,
       config
     )
+  end
+
+  defmodule CreateAuditCopyResponse do
+    @moduledoc """
+    [Plaid /asset_report/audit_copy/create response schema](https://plaid.com/docs/api/products/#asset_reportaudit_copycreate)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            audit_copy_token: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :audit_copy_token,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        audit_copy_token: generic_map["audit_copy_token"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -209,18 +327,44 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.CreateAuditCopyResponse{}}
+      {:ok, %CreateAuditCopyResponse{}}
 
   """
   @spec create_audit_copy(String.t(), String.t(), Plaid.config()) ::
-          {:ok, Plaid.AssetReport.CreateAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, CreateAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
   def create_audit_copy(asset_report_token, auditor_id, config) do
     Plaid.Client.call(
       "/asset_report/audit_copy/create",
       %{asset_report_token: asset_report_token, auditor_id: auditor_id},
-      Plaid.AssetReport.CreateAuditCopyResponse,
+      CreateAuditCopyResponse,
       config
     )
+  end
+
+  defmodule RemoveAuditCopyResponse do
+    @moduledoc """
+    [Plaid /asset_report/audit_copy/remove response schema.](https://plaid.com/docs/api/products/#asset_reportaudit_copyremove)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            removed: boolean(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :removed,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        removed: generic_map["removed"],
+        request_id: generic_map["request_id"]
+      }
+    end
   end
 
   @doc """
@@ -235,16 +379,16 @@ defmodule Plaid.AssetReport do
   ## Examples
 
       remove_audit_copy("a-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.AssetReport.RemoveAuditCopyResponse{}}
+      {:ok, %RemoveAuditCopyResponse{}}
 
   """
   @spec remove_audit_copy(String.t(), Plaid.config()) ::
-          {:ok, Plaid.AssetReport.RemoveAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, RemoveAuditCopyResponse.t()} | {:error, Plaid.Error.t()}
   def remove_audit_copy(audit_copy_token, config) do
     Plaid.Client.call(
       "/asset_report/audit_copy/remove",
       %{audit_copy_token: audit_copy_token},
-      Plaid.AssetReport.RemoveAuditCopyResponse,
+      RemoveAuditCopyResponse,
       config
     )
   end
