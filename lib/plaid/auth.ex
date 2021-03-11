@@ -3,6 +3,43 @@ defmodule Plaid.Auth do
   [Plaid Auth API](https://plaid.com/docs/api/products/#auth) calls and schema.
   """
 
+  defmodule GetResponse do
+    @moduledoc """
+    [Plaid API /auth/get response](https://plaid.com/docs/api/products/#auth).
+    """
+
+    @behaviour Plaid.Castable
+
+    alias Plaid.Accounts.Account
+    alias Plaid.Auth.Numbers
+    alias Plaid.Castable
+    alias Plaid.Item
+
+    @type t :: %__MODULE__{
+            accounts: [Account.t()],
+            numbers: Numbers.t(),
+            item: Item.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :accounts,
+      :numbers,
+      :item,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        accounts: Castable.cast_list(Account, generic_map["accounts"]),
+        numbers: Castable.cast(Numbers, generic_map["numbers"]),
+        item: Castable.cast(Item, generic_map["item"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Get information about account and routing numbers for
   checking and savings accounts.
@@ -20,11 +57,11 @@ defmodule Plaid.Auth do
   ## Examples
 
       get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Auth.GetResponse{}}
+      {:ok, %GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.Auth.GetResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => [String.t()]}
   def get(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
@@ -37,7 +74,7 @@ defmodule Plaid.Auth do
     Plaid.Client.call(
       "/auth/get",
       payload,
-      Plaid.Auth.GetResponse,
+      GetResponse,
       config
     )
   end
