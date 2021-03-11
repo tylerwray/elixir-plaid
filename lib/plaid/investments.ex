@@ -5,7 +5,7 @@ defmodule Plaid.Investments do
 
   alias Plaid.Castable
 
-  defmodule Plaid.Investments.GetHoldingsResponse do
+  defmodule GetHoldingsResponse do
     @moduledoc """
     [Plaid API /investments/holdings/get response schema](https://plaid.com/docs/api/products/#investmentsholdingsget)
     """

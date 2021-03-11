@@ -6,7 +6,6 @@ defmodule Plaid.Item do
   @behaviour Plaid.Castable
 
   alias Plaid.Castable
-  alias Plaid.Item.{GetResponse, UpdateWebhookResponse}
 
   @type t :: %__MODULE__{
           available_products: [String.t()],
@@ -47,6 +46,42 @@ defmodule Plaid.Item do
     }
   end
 
+  defmodule GetResponse do
+    @moduledoc """
+    [Plaid API /item/get response schema.](https://plaid.com/docs/api/items/#itemget)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.Castable
+    alias Plaid.Item
+    alias Plaid.Item.Status
+
+    @type t :: %__MODULE__{
+            item: Item.t(),
+            status: Status.t() | nil,
+            request_id: String.t(),
+            access_token: String.t() | nil
+          }
+
+    defstruct [
+      :item,
+      :status,
+      :request_id,
+      :access_token
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        item: Castable.cast(Item, generic_map["item"]),
+        status: Castable.cast(Status, generic_map["status"]),
+        request_id: generic_map["request_id"],
+        access_token: generic_map["access_token"]
+      }
+    end
+  end
+
   @doc """
   Get information about an item.
 
@@ -60,7 +95,7 @@ defmodule Plaid.Item do
   ## Examples
 
       Item.get("access-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Item.GetResponse{}}
+      {:ok, %GetResponse{}}
 
   """
   @spec get(String.t(), Plaid.config()) :: {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
@@ -89,6 +124,34 @@ defmodule Plaid.Item do
     Plaid.Client.call("/item/remove", %{access_token: access_token}, Plaid.SimpleResponse, config)
   end
 
+  defmodule UpdateWebhookResponse do
+    @moduledoc """
+    [Plaid API /item/webhook/update response schema.](https://plaid.com/docs/api/items/#itemwebhookupdate)
+    """
+
+    @behaviour Castable
+
+    alias Plaid.Item
+
+    @type t :: %__MODULE__{
+            item: Item.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :item,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        item: Castable.cast(Item, generic_map["item"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
   @doc """
   Update a webhook for an access_token.
 
@@ -108,7 +171,7 @@ defmodule Plaid.Item do
         client_id: "123",
         secret: "abc"
       )
-      {:ok, %Plaid.UpdateWebhookResponse{}}
+      {:ok, %UpdateWebhookResponse{}}
 
   """
   @spec update_webhook(String.t(), String.t(), Plaid.config()) ::
