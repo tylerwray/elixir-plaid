@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.1.6",
+      version: "0.1.7",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -115,7 +115,11 @@ defmodule Plaid.MixProject do
           ],
           Processor: [
             Plaid.Processor.CreateStripeBankAccountTokenResponse,
-            Plaid.Processor.CreateTokenResponse
+            Plaid.Processor.CreateTokenResponse,
+            Plaid.Processor.GetAuthResponse,
+            Plaid.Processor.GetBalanceResponse,
+            Plaid.Processor.GetIdentityResponse,
+            Plaid.Processor.Numbers
           ],
           Transactions: [
             Plaid.Transactions.GetResponse,
