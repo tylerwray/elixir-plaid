@@ -49,14 +49,14 @@ defmodule Plaid.AssetReport do
   * `days_requested` - The days of history to include in the asset report.
 
   Options:
-  * `client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
-  * `webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
-  * `user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
+  * `:client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
+  * `:webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
+  * `:user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
 
   ## Examples
 
-      create(["access-sandbox-123xxx"], 3, client_id: "123", secret: "abc")
-      {:ok, %AsyncResponse{}}
+      AssetReport.create(["access-sandbox-123xxx"], 3, client_id: "123", secret: "abc")
+      {:ok, %AssetReport.AsyncResponse{}}
 
   """
   @spec create([String.t()], non_neg_integer(), options, Plaid.config()) ::
@@ -118,12 +118,12 @@ defmodule Plaid.AssetReport do
   * `asset_report_token` - The asset report token from the `create_report` response.
 
   Options: 
-  * `include_insights` - Whether we should retrieve the report as an "Assets + Insights" report.
+  * `:include_insights` - Whether we should retrieve the report as an "Assets + Insights" report.
 
   ## Examples
 
-      get("asset-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      AssetReport.get("asset-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %AssetReport.GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::
@@ -148,7 +148,7 @@ defmodule Plaid.AssetReport do
 
   ## Examples
 
-      get_pdf("asset-prod-123xxx", client_id: "123", secret: "abc")
+      AssetReport.get_pdf("asset-prod-123xxx", client_id: "123", secret: "abc")
       {:ok, <<0, 1, 2, 3>>}
 
   """
@@ -172,18 +172,18 @@ defmodule Plaid.AssetReport do
   * `asset_report_token` - The token for the asset report you want to refresh.
 
   Options:
-  * `client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
-  * `days_requested` - The days of history to include in the asset report.
-  * `webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
-  * `user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
+  * `:client_report_id` - Client-generated identifier, which can be used by lenders to track loan applications.
+  * `:days_requested` - The days of history to include in the asset report.
+  * `:webhook` - URL Plaid will use to send webhooks for when the asset report is ready.
+  * `:user` - Information about the user to be appended to the asset report. See `Plaid.AssetReport.User` for available fields.
 
   Each option above acts as an "override" of the original values passed to `create/4`.
   Meaning when not specified, values from the original `create/4` request will be used.
 
   ## Examples
 
-      refresh("assets-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %AsyncResponse{}}
+      AssetReport.refresh("assets-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %AssetReport.AsyncResponse{}}
 
   """
   @spec refresh(String.t(), options, Plaid.config()) ::
@@ -218,8 +218,8 @@ defmodule Plaid.AssetReport do
 
   ## Examples
 
-      filter("assets-sandbox-123xxx", ["123xxx"], client_id: "123", secret: "abc")
-      {:ok, %AsyncResponse{}}
+      AssetReport.filter("assets-sandbox-123xxx", ["123xxx"], client_id: "123", secret: "abc")
+      {:ok, %AssetReport.AsyncResponse{}}
 
   """
   @spec filter(String.t(), [String.t()], Plaid.config()) ::
@@ -273,8 +273,8 @@ defmodule Plaid.AssetReport do
 
   ## Examples
 
-      remove("assets-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %RemoveResponse{}}
+      AssetReport.remove("assets-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %AssetReport.RemoveResponse{}}
 
   """
   @spec remove(String.t(), Plaid.config()) ::
@@ -326,8 +326,8 @@ defmodule Plaid.AssetReport do
 
   ## Examples
 
-      create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
-      {:ok, %CreateAuditCopyResponse{}}
+      AssetReport.create_audit_copy("assets-sandbox-123xxx", "fannie_mae", client_id: "123", secret: "abc")
+      {:ok, %AssetReport.CreateAuditCopyResponse{}}
 
   """
   @spec create_audit_copy(String.t(), String.t(), Plaid.config()) ::
@@ -378,8 +378,8 @@ defmodule Plaid.AssetReport do
 
   ## Examples
 
-      remove_audit_copy("a-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %RemoveAuditCopyResponse{}}
+      AssetReport.remove_audit_copy("a-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %AssetReport.RemoveAuditCopyResponse{}}
 
   """
   @spec remove_audit_copy(String.t(), Plaid.config()) ::

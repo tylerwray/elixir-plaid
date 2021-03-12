@@ -31,7 +31,7 @@ defmodule Plaid.Processor do
   @doc """
   Creates a processor token from an access_token.
 
-  Does a POST `/processor/token/create` call which generates
+  Does a `POST /processor/token/create` call which generates
   any non-stripe processor token for a given account ID.
 
   Params:
@@ -41,8 +41,8 @@ defmodule Plaid.Processor do
 
   ## Examples
 
-      create_token("access-prod-123xxx", "blejdkalk3kdlsl", "galileo", client_id: "123", secret: "abc")
-      {:ok, %CreateTokenResponse{}}
+      Processor.create_token("access-prod-123xxx", "blejdkalk3kdlsl", "galileo", client_id: "123", secret: "abc")
+      {:ok, %Processor.CreateTokenResponse{}}
 
   """
   @spec create_token(String.t(), String.t(), String.t(), Plaid.config()) ::
@@ -91,8 +91,8 @@ defmodule Plaid.Processor do
 
   ## Examples
 
-      create_stripe_bank_account_token("access-prod-123xxx", "blejdkalk3kdlsl", client_id: "123", secret: "abc")
-      {:ok, %CreateStripeBankAccountTokenResponse{}}
+      Processor.create_stripe_bank_account_token("access-prod-123xxx", "blejdkalk3kdlsl", client_id: "123", secret: "abc")
+      {:ok, %Processor.CreateStripeBankAccountTokenResponse{}}
 
   """
   @spec create_stripe_bank_account_token(String.t(), String.t(), Plaid.config()) ::
@@ -145,8 +145,8 @@ defmodule Plaid.Processor do
 
   ## Examples
 
-      get_auth("processor-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetAuthResponse{}}
+      Processor.get_auth("processor-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Processor.GetAuthResponse{}}
 
   """
   @spec get_auth(String.t(), Plaid.config()) ::
@@ -198,8 +198,8 @@ defmodule Plaid.Processor do
 
   ## Examples
 
-      get_balance("processor-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetBalanceResponse{}}
+      Processor.get_balance("processor-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Processor.GetBalanceResponse{}}
 
   """
   @spec get_balance(String.t(), Plaid.config()) ::
@@ -249,8 +249,8 @@ defmodule Plaid.Processor do
 
   ## Examples
 
-      get_identity("processor-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetIdentityResponse{}}
+      Processor.get_identity("processor-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Processor.GetIdentityResponse{}}
 
   """
   @spec get_identity(String.t(), Plaid.config()) ::
@@ -263,4 +263,4 @@ defmodule Plaid.Processor do
       config
     )
   end
-end
+encd

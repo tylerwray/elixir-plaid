@@ -65,12 +65,12 @@ defmodule Plaid.Identity do
   * `access_token` - Token to fetch identity for.
 
   Options:
-  * `account_ids` - Specific account ids to fetch identity for.
+  * `:account_ids` - Specific account ids to fetch identity for.
 
   ## Examples
 
-      get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      Identity.get("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Identity.GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::

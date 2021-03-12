@@ -7,7 +7,7 @@ defmodule Plaid.Investments do
 
   defmodule GetHoldingsResponse do
     @moduledoc """
-    [Plaid API /investments/holdings/get response schema](https://plaid.com/docs/api/products/#investmentsholdingsget)
+    [Plaid API /investments/holdings/get response schema.](https://plaid.com/docs/api/products/#investmentsholdingsget)
     """
 
     @behaviour Castable
@@ -54,12 +54,12 @@ defmodule Plaid.Investments do
   * `access_token` - Token to fetch investment holdings for.
 
   Options:
-  * `account_ids` - Specific account ids to fetch investment holdings for.
+  * `:account_ids` - Specific account ids to fetch investment holdings for.
 
   ## Examples
 
-      get_holdings("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetHoldingsResponse{}}
+      Investments.get_holdings("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Investments.GetHoldingsResponse{}}
 
   """
   @spec get_holdings(String.t(), options, Plaid.config()) ::
@@ -80,7 +80,7 @@ defmodule Plaid.Investments do
 
   defmodule GetTransactionsResponse do
     @moduledoc """
-    [Plaid API /investments/transactions/get response schema](https://plaid.com/docs/api/products/#investmentstransactionsget)
+    [Plaid API /investments/transactions/get response schema.](https://plaid.com/docs/api/products/#investmentstransactionsget)
     """
 
     @behaviour Castable
@@ -134,14 +134,14 @@ defmodule Plaid.Investments do
   * `end_date`  - End of query for investment transactions.
 
   Options:
-  * `account_ids` - Specific account ids to fetch investment holdings for.
-  * `count` - Amount of investment transactions to pull (optional).
-  * `offset` - Offset to start pulling investment transactions (optional).
+  * `:account_ids` - Specific account ids to fetch investment holdings for.
+  * `:count` - Amount of investment transactions to pull (optional).
+  * `:offset` - Offset to start pulling investment transactions (optional).
 
   ## Examples
 
-      get_transactions("access-sandbox-123xxx", "2020-01-01", "2020-01-31", client_id: "123", secret: "abc")
-      {:ok, %GetTransactionsResponse{}}
+      Investments.get_transactions("access-sandbox-123xxx", "2020-01-01", "2020-01-31", client_id: "123", secret: "abc")
+      {:ok, %Investments.GetTransactionsResponse{}}
 
   """
   @spec get_transactions(String.t(), String.t(), String.t(), options, Plaid.config()) ::

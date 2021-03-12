@@ -5,7 +5,7 @@ defmodule Plaid.Auth do
 
   defmodule GetResponse do
     @moduledoc """
-    [Plaid API /auth/get response](https://plaid.com/docs/api/products/#auth).
+    [Plaid API /auth/get response schema.](https://plaid.com/docs/api/products/#auth).
     """
 
     @behaviour Plaid.Castable
@@ -52,12 +52,12 @@ defmodule Plaid.Auth do
   * `access_token` - Token to fetch accounts for.
 
   Options:
-  * `account_ids` - Specific account ids to fetch balances for.
+  * `:account_ids` - Specific account ids to fetch balances for.
 
   ## Examples
 
-      get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      Auth.get("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Auth.GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::

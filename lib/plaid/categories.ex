@@ -5,7 +5,7 @@ defmodule Plaid.Categories do
 
   defmodule GetResponse do
     @moduledoc """
-    [Plaid /categories/get API response schema.](https://plaid.com/docs/api/products/#categoriesget).
+    [Plaid API /categories/get response schema.](https://plaid.com/docs/api/products/#categoriesget)
     """
 
     @behaviour Plaid.Castable
@@ -41,8 +41,8 @@ defmodule Plaid.Categories do
 
   ## Example
 
-      get()
-      {:ok, %GetResponse{}}
+      Categories.get(env: :production)
+      {:ok, %Categories.GetResponse{}}
 
   """
   @spec get(Plaid.noauth_config()) :: {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}

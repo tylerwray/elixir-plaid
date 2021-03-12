@@ -2,7 +2,7 @@ defmodule Plaid.Employer do
   @moduledoc """
   [Plaid Employer API](https://plaid.com/docs/api/employers/) calls and schema.
 
-  🏗  Waiting on plaid to enable the `deposit_switch` product so I can fully test this endpoin.
+  🏗  Waiting on plaid to enable the `deposit_switch` product so I can fully test this endpoint.
   """
 
   @behaviour Plaid.Castable
@@ -67,8 +67,8 @@ defmodule Plaid.Employer do
 
   ## Examples
 
-      search("Plaid", ["deposit_switch"], client_id: "123", secret: "abc")
-      {:ok, %Plaid.Employer.SearchResponse{}}
+      Employer.search("Plaid", ["deposit_switch"], client_id: "123", secret: "abc")
+      {:ok, %Employer.SearchResponse{}}
 
   """
   @spec search(String.t(), [String.t()], Plaid.config()) ::

@@ -17,13 +17,13 @@ defmodule Plaid.Webhooks do
 
   ## Examples
 
-      verify_and_construct(
+      Webhooks.verify_and_construct(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
         ~s({"webhook_type": "ITEM", "webhook_code": "ERROR"}),
         client_id: "abc",
         secret: "123"
       )
-      {:ok, %Plaid.Webhooks.ItemError{}}
+      {:ok, %Webhooks.ItemError{}}
 
   """
   @spec verify_and_construct(String.t(), String.t(), Plaid.config()) ::

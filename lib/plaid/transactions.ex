@@ -56,14 +56,14 @@ defmodule Plaid.Transactions do
   * `end_date`     - End of query for transactions.
 
   Options:
-  * `account_ids` - Specific account ids to fetch balances for.
-  * `count`       - Amount of transactions to pull.
-  * `offset`      - Offset to start pulling transactions.
+  * `:account_ids` - Specific account ids to fetch balances for.
+  * `:count`       - Amount of transactions to pull.
+  * `:offset`      - Offset to start pulling transactions.
 
   ## Example
 
-      get("access-sandbox-123xxx", "2019-10-10", "2019-10-20", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      Transactions.get("access-sandbox-123xxx", "2019-10-10", "2019-10-20", client_id: "123", secret: "abc")
+      {:ok, %Transactions.GetResponse{}}
 
   """
   @spec get(String.t(), String.t(), String.t(), options, Plaid.config()) ::
@@ -102,7 +102,7 @@ defmodule Plaid.Transactions do
 
   ## Examples
 
-    refresh("access-sandbox-123xxx", client_id: "123", secret: "abc")
+    Transactions.refresh("access-sandbox-123xxx", client_id: "123", secret: "abc")
     {:ok, %Plaid.SimpleResponse{}}
 
   """

@@ -95,7 +95,7 @@ defmodule Plaid.Item do
   ## Examples
 
       Item.get("access-prod-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      {:ok, %Item.GetResponse{}}
 
   """
   @spec get(String.t(), Plaid.config()) :: {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
@@ -171,7 +171,7 @@ defmodule Plaid.Item do
         client_id: "123",
         secret: "abc"
       )
-      {:ok, %UpdateWebhookResponse{}}
+      {:ok, %Item.UpdateWebhookResponse{}}
 
   """
   @spec update_webhook(String.t(), String.t(), Plaid.config()) ::

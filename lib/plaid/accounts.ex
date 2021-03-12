@@ -47,8 +47,8 @@ defmodule Plaid.Accounts do
 
   ## Examples
 
-      get("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %GetResponse{}}
+      Accounts.get("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Accounts.GetResponse{}}
 
   """
   @spec get(String.t(), options, Plaid.config()) ::
@@ -78,16 +78,16 @@ defmodule Plaid.Accounts do
   * `access_token` - Token to fetch accounts for.
 
   Options:
-  * `account_ids` - Specific account ids to fetch balances for.
+  * `:account_ids` - Specific account ids to fetch balances for.
 
   ## Examples
 
-      get_balance("access-sandbox-123xxx", client_id: "123", secret: "abc")
-      {:ok, %Plaid.Accounts.GetResponse{}}
+      Accounts.get_balance("access-sandbox-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Accounts.GetResponse{}}
 
   """
   @spec get_balance(String.t(), options, Plaid.config()) ::
-          {:ok, Plaid.Accounts.GetResponse.t()} | {:error, Plaid.Error.t()}
+          {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
         when options: %{optional(:account_ids) => [String.t()]}
   def get_balance(access_token, options \\ %{}, config) do
     options_payload = Map.take(options, [:account_ids])
@@ -97,6 +97,6 @@ defmodule Plaid.Accounts do
       |> Map.put(:access_token, access_token)
       |> Map.put(:options, options_payload)
 
-    Plaid.Client.call("/accounts/balance/get", payload, Plaid.Accounts.GetResponse, config)
+    Plaid.Client.call("/accounts/balance/get", payload, GetResponse, config)
   end
 end

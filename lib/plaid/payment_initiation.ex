@@ -256,7 +256,7 @@ defmodule Plaid.PaymentInitiation do
         "Purchase Order  123",
         %PaymentInitiation.Amount{currency: "GBP", value: 200},
         %{
-          schedule: %Plaid.PaymentInitiation.Schedule{
+          schedule: %PaymentInitiation.Schedule{
             interval: "WEEKLY",
             interval_execution_day: 2,
             start_date: "2021-01-01",

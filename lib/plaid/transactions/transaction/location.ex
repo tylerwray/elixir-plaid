@@ -1,6 +1,6 @@
 defmodule Plaid.Transactions.Transaction.Location do
   @moduledoc """
-  [Plaid Transaction Location schema.](https://plaid.com/docs/api/products/#transactions-get-response-location0
+  [Plaid Transaction Location schema.](https://plaid.com/docs/api/products/#transactions-get-response-location]
   """
 
   @behaviour Plaid.Castable
