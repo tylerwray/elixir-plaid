@@ -99,6 +99,12 @@ defmodule Plaid.MixProject do
             Plaid.Liabilities.Student.PSLFStatus,
             Plaid.Liabilities.Student.RepaymentPlan
           ],
+          "Link Token": [
+            Plaid.LinkToken.CreateResponse,
+            Plaid.LinkToken.DepositSwitch,
+            Plaid.LinkToken.PaymentInitiation,
+            Plaid.LinkToken.User
+          ],
           "Payment Initiation": [
             Plaid.PaymentInitiation.Address,
             Plaid.PaymentInitiation.Amount,
