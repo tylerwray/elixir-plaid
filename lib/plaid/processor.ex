@@ -263,4 +263,4 @@ defmodule Plaid.Processor do
       config
     )
   end
-encd
+end

@@ -3,8 +3,8 @@ defmodule Plaid.AssetReport do
   [Plaid Asset Reports API](https://plaid.com/docs/api/products/#assets) calls and schema.
   """
 
-  alias Plaid.Castable
   alias Plaid.AssetReport.User
+  alias Plaid.Castable
 
   defmodule AsyncResponse do
     @moduledoc """
