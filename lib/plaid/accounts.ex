@@ -12,7 +12,7 @@ defmodule Plaid.Accounts do
 
     @behaviour Castable
 
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Item
 
     @type t :: %__MODULE__{

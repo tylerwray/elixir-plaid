@@ -267,9 +267,9 @@ defmodule Plaid.InvestmentsTest do
     {:ok,
      %Plaid.Investments.GetHoldingsResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "5Bvpj4QknlhVWk7GygpwfVKdd133GoCxB814g",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 43_200,
              current: 43_200,
              iso_currency_code: "USD",
@@ -282,9 +282,9 @@ defmodule Plaid.InvestmentsTest do
            subtype: "money market",
            type: "depository"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "JqMLm4rJwpF6gMPJwBqdh9ZjjPvvpDcb7kDK1",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 320.76,
              iso_currency_code: "USD",
@@ -297,9 +297,9 @@ defmodule Plaid.InvestmentsTest do
            subtype: "ira",
            type: "investment"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "k67E4xKvMlhmleEa4pg9hlwGGNnnEeixPolGm",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 23_631.9805,
              iso_currency_code: "USD",
@@ -703,9 +703,9 @@ defmodule Plaid.InvestmentsTest do
     {:ok,
      %Plaid.Investments.GetTransactionsResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "5e66Dl6jNatx3nXPGwZ7UkJed4z6KBcZA4Rbe",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 100,
              current: 110,
              iso_currency_code: "USD",
@@ -718,9 +718,9 @@ defmodule Plaid.InvestmentsTest do
            subtype: "checking",
            type: "depository"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "KqZZMoZmBWHJlz7yKaZjHZb78VNpaxfVa7e5z",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 320.76,
              iso_currency_code: "USD",
@@ -733,9 +733,9 @@ defmodule Plaid.InvestmentsTest do
            subtype: "ira",
            type: "investment"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "rz99ex9ZQotvnjXdgQLEsR81e3ArPgulVWjGj",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 23_631.9805,
              iso_currency_code: "USD",

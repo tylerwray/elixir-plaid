@@ -37,7 +37,7 @@ defmodule Plaid.Liabilities do
 
     @behaviour Castable
 
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Item
 
     @type t :: %__MODULE__{

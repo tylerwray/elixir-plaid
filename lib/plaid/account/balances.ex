@@ -1,22 +1,22 @@
-defmodule Plaid.Accounts.Account.HistoricalBalances do
+defmodule Plaid.Account.Balances do
   @moduledoc """
-  [Plaid Account Historical Balances schema](https://plaid.com/docs/api/products/#asset_report-get-response-historical-balances)
-
-  Only used when retrieving Asset Report's.
+  [Plaid Balances schema.](https://plaid.com/docs/api/accounts)
   """
 
   @behaviour Plaid.Castable
 
   @type t :: %__MODULE__{
+          available: number() | nil,
           current: number(),
-          date: String.t(),
+          limit: number() | nil,
           iso_currency_code: String.t() | nil,
           unofficial_currency_code: String.t() | nil
         }
 
   defstruct [
+    :available,
     :current,
-    :date,
+    :limit,
     :iso_currency_code,
     :unofficial_currency_code
   ]
@@ -24,8 +24,9 @@ defmodule Plaid.Accounts.Account.HistoricalBalances do
   @impl true
   def cast(generic_map) do
     %__MODULE__{
+      available: generic_map["available"],
       current: generic_map["current"],
-      date: generic_map["date"],
+      limit: generic_map["limit"],
       iso_currency_code: generic_map["iso_currency_code"],
       unofficial_currency_code: generic_map["unofficial_currency_code"]
     }

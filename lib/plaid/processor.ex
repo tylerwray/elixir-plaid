@@ -112,7 +112,7 @@ defmodule Plaid.Processor do
     """
 
     @behaviour Castable
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Processor.Numbers
 
     @type t :: %__MODULE__{
@@ -166,7 +166,7 @@ defmodule Plaid.Processor do
     """
 
     @behaviour Castable
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
 
     @type t :: %__MODULE__{
             account: Account.t(),
@@ -219,7 +219,7 @@ defmodule Plaid.Processor do
     """
 
     @behaviour Castable
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
 
     @type t :: %__MODULE__{
             account: Account.t(),

@@ -100,9 +100,9 @@ defmodule Plaid.ProcessorTest do
 
     {:ok,
      %Plaid.Processor.GetAuthResponse{
-       account: %Plaid.Accounts.Account{
+       account: %Plaid.Account{
          account_id: "QKKzevvp33HxPWpoqn6rI13BxW4awNSjnw4xv",
-         balances: %Plaid.Accounts.Account.Balances{
+         balances: %Plaid.Account.Balances{
            available: 100,
            current: 110,
            limit: nil
@@ -169,9 +169,9 @@ defmodule Plaid.ProcessorTest do
 
     {:ok,
      %Plaid.Processor.GetBalanceResponse{
-       account: %Plaid.Accounts.Account{
+       account: %Plaid.Account{
          account_id: "QKKzevvp33HxPWpoqn6rI13BxW4awNSjnw4xv",
-         balances: %Plaid.Accounts.Account.Balances{
+         balances: %Plaid.Account.Balances{
            available: 100,
            current: 110,
            limit: nil
@@ -279,9 +279,9 @@ defmodule Plaid.ProcessorTest do
 
     {:ok,
      %Plaid.Processor.GetIdentityResponse{
-       account: %Plaid.Accounts.Account{
+       account: %Plaid.Account{
          account_id: "XMGPJy4q1gsQoKd5z9R3tK8kJ9EWL8SdkgKMq",
-         balances: %Plaid.Accounts.Account.Balances{
+         balances: %Plaid.Account.Balances{
            available: 100,
            current: 110,
            iso_currency_code: "USD",

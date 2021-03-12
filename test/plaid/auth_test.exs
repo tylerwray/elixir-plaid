@@ -85,9 +85,9 @@ defmodule Plaid.AuthTest do
     {:ok,
      %Plaid.Auth.GetResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "vzeNDwK7KQIm4yEog683uElbp9GRLEFXGK98D",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 100,
              current: 110,
              limit: nil,

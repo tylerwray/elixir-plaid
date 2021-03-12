@@ -10,7 +10,7 @@ defmodule Plaid.Auth do
 
     @behaviour Plaid.Castable
 
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Auth.Numbers
     alias Plaid.Castable
     alias Plaid.Item

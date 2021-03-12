@@ -12,7 +12,7 @@ defmodule Plaid.Investments do
 
     @behaviour Castable
 
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Investments.{Holding, Security}
     alias Plaid.Item
 
@@ -85,7 +85,7 @@ defmodule Plaid.Investments do
 
     @behaviour Castable
 
-    alias Plaid.Accounts.Account
+    alias Plaid.Account
     alias Plaid.Investments.{Security, Transaction}
     alias Plaid.Item
 

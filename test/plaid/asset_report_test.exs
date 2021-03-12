@@ -181,9 +181,9 @@ defmodule Plaid.AssetReportTest do
          items: [
            %Plaid.AssetReport.Report.Item{
              accounts: [
-               %Plaid.Accounts.Account{
+               %Plaid.Account{
                  account_id: "3gE5gnRzNyfXpBK5wEEKcymJ5albGVUqg77gr",
-                 balances: %Plaid.Accounts.Account.Balances{
+                 balances: %Plaid.Account.Balances{
                    available: 200,
                    current: 210,
                    iso_currency_code: "USD",
@@ -192,7 +192,7 @@ defmodule Plaid.AssetReportTest do
                  },
                  days_available: 3,
                  historical_balances: [
-                   %Plaid.Accounts.Account.HistoricalBalances{
+                   %Plaid.Account.HistoricalBalances{
                      current: 210,
                      date: "2020-06-04",
                      iso_currency_code: "USD",

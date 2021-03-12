@@ -219,9 +219,9 @@ defmodule Plaid.LiabilitiesTest do
     {:ok,
      %Plaid.Liabilities.GetResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 100,
              current: 110,
              iso_currency_code: "USD",
@@ -234,9 +234,9 @@ defmodule Plaid.LiabilitiesTest do
            subtype: "checking",
            type: "depository"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "dVzbVMLjrxTnLjX4G66XUp5GLklm4oiZy88yK",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 410,
              iso_currency_code: "USD",
@@ -249,9 +249,9 @@ defmodule Plaid.LiabilitiesTest do
            subtype: "credit card",
            type: "credit"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "Pp1Vpkl9w8sajvK6oEEKtr7vZxBnGpf7LxxLE",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 65_262,
              iso_currency_code: "USD",
@@ -264,9 +264,9 @@ defmodule Plaid.LiabilitiesTest do
            subtype: "student",
            type: "loan"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "BxBXxLj1m4HMXBm9WZJyUg9XLd4rKEhw8Pb1J",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: nil,
              current: 56_302.06,
              iso_currency_code: "USD",

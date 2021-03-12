@@ -1,11 +1,11 @@
-defmodule Plaid.Accounts.Account do
+defmodule Plaid.Account do
   @moduledoc """
   [Plaid Account schema.](https://plaid.com/docs/api/accounts)
   """
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Accounts.Account.{Balances, HistoricalBalances}
+  alias Plaid.Account.{Balances, HistoricalBalances}
   alias Plaid.Castable
   alias Plaid.Identity
   alias Plaid.Item

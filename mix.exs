@@ -18,9 +18,9 @@ defmodule Plaid.MixProject do
         extras: ["README.md", "CONTRIBUTING.md", "guides/webhooks.md"],
         groups_for_modules: [
           Accounts: [
-            Plaid.Accounts.Account,
-            Plaid.Accounts.Account.Balances,
-            Plaid.Accounts.Account.HistoricalBalances,
+            Plaid.Account,
+            Plaid.Account.Balances,
+            Plaid.Account.HistoricalBalances,
             Plaid.Accounts.GetResponse
           ],
           "Asset Report": [

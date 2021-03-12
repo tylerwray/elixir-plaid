@@ -195,9 +195,9 @@ defmodule Plaid.IdentityTest do
     {:ok,
      %Plaid.Identity.GetResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 100,
              current: 110,
              iso_currency_code: "USD",
@@ -273,9 +273,9 @@ defmodule Plaid.IdentityTest do
            subtype: "checking",
            type: "depository"
          },
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "3gE5gnRzNyfXpBK5wEEKcymJ5albGVUqg77gr",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 200,
              current: 210,
              iso_currency_code: "USD",

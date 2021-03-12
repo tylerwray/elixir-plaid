@@ -5,7 +5,7 @@ defmodule Plaid.AssetReport.Report.Item do
 
   @behaviour Plaid.Castable
 
-  alias Plaid.Accounts.Account
+  alias Plaid.Account
   alias Plaid.Castable
 
   @type t :: %__MODULE__{

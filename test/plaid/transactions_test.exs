@@ -99,9 +99,9 @@ defmodule Plaid.TransactionsTest do
     {:ok,
      %Plaid.Transactions.GetResponse{
        accounts: [
-         %Plaid.Accounts.Account{
+         %Plaid.Account{
            account_id: "BxBXxLj1m4HMXBm9WZZmCWVbPjX16EHwv99vp",
-           balances: %Plaid.Accounts.Account.Balances{
+           balances: %Plaid.Account.Balances{
              available: 110,
              current: 110,
              iso_currency_code: "USD",
