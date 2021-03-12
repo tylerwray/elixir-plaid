@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.2.0",
+      version: "0.2.1",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
