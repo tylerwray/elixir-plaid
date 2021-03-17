@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.2.1",
+      version: "0.2.2",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -102,6 +102,10 @@ defmodule Plaid.MixProject do
           "Link Token": [
             Plaid.LinkToken.CreateResponse,
             Plaid.LinkToken.DepositSwitch,
+            Plaid.LinkToken.GetResponse,
+            Plaid.LinkToken.Metadata,
+            Plaid.LinkToken.Metadata.AccountFilters,
+            Plaid.LinkToken.Metadata.Filter,
             Plaid.LinkToken.PaymentInitiation,
             Plaid.LinkToken.User
           ],

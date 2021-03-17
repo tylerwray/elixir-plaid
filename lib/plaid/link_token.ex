@@ -4,7 +4,13 @@ defmodule Plaid.LinkToken do
   """
 
   alias Plaid.Castable
-  alias Plaid.LinkToken.{DepositSwitch, PaymentInitiation, User}
+
+  alias Plaid.LinkToken.{
+    DepositSwitch,
+    Metadata,
+    PaymentInitiation,
+    User
+  }
 
   defmodule CreateResponse do
     @moduledoc """
@@ -112,5 +118,60 @@ defmodule Plaid.LinkToken do
              }
   def create(payload, config) do
     Plaid.Client.call("/link/token/create", payload, CreateResponse, config)
+  end
+
+  defmodule GetResponse do
+    @moduledoc """
+    [Plaid API /link/token/get response schema.](https://plaid.com/docs/api/tokens/#linktokenget)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            created_at: String.t() | nil,
+            expiration: String.t() | nil,
+            link_token: String.t() | nil,
+            metadata: Metadata.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :created_at,
+      :link_token,
+      :expiration,
+      :metadata,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        created_at: generic_map["created_at"],
+        expiration: generic_map["expiration"],
+        link_token: generic_map["link_token"],
+        metadata: Castable.cast(Metadata, generic_map["metadata"]),
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
+  @doc """
+  Get information about a previously created link token.
+
+  Does a `POST /link/token/get` call which returns details about a link token which
+  was previously created.
+
+  Params:
+  * `link_token` - A link_token from a previous invocation of /link/token/create.
+
+  ## Examples
+
+      LinkToken.get("link-prod-123xxx", client_id: "123", secret: "abc")
+      {:ok, %Plaid.LinkToken.GetResponse{}}
+
+  """
+  @spec get(String.t(), Plaid.config()) :: {:ok, GetResponse.t()} | {:error, Plaid.Error.t()}
+  def get(link_token, config) do
+    Plaid.Client.call("/link/token/get", %{link_token: link_token}, GetResponse, config)
   end
 end

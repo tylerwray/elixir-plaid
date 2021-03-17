@@ -62,4 +62,69 @@ defmodule Plaid.LinkTokenTest do
         secret: "abc"
       )
   end
+
+  test "/link/token/get", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/link/token/get", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "created_at": "2020-12-02T21:14:54Z",
+        "expiration": "2020-12-03T01:14:54Z",
+        "link_token": "link-sandbox-33792986-2b9c-4b80-b1f2-518caaac6183",
+        "metadata": {
+          "account_filters": {
+            "depository": {
+              "account_subtypes": [
+                "checking",
+                "savings"
+              ]
+            }
+          },
+          "client_name": "Insert Client name here",
+          "country_codes": [
+            "US"
+          ],
+          "initial_products": [
+            "auth"
+          ],
+          "language": "en",
+          "redirect_uri": null,
+          "webhook": "https://www.example.com/webhook"
+        },
+        "request_id": "u0ydFs493XjyTYn"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.LinkToken.GetResponse{
+       created_at: "2020-12-02T21:14:54Z",
+       expiration: "2020-12-03T01:14:54Z",
+       link_token: "link-sandbox-33792986-2b9c-4b80-b1f2-518caaac6183",
+       metadata: %Plaid.LinkToken.Metadata{
+         account_filters: %{
+           depository: %Plaid.LinkToken.Metadata.Filter{
+             account_subtypes: [
+               "checking",
+               "savings"
+             ]
+           }
+         },
+         client_name: "Insert Client name here",
+         country_codes: [
+           "US"
+         ],
+         initial_products: [
+           "auth"
+         ],
+         language: "en",
+         redirect_uri: nil,
+         webhook: "https://www.example.com/webhook"
+       },
+       request_id: "u0ydFs493XjyTYn"
+     }} =
+      Plaid.LinkToken.get(
+        "link-production-123xxx",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end

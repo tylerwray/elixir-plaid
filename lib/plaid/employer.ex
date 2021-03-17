@@ -2,7 +2,9 @@ defmodule Plaid.Employer do
   @moduledoc """
   [Plaid Employer API](https://plaid.com/docs/api/employers/) calls and schema.
 
-  🏗  Waiting on plaid to enable the `deposit_switch` product so I can fully test this endpoint.
+  🏗 I haven't tested this yet against the actual plaid API because I can't get the
+  `deposit_switch` product in plaid yet. If you test it, let me know and I can take
+  off the in-progress status!
   """
 
   @behaviour Plaid.Castable
