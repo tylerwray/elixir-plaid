@@ -174,4 +174,25 @@ defmodule Plaid.ItemTest do
         secret: "abc"
       )
   end
+
+  test "/item/access_token/invalidate", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/item/access_token/invalidate", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "new_access_token": "access-sandbox-8ab976e6-64bc-4b38-98f7-731e7a349970",
+        "request_id": "m8MDnv9okwxFNBV"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.Item.InvalidateAccessTokenResponse{
+       new_access_token: "access-sandbox-8ab976e6-64bc-4b38-98f7-731e7a349970",
+       request_id: "m8MDnv9okwxFNBV"
+     }} =
+      Plaid.Item.invalidate_access_token(
+        "access-prod-123xxx",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end

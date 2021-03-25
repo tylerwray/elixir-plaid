@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.2.2",
+      version: "0.2.3",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -81,7 +81,9 @@ defmodule Plaid.MixProject do
             Plaid.Investments.Transaction
           ],
           Item: [
+            Plaid.Item.ExchangePublicTokenResponse,
             Plaid.Item.GetResponse,
+            Plaid.Item.InvalidateAccessTokenResponse,
             Plaid.Item.Status,
             Plaid.Item.Status.Investments,
             Plaid.Item.Status.LastWebhook,

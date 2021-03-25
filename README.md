@@ -2,7 +2,7 @@
 
 [![build](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml/badge.svg)](https://github.com/tylerwray/elixir-plaid/actions/workflows/elixir.yml) [![Hex Version](https://img.shields.io/hexpm/v/elixir_plaid.svg)](https://hex.pm/packages/elixir_plaid) [![Hex Docs](https://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/elixir_plaid) ![Hex.pm](https://img.shields.io/hexpm/dt/elixir_plaid) [![MIT License](https://img.shields.io/hexpm/l/elixir_plaid)](https://opensource.org/licenses/MIT)
 
-> Simply Beautiful Elixir bindings for the [Plaid API](https://plaid.com/docs/api).
+> Simply Beautiful Elixir library for the [Plaid API](https://plaid.com/docs/api).
 
 ## Beware of v0
 

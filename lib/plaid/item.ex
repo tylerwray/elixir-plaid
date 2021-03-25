@@ -245,4 +245,61 @@ defmodule Plaid.Item do
       config
     )
   end
+
+  defmodule InvalidateAccessTokenResponse do
+    @moduledoc """
+    [Plaid API /item/access_token/invalidate response schema.](https://plaid.com/docs/api/tokens/#itemaccess_tokeninvalidate)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            new_access_token: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :new_access_token,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        new_access_token: generic_map["new_access_token"],
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
+  @doc """
+  Invalidate an access token.
+
+  Does a `POST /item/access_token/invalidate` call which rotates an access token 
+  for an item. Immediately invalidating it and returning a new access token.
+
+  ## Params
+
+  * `access_token` - The access token associated with the Item data is being requested for.
+
+  ## Examples
+
+      Item.invalidate_access_token(
+        "access-prod-123xxx",
+        client_id: "123",
+        secret: "abc"
+      )
+      {:ok, %Item.InvalidateAccessTokenResponse{}}
+
+  """
+  @spec invalidate_access_token(String.t(), Plaid.config()) ::
+          {:ok, InvalidateAccessTokenResponse.t()} | {:error, Plaid.Error.t()}
+  def invalidate_access_token(access_token, config) do
+    Plaid.Client.call(
+      "/item/access_token/invalidate",
+      %{access_token: access_token},
+      InvalidateAccessTokenResponse,
+      config
+    )
+  end
 end
