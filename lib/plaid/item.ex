@@ -184,4 +184,65 @@ defmodule Plaid.Item do
       config
     )
   end
+
+  defmodule ExchangePublicTokenResponse do
+    @moduledoc """
+    [Plaid API /item/public_token/exchange response schema.](https://plaid.com/docs/api/tokens/#itempublic_tokenexchange)
+    """
+
+    @behaviour Castable
+
+    @type t :: %__MODULE__{
+            access_token: String.t(),
+            item_id: String.t(),
+            request_id: String.t()
+          }
+
+    defstruct [
+      :access_token,
+      :item_id,
+      :request_id
+    ]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        access_token: generic_map["access_token"],
+        item_id: generic_map["item_id"],
+        request_id: generic_map["request_id"]
+      }
+    end
+  end
+
+  @doc """
+  Exchange a public token for an access token.
+
+  Does a `POST /item/public_token/exchange` call which exchanges a public token
+  for an access token.
+
+  ## Params
+
+  * `public_token` - Your public_token, obtained from the Link `onSuccess` callback
+  or `POST /sandbox/item/public_token/create.`
+
+  ## Examples
+
+      Item.exchange_public_token(
+        "public-prod-123xxx",
+        client_id: "123",
+        secret: "abc"
+      )
+      {:ok, %Item.ExchangePublicTokenResponse{}}
+
+  """
+  @spec exchange_public_token(String.t(), Plaid.config()) ::
+          {:ok, ExchangePublicTokenResponse.t()} | {:error, Plaid.Error.t()}
+  def exchange_public_token(public_token, config) do
+    Plaid.Client.call(
+      "/item/public_token/exchange",
+      %{public_token: public_token},
+      ExchangePublicTokenResponse,
+      config
+    )
+  end
 end

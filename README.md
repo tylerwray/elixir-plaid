@@ -112,7 +112,7 @@ For information about what has changed between API versions, head to the [versio
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | ✅     |
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
-| [Token](https://plaid.com/docs/api/tokens/)                                                                 | 🏗      |
+| [Token](https://plaid.com/docs/api/tokens/)                                                                 | ✅     |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🏗      |
 

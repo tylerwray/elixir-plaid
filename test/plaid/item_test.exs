@@ -151,4 +151,27 @@ defmodule Plaid.ItemTest do
         secret: "abc"
       )
   end
+
+  test "/item/public_token/exchange", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/item/public_token/exchange", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "access_token": "access-sandbox-de3ce8ef-33f8-452c-a685-8671031fc0f6",
+        "item_id": "M5eVJqLnv3tbzdngLDp9FL5OlDNxlNhlE55op",
+        "request_id": "Aim3b"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.Item.ExchangePublicTokenResponse{
+       access_token: "access-sandbox-de3ce8ef-33f8-452c-a685-8671031fc0f6",
+       item_id: "M5eVJqLnv3tbzdngLDp9FL5OlDNxlNhlE55op",
+       request_id: "Aim3b"
+     }} =
+      Plaid.Item.exchange_public_token(
+        "public-prod-123xxx",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
 end
