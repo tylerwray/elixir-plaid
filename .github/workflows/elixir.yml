@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-elixir@v1
       with:
         elixir-version: '1.10.3'
-        otp-version: '22.3'
+        otp-version: '23.3'
     - name: Restore dependencies cache
       uses: actions/cache@v2
       with:
