@@ -269,8 +269,12 @@ defmodule Plaid.Sandbox do
       {:ok, %Sandbox.CreateProcessorTokenResponse{}}
 
   """
-  @spec create_processor_token(String.t(), String.t(), Plaid.config()) ::
+  @spec create_processor_token(String.t(), options, Plaid.config()) ::
           {:ok, CreateProcessorTokenResponse.t()} | {:error, Plaid.Error.t()}
+        when options: %{
+               optional(:override_username) => String.t(),
+               optional(:override_password) => String.t()
+             }
   def create_processor_token(institution_id, options \\ %{}, config) do
     options_payload = Map.take(options, [:override_username, :override_password])
     payload = %{institution_id: institution_id, options: options_payload}
