@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "0.2.3",
+      version: "0.2.4",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -132,6 +132,13 @@ defmodule Plaid.MixProject do
             Plaid.Processor.GetBalanceResponse,
             Plaid.Processor.GetIdentityResponse,
             Plaid.Processor.Numbers
+          ],
+          Sandbox: [
+            Plaid.Sandbox.CreateProcessorTokenResponse,
+            Plaid.Sandbox.CreatePublicTokenResponse,
+            Plaid.Sandbox.FireItemWebhookResponse,
+            Plaid.Sandbox.ResetItemLoginResponse,
+            Plaid.Sandbox.TransactionsOptions
           ],
           Transactions: [
             Plaid.Transactions.GetResponse,

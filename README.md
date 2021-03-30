@@ -47,6 +47,7 @@ Plaid.Categories.get(env: :production)
 - [`Plaid.LinkToken`](https://hexdocs.pm/elixir_plaid/Plaid.LinkToken.html#content)
 - [`Plaid.PaymentInitiation`](https://hexdocs.pm/elixir_plaid/Plaid.PaymentInitiation.html#content)
 - [`Plaid.Processor`](https://hexdocs.pm/elixir_plaid/Plaid.Processor.html#content)
+- [`Plaid.Sandbox`](https://hexdocs.pm/elixir_plaid/Plaid.Sandbox.html#content)
 - [`Plaid.Transactions`](https://hexdocs.pm/elixir_plaid/Plaid.Transactions.html#content)
 - [`Plaid.Webhooks`](https://hexdocs.pm/elixir_plaid/Plaid.Webhooks.html#content)
 
@@ -111,7 +112,7 @@ For information about what has changed between API versions, head to the [versio
 | [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | ✅     |
-| [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🗺      |
+| [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🏗      |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | ✅     |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🏗      |
