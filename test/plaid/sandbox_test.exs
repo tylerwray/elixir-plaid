@@ -104,6 +104,51 @@ defmodule Plaid.SandboxTest do
       )
   end
 
+  test "/sandbox/bank_transfer/simulate", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/sandbox/bank_transfer/simulate", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "request_id": "1vwmF5TBQwiqfwP"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.SimpleResponse{
+       request_id: "1vwmF5TBQwiqfwP"
+     }} =
+      Plaid.Sandbox.simulate_bank_transfer(
+        "bt_123xxx",
+        "failed",
+        %{
+          failure_reason: %{
+            ach_return_code: "R01",
+            description: "Failed for unknown reason"
+          }
+        },
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
+
+  test "/sandbox/bank_transfer/fire_webhook", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/sandbox/bank_transfer/fire_webhook", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "request_id": "1vwmF5TBQwiqfwP"
+      }>)
+    end)
+
+    {:ok,
+     %Plaid.SimpleResponse{
+       request_id: "1vwmF5TBQwiqfwP"
+     }} =
+      Plaid.Sandbox.fire_bank_transfer_webhook(
+        "https://example.com/webhook",
+        test_api_host: api_host,
+        client_id: "123",
+        secret: "abc"
+      )
+  end
+
   test "/sandbox/processor_token/create", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/sandbox/processor_token/create", fn conn ->
       Conn.resp(conn, 200, ~s<{

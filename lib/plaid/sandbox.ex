@@ -3,6 +3,10 @@ defmodule Plaid.Sandbox do
   [Plaid Sandbox API](https://plaid.com/docs/api/sandbox/) calls and schema.
 
   > Only used for sandbox testing purposes. None of these calls will work in `development` or `production`.
+
+  🏗 I haven'tyet tested the `bank_transfer` endpoints against the actual plaid API because I can't
+  get the `bank_transfers` product from plaid yet. If you test it, let me know and I can remove
+  the in-progress status!
   """
 
   alias Plaid.Castable
@@ -223,6 +227,77 @@ defmodule Plaid.Sandbox do
       "/sandbox/item/fire_webhook",
       %{access_token: access_token, webhook_code: webhook_code},
       FireItemWebhookResponse,
+      config
+    )
+  end
+
+  @doc """
+  Simulate a bank transfer event in the Plaid Sandbox.
+
+  Does a `POST /sandbox/bank_transfer/simulate` call to simulate a bank transfer
+  in the plaid sandbox for testing purposes.
+
+  Params:
+  * `bank_transfer_id` - Plaid’s unique identifier for a bank transfer.
+  * `event_type` - The asynchronous event to be simulated. May be: posted, failed, or reversed.
+
+  Options:
+  * `:failure_reason` - The failure reason if the type of this transfer is "failed" or "reversed".
+
+  ## Examples
+
+      Sandbox.simulate_bank_transfer("bt_123xxx", "posted", client_id: "123", secret: "abc")
+      {:ok, %Plaid.SimpleResponse{}}
+
+  """
+  @spec simulate_bank_transfer(String.t(), String.t(), options, Plaid.config()) ::
+          {:ok, Plaid.SimpleResponse.t()} | {:error, Plaid.Error.t()}
+        when options: %{
+               optional(:failure_reason) => %{
+                 optional(:ach_return_code) => String.t(),
+                 optional(:description) => String.t()
+               }
+             }
+  def simulate_bank_transfer(bank_transfer_id, event_type, options \\ %{}, config) do
+    options_payload = Map.take(options, [:failure_reason])
+
+    payload =
+      %{}
+      |> Map.put(:bank_transfer_id, bank_transfer_id)
+      |> Map.put(:event_type, event_type)
+      |> Map.merge(options_payload)
+
+    Plaid.Client.call(
+      "/sandbox/bank_transfer/simulate",
+      payload,
+      Plaid.SimpleResponse,
+      config
+    )
+  end
+
+  @doc """
+  Manually fire a Bank Transfer webhook.
+
+  Does a `POST /sandbox/bank_transfer/fire_webhook` call to manually trigger
+  a bank transfer webhook.
+
+
+  Params:
+  * `webhook` - The URL to which the webhook should be sent.
+
+  ## Examples
+
+      Sandbox.fire_bank_transfer_webhook("https://example.com/webhook", client_id: "123", secret: "abc")
+      {:ok, %Plaid.SimpleResponse{}}
+
+  """
+  @spec fire_bank_transfer_webhook(String.t(), Plaid.config()) ::
+          {:ok, Plaid.SimpleResponse.t()} | {:error, Plaid.Error.t()}
+  def fire_bank_transfer_webhook(webhook, config) do
+    Plaid.Client.call(
+      "/sandbox/bank_transfer/fire_webhook",
+      %{webhook: webhook},
+      Plaid.SimpleResponse,
       config
     )
   end

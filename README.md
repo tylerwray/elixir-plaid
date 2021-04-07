@@ -84,7 +84,7 @@ Each major version of `elixir_plaid` targets a specific version of the Plaid API
 
 | API version                                         | package version |
 | --------------------------------------------------- | --------------- |
-| [`2020-09-14`][api-version-2020-09-14] (**latest**) | `0.x.x`         |
+| [`2020-09-14`][api-version-2020-09-14] (**latest**) | `1.x.x`         |
 
 For information about what has changed between API versions, head to the [version changelog][version-changelog].
 
