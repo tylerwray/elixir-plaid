@@ -4,11 +4,6 @@
 
 > Simply Beautiful Elixir library for the [Plaid API](https://plaid.com/docs/api).
 
-## Beware of v0
-
-I'm working to get this library to a `v1` state, until then it is considered un-stable and can
-make breaking changes while using the leading-zero `0.x.x` version number according to the semver specification.
-
 ## Motivation & Principles
 
 1. Provide FANTASTIC documentation
@@ -73,7 +68,7 @@ Add `elixir_plaid` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:elixir_plaid, "~> 0.1.0"}
+    {:elixir_plaid, "~> 1.0.0"}
   ]
 end
 ```
