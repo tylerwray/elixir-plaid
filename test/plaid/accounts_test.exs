@@ -9,7 +9,7 @@ defmodule Plaid.AccountsTest do
     {:ok, bypass: bypass, api_host: api_host}
   end
 
-  test "POST /accounts/get", %{bypass: bypass, api_host: api_host} do
+  test "/accounts/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/accounts/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [
@@ -155,7 +155,7 @@ defmodule Plaid.AccountsTest do
       )
   end
 
-  test "POST /accounts/balance/get", %{bypass: bypass, api_host: api_host} do
+  test "/accounts/balance/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/accounts/balance/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [

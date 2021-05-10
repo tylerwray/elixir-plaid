@@ -9,7 +9,7 @@ defmodule Plaid.InvestmentsTest do
     {:ok, bypass: bypass, api_host: api_host}
   end
 
-  test "POST /investments/holdings/get", %{bypass: bypass, api_host: api_host} do
+  test "/investments/holdings/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/investments/holdings/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [
@@ -525,7 +525,7 @@ defmodule Plaid.InvestmentsTest do
       )
   end
 
-  test "POST /investments/holdings/get without options", %{bypass: bypass, api_host: api_host} do
+  test "/investments/holdings/get without options", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/investments/holdings/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [
@@ -678,7 +678,7 @@ defmodule Plaid.InvestmentsTest do
       )
   end
 
-  test "POST /investments/transactions/get", %{bypass: bypass, api_host: api_host} do
+  test "/investments/transactions/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/investments/transactions/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [
@@ -1040,7 +1040,7 @@ defmodule Plaid.InvestmentsTest do
       )
   end
 
-  test "POST /investments/transactions/get without options", %{bypass: bypass, api_host: api_host} do
+  test "/investments/transactions/get without options", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/investments/transactions/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "accounts": [

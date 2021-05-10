@@ -9,7 +9,7 @@ defmodule Plaid.AssetReportTest do
     {:ok, bypass: bypass, api_host: api_host}
   end
 
-  test "POST /asset_report/create", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/create", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/create", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
@@ -49,7 +49,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/create without options", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/create without options", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/create", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
@@ -76,7 +76,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/get", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "report": {
@@ -328,7 +328,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/get without options", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/get without options", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "report": {
@@ -579,7 +579,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/pdf/get", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/pdf/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/pdf/get", fn conn ->
       conn
       |> Conn.put_resp_header("content-type", "application/pdf")
@@ -597,7 +597,7 @@ defmodule Plaid.AssetReportTest do
     assert body == <<0, 1, 2, 3>>
   end
 
-  test "POST /asset_report/refresh", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/refresh", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/refresh", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
@@ -634,7 +634,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/refresh without options", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/refresh without options", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/refresh", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
@@ -657,7 +657,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/filter", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/filter", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/filter", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "asset_report_token": "assets-sandbox-6f12f5bb-22dd-4855-b918-f47ec439198a",
@@ -681,7 +681,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/remove", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/remove", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/remove", fn conn ->
       Conn.resp(conn, 200, ~s<{"removed": true, "request_id": "I6Hzd"}>)
     end)
@@ -699,7 +699,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/audit_copy/create", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/audit_copy/create", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/audit_copy/create", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "audit_copy_token": "a-sandbox-3TAU2CWVYBDVRHUCAAAI27ULU4",
@@ -721,7 +721,7 @@ defmodule Plaid.AssetReportTest do
       )
   end
 
-  test "POST /asset_report/audit_copy/remove", %{bypass: bypass, api_host: api_host} do
+  test "/asset_report/audit_copy/remove", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/asset_report/audit_copy/remove", fn conn ->
       Conn.resp(conn, 200, ~s<{
         "removed": true,
