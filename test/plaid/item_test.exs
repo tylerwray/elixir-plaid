@@ -29,6 +29,10 @@ defmodule Plaid.ItemTest do
           "consent_expiration_time": null
         },
         "status": {
+          "investments": {
+            "last_successful_update": "2019-02-15T15:52:39.000Z",
+            "last_failed_update": "2019-01-22T04:32:00.000Z"
+          },
           "transactions": {
             "last_successful_update": "2019-02-15T15:52:39.000Z",
             "last_failed_update": "2019-01-22T04:32:00.000Z"
@@ -61,6 +65,10 @@ defmodule Plaid.ItemTest do
          consent_expiration_time: nil
        },
        status: %Plaid.Item.Status{
+         investments: %Plaid.Item.Status.Investments{
+           last_successful_update: "2019-02-15T15:52:39.000Z",
+           last_failed_update: "2019-01-22T04:32:00.000Z"
+         },
          transactions: %Plaid.Item.Status.Transactions{
            last_successful_update: "2019-02-15T15:52:39.000Z",
            last_failed_update: "2019-01-22T04:32:00.000Z"
