@@ -89,7 +89,7 @@ defmodule Plaid.Webhooks do
         # Keeping key as a string-keyed map because
         # that's what Joken.Signer.create/3 requires.
         key: generic_map["key"],
-        request_id: generic_map["key"]
+        request_id: generic_map["request_id"]
       }
     end
   end
@@ -504,7 +504,8 @@ defmodule Plaid.Webhooks do
       "[#{__MODULE__}]",
       " webhook cast not implemented for",
       " webhook_type: #{webhook_type} and webhook_code: #{webhook_code}.",
-      " Returning raw webhook."
+      " Returning raw webhook.",
+      " Create an issue or pull request at https://github.com/tylerwray/elixir-plaid."
     ])
 
     :raw

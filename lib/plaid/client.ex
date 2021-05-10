@@ -2,6 +2,8 @@ defmodule Plaid.Client do
   @moduledoc false
   use HTTPoison.Base
 
+  require Logger
+
   alias Plaid.Castable
 
   def process_request_headers(headers) do
@@ -27,7 +29,7 @@ defmodule Plaid.Client do
 
   """
   @spec call(String.t(), map(), module(), Plaid.config()) ::
-          {:ok, map()} | {:error, Plaid.Error.t()}
+          {:ok, any()} | {:error, Plaid.Error.t()}
   def call(endpoint, payload \\ %{}, castable_module, config) do
     url = build_url(config, endpoint)
 
@@ -70,7 +72,7 @@ defmodule Plaid.Client do
            | HTTPoison.MaybeRedirect.t()}
           | {:error, HTTPoison.Error.t()},
           module() | :raw
-        ) :: {:ok, any()} | {:error, struct()}
+        ) :: {:ok, any()} | {:error, Plaid.Error.t()}
   def handle_response({:ok, %{body: body, status_code: status_code}}, :raw)
       when status_code in 200..299 do
     {:ok, body}
@@ -91,5 +93,15 @@ defmodule Plaid.Client do
     end
   end
 
-  def handle_response(res, _), do: res
+  def handle_response(res, _) do
+    Logger.warn([
+      "[#{__MODULE__}] un-",
+      " un-handled response.",
+      " #{inspect(res)}",
+      " Create an issue or pull request with the above response",
+      " at https://github.com/tylerwray/elixir-plaid."
+    ])
+
+    {:error, Castable.cast(Plaid.Error, %{})}
+  end
 end
