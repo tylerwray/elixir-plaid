@@ -175,7 +175,8 @@ defmodule Plaid.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      env: [client: Plaid.Client.HTTPoison]
     ]
   end
 
@@ -186,7 +187,7 @@ defmodule Plaid.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
-      {:httpoison, "~> 1.7"},
+      {:httpoison, "~> 1.7", optional: true},
       {:jason, "~> 1.2"},
       {:joken, "~> 2.0"},
       {:secure_compare, "~> 0.1.0"}
