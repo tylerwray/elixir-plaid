@@ -1,4 +1,11 @@
 defmodule Plaid.Client.HTTPoison do
+  @moduledoc """
+  Implements the Plaid.Client behaviour, which calls for a `post/3` function.
+
+  Also implements the optional `init/0` function, to ensure that HTTPoison is
+  listed as a dependency and loaded if a custom module isn't being used.
+  """
+
   @behaviour Plaid.Client
 
   require Logger
