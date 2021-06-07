@@ -11,7 +11,8 @@ defmodule Plaid.MixProject do
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
       dialyzer: [
-        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        plt_add_apps: [:httpoison]
       ],
       docs: [
         main: "readme",
