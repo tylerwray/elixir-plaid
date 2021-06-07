@@ -13,7 +13,7 @@ defmodule Plaid.Client.HTTPoison do
   @impl true
   def init do
     unless Code.ensure_loaded?(HTTPoison) do
-      Logger.error """
+      Logger.error("""
       Could not find http client dependency.
 
       Please add HTTPoison to your dependencies:
@@ -25,7 +25,7 @@ defmodule Plaid.Client.HTTPoison do
           config :httpoison, :client, MyApp.CustomClient
 
       See Plaid.Client docs for more info: https://hexdocs.pm/httpoison/Plaid.Client.html
-      """
+      """)
 
       raise "missing httpoison dependency"
     end
