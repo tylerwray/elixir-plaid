@@ -11,7 +11,8 @@ defmodule Plaid.MixProject do
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/tylerwray/elixir-plaid",
       dialyzer: [
-        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        plt_add_apps: [:httpoison]
       ],
       docs: [
         main: "readme",
@@ -175,7 +176,8 @@ defmodule Plaid.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      env: [client: Plaid.Client.HTTPoison]
     ]
   end
 
@@ -186,7 +188,7 @@ defmodule Plaid.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
-      {:httpoison, "~> 1.7"},
+      {:httpoison, "~> 1.7", optional: true},
       {:jason, "~> 1.2"},
       {:joken, "~> 2.0"},
       {:secure_compare, "~> 0.1.0"}
