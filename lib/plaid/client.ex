@@ -1,26 +1,13 @@
 defmodule Plaid.Client do
   @moduledoc """
-  Uses [HTTPoison](https://github.com/edgurgel/httpoison) by default, but can be swapped out for any HTTP client you'd like.
-  To use HTTPoison, just make sure it's included in your deps and you're good to go:
-
-  ```elixir
-  def deps do
-    [
-      {:httpoison, "~> 1.7"}
-    ]
-  end
-  ```
+  Make API calls to plaid and convert the responses from JSON -> well typed elixir structs
 
   To use a different HTTP client, create a new module like `MyApp.PlaidClient` which implements
-  `post/3` and implements the `@behaviour Plaid.Client` behaviour.
+  `post/3` and implements the `@behaviour Plaid.Client` behaviour. The success response of those functions must return a `:body` key with a JSON string value
+  and a `:status_code` key with an integer HTTP status. For an example, see the `Plaid.Client.HTTPoison` module.
 
-  The success response of those functions must return a `:body` key with a JSON string value
-  and a `:status_code` key with an integer HTTP status.
-
-  For network errors where you don't get a body or status code, you may return an error tuple
-  with any error value, but the error value is not currently utilized.
-
-  For an example, see the `Plaid.Client.HTTPoison` module.
+  > For network errors where you don't get a body or status code, you may return an error tuple
+  > with any error value, but the error value is not currently utilized.
   """
 
   require Logger

@@ -77,6 +77,9 @@ Add `elixir_plaid` to your list of dependencies in `mix.exs`:
 def deps do
   [
     {:elixir_plaid, "~> 1.0.0"}
+
+    # optional, but recommended http client
+    {:httpoison, "~> 1.7"}
   ]
 end
 ```
