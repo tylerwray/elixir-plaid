@@ -14,6 +14,12 @@ defmodule Plaid.MixProject do
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
         plt_add_apps: [:httpoison]
       ],
+      # Suppress warnings
+      xref: [
+        exclude: [
+          :httpoison
+        ]
+      ],
       docs: [
         main: "readme",
         extras: ["README.md", "CONTRIBUTING.md", "guides/webhooks.md"],
@@ -166,6 +172,10 @@ defmodule Plaid.MixProject do
             Plaid.Address,
             Plaid.Error,
             Plaid.SimpleResponse
+          ],
+          Internal: [
+            Plaid.Client,
+            Plaid.Client.HTTPoison
           ]
         ]
       ],
@@ -176,8 +186,7 @@ defmodule Plaid.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      env: [client: Plaid.Client.HTTPoison]
+      extra_applications: [:logger]
     ]
   end
 

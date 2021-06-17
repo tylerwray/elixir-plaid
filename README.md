@@ -48,14 +48,22 @@ Plaid.Categories.get(env: :production)
 
 Full Documentation on [HexDocs](https://hexdocs.pm/elixir_plaid).
 
+## Configuration
+
 Each function takes a [`Plaid.config`](https://hexdocs.pm/elixir_plaid/Plaid.html#t:config/0) keyword list as it's trailing argument.
 Authenticated requests require a `client_id` and `secert` at minimum for authentication with the plaid API.
 
-You can also pass an `env` option as either `:production`, `:development`, or `:sandbox` (default).
+| Key              | Value                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| `:client_id`     | Your plaid client id. (required for authenticated requests)                                     |
+| `:secret`        | Your plaid secret. (required for authenticated requests)                                        |
+| `:env`           | Either `:production`, `:development`, or `:sandbox`. (defaults to `:sandbox`)                   |
+| `:http_client`   | Any module that implements the `Plaid.Client` behaviour. (defaults to `Plaid.Client.HTTPoison`) |
+| `:test_api_host` | Any base URL e.g. `http://localhost:2100/`.                                                     |
 
 > The choice to avoid using application configuration is due to the [anti-pattern documented by elixir](https://hexdocs.pm/elixir/master/library-guidelines.html#avoid-application-configuration)
-> of libraries using application configuration. Passing "configuration" to each function avoids the library touching any
-> global state. As well as making function calls objectively more "functional".
+> of libraries using application configuration. Passing configuration to each function avoids the library touching any
+> global state, as well as making function calls objectively more "functional".
 
 > Likely you will need to pass keys dynamically anyway for development/production, overwriting the need for global application config.
 > Therefore using patterns like those outlined in [this blog post](https://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/) and
@@ -69,6 +77,9 @@ Add `elixir_plaid` to your list of dependencies in `mix.exs`:
 def deps do
   [
     {:elixir_plaid, "~> 1.0.0"}
+
+    # optional, but recommended http client
+    {:httpoison, "~> 1.7"}
   ]
 end
 ```
