@@ -1,48 +1,49 @@
 defmodule Plaid.Client do
   @moduledoc """
-  Uses [HTTPoison](https://github.com/edgurgel/httpoison) by default, but can be swapped out for any HTTP client you'd like. To use HTTPoison, just make sure it's included in your deps and you're good to go:
+  Uses [HTTPoison](https://github.com/edgurgel/httpoison) by default, but can be swapped out for any HTTP client you'd like.
+  To use HTTPoison, just make sure it's included in your deps and you're good to go:
 
-    `{:httpoison, "~> 1.7"}`
+  ```elixir
+  def deps do
+    [
+      {:httpoison, "~> 1.7"}
+    ]
+  end
+  ```
 
   To use a different HTTP client, create a new module like `MyApp.PlaidClient` which implements
-  `post/3` and uses the `@behaviour Plaid.Client` behaviour.
+  `post/3` and implements the `@behaviour Plaid.Client` behaviour.
 
-  For an example, see the Plaid.Client.HTTPoison module.
+  The success response of those functions must return a `:body` key with a JSON string value
+  and a `:status_code` key with an integer HTTP status.
 
-  The success response of those functions must return a `:body` key, with a JSON value, and a `:status_code` key with an integer HTTP status.
+  For network errors where you don't get a body or status code, you may return an error tuple
+  with any error value, but the error value is not currently utilized.
 
-  Then, you'll need to add the following to `config.exs`:
-
-    `config :elixir_plaid, client: MyApp.PlaidClient`
+  For an example, see the `Plaid.Client.HTTPoison` module.
   """
 
   require Logger
 
   alias Plaid.Castable
 
-  @type url :: String.t()
-  @type payload :: String.t()
-  @type headers :: [{String.t(), String.t()}]
+  @doc """
+  Callback to POST the data to the Plaid API.
 
-  @doc "Callback to initialize api client"
-  @callback init() :: :ok
+  Will be called with the full URL, payload, and headers. Simply take these values
+  execute the HTTP request.
 
-  @doc "Callback to POST the data"
-  @callback post(url, payload, headers) ::
-              {:ok, %{:body => String.t(), :status_code => integer(), optional(any) => any}}
-              | {:error, any()}
+  > `headers` passed in will be a list of two item tuples where the first item is the header key
+  > and the second is the value. e.g. `[{"content-type", "application/json"}]`
 
-  @optional_callbacks init: 0
+  ## Examples
 
-  def init do
-    client = http_client()
+      iex> post("https://production.plaid.com/categories/get", ~s<{"thing": "stuff"}>, [{"content-type", "application/json"}])
+      {:ok, %{body: ~s<{"foo": "bar"}>, status_code: 200}}
 
-    if Code.ensure_loaded?(client) and function_exported?(client, :init, 0) do
-      :ok = client.init()
-    end
-
-    :ok
-  end
+  """
+  @callback post(url :: String.t(), payload :: String.t(), headers :: [{String.t(), String.t()}]) ::
+              {:ok, %{body: String.t(), status_code: integer()}} | {:error, any()}
 
   @doc """
   Make a Plaid API call.
@@ -72,9 +73,22 @@ defmodule Plaid.Client do
       |> add_auth(config)
       |> Jason.encode!()
 
-    url
-    |> http_client().post(payload, headers())
-    |> handle_response(castable_module)
+    headers = [{"content-type", "application/json"}]
+
+    http_client = Keyword.get(config, :http_client, Plaid.Client.HTTPoison)
+
+    IO.inspect(http_client)
+
+    case http_client.post(url, payload, headers) do
+      {:ok, %{body: body, status_code: status_code}} when status_code in 200..299 ->
+        {:ok, cast_body(body, castable_module)}
+
+      {:ok, %{body: body}} ->
+        {:error, cast_body(body, Plaid.Error)}
+
+      {:error, _error} ->
+        {:error, Castable.cast(Plaid.Error, %{})}
+    end
   end
 
   @spec build_url(Plaid.config(), String.t()) :: String.t()
@@ -99,43 +113,15 @@ defmodule Plaid.Client do
     Map.merge(payload, auth)
   end
 
-  @spec handle_response(
-          {:ok, %{:body => String.t(), :status_code => integer(), optional(any) => any}}
-          | {:error, any()},
-          module() | :raw
-        ) :: {:ok, String.t() | %{optional(any) => any}} | {:error, Plaid.Error.t()}
-  def handle_response({:ok, %{body: body, status_code: status_code}}, :raw)
-      when status_code in 200..299 do
-    {:ok, body}
+  @spec cast_body(String.t(), module() | :raw) :: String.t() | %{optional(any) => any}
+  defp cast_body(body, :raw) do
+    body
   end
 
-  def handle_response({:ok, %{body: json_body, status_code: status_code}}, castable_module)
-      when status_code in 200..299 do
+  defp cast_body(json_body, castable_module) do
     case Jason.decode(json_body) do
-      {:ok, generic_map} -> {:ok, Castable.cast(castable_module, generic_map)}
-      _ -> {:error, Castable.cast(Plaid.Error, %{})}
+      {:ok, generic_map} -> Castable.cast(castable_module, generic_map)
+      _ -> Castable.cast(Plaid.Error, %{})
     end
   end
-
-  def handle_response({:ok, %{body: json_body}}, _castable_module) do
-    case Jason.decode(json_body) do
-      {:ok, generic_map} -> {:error, Castable.cast(Plaid.Error, generic_map)}
-      _ -> {:error, Castable.cast(Plaid.Error, %{})}
-    end
-  end
-
-  def handle_response(res, _) do
-    Logger.warn([
-      "[#{__MODULE__}] un-",
-      " un-handled response.",
-      " #{inspect(res)}",
-      " Create an issue or pull request with the above response",
-      " at https://github.com/tylerwray/elixir-plaid."
-    ])
-
-    {:error, Castable.cast(Plaid.Error, %{})}
-  end
-
-  defp headers, do: [{"Content-Type", "application/json"}]
-  defp http_client, do: Application.fetch_env!(:elixir_plaid, :client)
 end
