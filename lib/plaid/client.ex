@@ -1,6 +1,6 @@
 defmodule Plaid.Client do
   @moduledoc """
-  Make API calls to plaid and convert the responses from JSON -> well typed elixir structs
+  Make API calls to plaid and convert the responses from JSON -> well typed elixir structs.
 
   To use a different HTTP client, create a new module like `MyApp.PlaidClient` which implements
   `post/3` and implements the `@behaviour Plaid.Client` behaviour. The success response of those functions must return a `:body` key with a JSON string value
@@ -63,8 +63,6 @@ defmodule Plaid.Client do
     headers = [{"content-type", "application/json"}]
 
     http_client = Keyword.get(config, :http_client, Plaid.Client.HTTPoison)
-
-    IO.inspect(http_client)
 
     case http_client.post(url, payload, headers) do
       {:ok, %{body: body, status_code: status_code}} when status_code in 200..299 ->
