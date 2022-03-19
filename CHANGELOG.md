@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-03-19
+
+### Fixed
+
+- Made link token user fields optional. [PR](https://github.com/tylerwray/elixir-plaid/pull/8) Thanks [@ktayah](https://github.com/ktayah)!
+
 ## [1.1.0] - 2021-06-16
 
 ### Added
