@@ -4,7 +4,7 @@ defmodule Plaid.MixProject do
   def project do
     [
       app: :elixir_plaid,
-      version: "1.1.1",
+      version: "1.1.2",
       description: description(),
       package: package(),
       elixir: "~> 1.10",
@@ -194,12 +194,12 @@ defmodule Plaid.MixProject do
   defp deps do
     [
       {:bypass, "~> 2.1", only: :test},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.23", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
       {:httpoison, "~> 1.7", optional: true},
-      {:jason, "~> 1.2"},
-      {:joken, "~> 2.0"},
+      {:jason, "~> 1.3"},
+      {:joken, "~> 2.4"},
       {:secure_compare, "~> 0.1.0"}
     ]
   end

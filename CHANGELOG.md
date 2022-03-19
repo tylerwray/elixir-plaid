@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2022-03-19
+
+### Chore
+
+- Updated dependencies. Mainly to ship new version of elixir docs.
+
 ## [1.1.1] - 2022-03-19
 
 ### Fixed
@@ -17,11 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Swappable HTTP client
+- Swappable HTTP client.
 
 ## [1.0.0] - 2021-04-06
 
 ### Added
 
-- Full Plaid API coverage and documentation
-- Webhook helpers
+- Full Plaid API coverage and documentation.
+- Webhook helpers.
