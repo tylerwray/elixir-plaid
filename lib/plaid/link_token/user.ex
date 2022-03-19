@@ -5,13 +5,13 @@ defmodule Plaid.LinkToken.User do
 
   @type t :: %__MODULE__{
           client_user_id: String.t(),
-          legal_name: String.t() | none(),
-          phone_number: String.t() | none(),
-          phone_number_verified_time: String.t() | none(),
-          email_address: String.t() | none(),
-          email_address_verified_time: String.t() | none(),
-          ssn: String.t() | none(),
-          date_of_birth: String.t() | none()
+          optional(:legal_name) => String.t(),
+          optional(:phone_number) => String.t(),
+          optional(:phone_number_verified_time) => String.t(),
+          optional(:email_address) => String.t(),
+          optional(:email_address_verified_time) => String.t(),
+          optional(:ssn) => String.t(),
+          optional(:date_of_birth) => String.t()
         }
 
   @enforce_keys [:client_user_id]
