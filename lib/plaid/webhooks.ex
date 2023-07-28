@@ -500,7 +500,7 @@ defmodule Plaid.Webhooks do
     do: PaymentInitiationPaymentStatusUpdate
 
   defp struct_module(webhook_type, webhook_code) do
-    Logger.warn([
+    Logger.warning([
       "[#{__MODULE__}]",
       " webhook cast not implemented for",
       " webhook_type: #{webhook_type} and webhook_code: #{webhook_code}.",
