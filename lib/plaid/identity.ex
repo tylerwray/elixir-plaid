@@ -29,7 +29,7 @@ defmodule Plaid.Identity do
 
   defmodule GetResponse do
     @moduledoc """
-    [Plaid API /identity/get response schema.](https://plaid.com/docs/api/accounts).
+    [Plaid API /identity/get response schema.](https://plaid.com/docs/api/products/identity/#identityget).
     """
 
     @behaviour Castable
