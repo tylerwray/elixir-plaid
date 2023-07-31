@@ -132,7 +132,7 @@ defmodule Plaid.Identity do
 
   ## Example
 
-      user_identity = =%{
+      user_identity = %{
         user: %{
           legal_name: "full legal name",
           phone_number: "123-456-7890",
