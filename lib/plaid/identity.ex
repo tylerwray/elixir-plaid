@@ -29,7 +29,7 @@ defmodule Plaid.Identity do
 
   defmodule GetResponse do
     @moduledoc """
-    [Plaid API /identity/get response schema.](https://plaid.com/docs/api/accounts).
+    [Plaid API /identity/get response schema.](https://plaid.com/docs/api/products/identity/#identityget).
     """
 
     @behaviour Castable
@@ -85,5 +85,76 @@ defmodule Plaid.Identity do
       |> Map.put(:options, options_payload)
 
     Plaid.Client.call("/identity/get", payload, GetResponse, config)
+  end
+
+  defmodule MatchResponse do
+    @moduledoc """
+    [Plaid API /identity/match response schema.](https://plaid.com/docs/api/products/identity/#identitymatch).
+    """
+
+    @behaviour Plaid.Castable
+
+    defstruct [:accounts]
+
+    @impl true
+    def cast(generic_map) do
+      %__MODULE__{
+        accounts: Plaid.Castable.cast_list(Plaid.Identity.Match.Account, generic_map["accounts"])
+      }
+    end
+  end
+
+  @doc """
+  Perform an identity check match.
+
+  Does a `POST /identity/match` call to retrieve match scores and account metadata
+  for each connected account.
+
+  ## Params:
+  * `access_token` - Plaid access token.
+
+  ## Options:
+
+      %{
+        user: %{
+          legal_name: "full legal name",
+          phone_number: "123-456-7890",
+          email_address: "email@address.com"
+          address: %{
+            street: "123 Main St",
+            city: "New York",
+            region: "NY",
+            postal_code: "10001",
+            country: "US"
+          }
+        }
+      }
+
+  ## Example
+
+      user_identity = %{
+        user: %{
+          legal_name: "full legal name",
+          phone_number: "123-456-7890",
+          email_address: "email@address.com",
+          address: %{
+            street: "123 Main St",
+            city: "New York",
+            region: "NY",
+            postal_code: "10001",
+            country: "US"
+          }
+        }
+      }
+
+      Match.get(access_token, user_identity, config)
+      # => {:ok, %Match.GetResponse{}}
+  """
+  def match(access_token, options, config) do
+    payload =
+      options
+      |> Map.put(:access_token, access_token)
+
+    Plaid.Client.call("/identity/match", payload, MatchResponse, config)
   end
 end

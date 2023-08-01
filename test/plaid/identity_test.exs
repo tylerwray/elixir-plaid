@@ -9,6 +9,21 @@ defmodule Plaid.IdentityTest do
     {:ok, bypass: bypass, api_host: api_host}
   end
 
+  def user_identity do
+    %{
+      legal_name: "full legal name",
+      phone_number: "123-456-7890",
+      email_address: "email@address.com",
+      address: %{
+        street: "123 Main St",
+        city: "New York",
+        region: "NY",
+        postal_code: "10001",
+        country: "US"
+      }
+    }
+  end
+
   test "/identity/get", %{bypass: bypass, api_host: api_host} do
     Bypass.expect_once(bypass, "POST", "/identity/get", fn conn ->
       Conn.resp(conn, 200, ~s<{
@@ -755,5 +770,151 @@ defmodule Plaid.IdentityTest do
         client_id: "123",
         secret: "abc"
       )
+  end
+
+  test "/identity/match", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/identity/match", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "accounts": [
+          {
+            "account_id": "GAQ8ENe3n5CKxnZbLJMAIy94W8nAG7CGgZojn",
+            "address": { "is_postal_code_match": true, "score": 100 },
+            "balances": {
+              "available": 234.56,
+              "current": 6543.23,
+              "iso_currency_code": "USD",
+              "limit": null,
+              "unofficial_currency_code": null
+            },
+            "email_address": { "score": 100 },
+            "legal_name": {
+              "is_business_name_detected": false,
+              "is_first_name_or_last_name_match": false,
+              "is_nickname_match": true,
+              "score": 87
+            },
+            "mask": "5555",
+            "name": "Plaid Checking",
+            "official_name": "Plaid Instant Daily Checking Account",
+            "phone_number": { "score": 23 },
+            "subtype": "checking",
+            "type": "depository"
+          }
+        ]
+      }>)
+    end)
+
+    assert {:ok,
+            %Plaid.Identity.MatchResponse{
+              accounts: [
+                %Plaid.Identity.Match.Account{
+                  account_id: "GAQ8ENe3n5CKxnZbLJMAIy94W8nAG7CGgZojn",
+                  balances: %Plaid.Account.Balances{
+                    available: 234.56,
+                    current: 6543.23,
+                    limit: nil,
+                    iso_currency_code: "USD",
+                    unofficial_currency_code: nil
+                  },
+                  mask: "5555",
+                  name: "Plaid Checking",
+                  official_name: "Plaid Instant Daily Checking Account",
+                  type: "depository",
+                  subtype: "checking",
+                  legal_name: %Plaid.Identity.Match.LegalName{
+                    score: 87,
+                    is_nickname_match: true,
+                    is_first_name_or_last_name_match: false,
+                    is_business_name_detected: false
+                  },
+                  phone_number: %Plaid.Identity.Match.Score{score: 23},
+                  email_address: %Plaid.Identity.Match.Score{score: 100},
+                  address: %Plaid.Identity.Match.Address{
+                    score: 100,
+                    is_postal_code_match: true
+                  }
+                }
+              ]
+            }} =
+             Plaid.Identity.match(
+               "access-prod-123xxx",
+               %{user: user_identity()},
+               test_api_host: api_host,
+               client_id: "123",
+               secret: "abc"
+             )
+  end
+
+  test "/identity/match with partial response", %{bypass: bypass, api_host: api_host} do
+    Bypass.expect_once(bypass, "POST", "/identity/match", fn conn ->
+      Conn.resp(conn, 200, ~s<{
+        "accounts": [
+          {
+            "account_id": "GAQ8ENe3n5CKxnZbLJMAIy94W8nAG7CGgZojn",
+            "address": { "is_postal_code_match": null, "score": null },
+            "balances": {
+              "available": 234.56,
+              "current": 6543.23,
+              "iso_currency_code": "USD",
+              "limit": null,
+              "unofficial_currency_code": null
+            },
+            "email_address": { "score": 100 },
+            "legal_name": {
+              "is_business_name_detected": null,
+              "is_first_name_or_last_name_match": null,
+              "is_nickname_match": null,
+              "score": null
+            },
+            "mask": "5555",
+            "name": "Plaid Checking",
+            "official_name": "Plaid Instant Daily Checking Account",
+            "phone_number": { "score": 23 },
+            "subtype": "checking",
+            "type": "depository"
+          }
+        ]
+      }>)
+    end)
+
+    assert {:ok,
+            %Plaid.Identity.MatchResponse{
+              accounts: [
+                %Plaid.Identity.Match.Account{
+                  account_id: "GAQ8ENe3n5CKxnZbLJMAIy94W8nAG7CGgZojn",
+                  balances: %Plaid.Account.Balances{
+                    available: 234.56,
+                    current: 6543.23,
+                    limit: nil,
+                    iso_currency_code: "USD",
+                    unofficial_currency_code: nil
+                  },
+                  mask: "5555",
+                  name: "Plaid Checking",
+                  official_name: "Plaid Instant Daily Checking Account",
+                  type: "depository",
+                  subtype: "checking",
+                  legal_name: %Plaid.Identity.Match.LegalName{
+                    score: nil,
+                    is_nickname_match: nil,
+                    is_first_name_or_last_name_match: nil,
+                    is_business_name_detected: nil
+                  },
+                  phone_number: %Plaid.Identity.Match.Score{score: 23},
+                  email_address: %Plaid.Identity.Match.Score{score: 100},
+                  address: %Plaid.Identity.Match.Address{
+                    score: nil,
+                    is_postal_code_match: nil
+                  }
+                }
+              ]
+            }} =
+             Plaid.Identity.match(
+               "access-prod-123xxx",
+               %{user: user_identity() |> Map.delete(:legal_name)},
+               test_api_host: api_host,
+               client_id: "123",
+               secret: "abc"
+             )
   end
 end

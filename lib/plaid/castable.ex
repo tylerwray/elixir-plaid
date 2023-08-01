@@ -50,7 +50,7 @@ defmodule Plaid.Castable do
 
   ```elixir
   defmodule Plaid.Payment do
-    @behaviour Plad.Castable
+    @behaviour Plaid.Castable
 
     alias Plaid.Castable
 
