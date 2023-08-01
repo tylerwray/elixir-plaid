@@ -7,18 +7,19 @@ on:
     branches: [master]
 
 jobs:
-  build:
-    name: CI Checks
-    runs-on: ubuntu-latest
-
+  test:
+    runs-on: ubuntu-test
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: ["23.3"]
+        elixir: ["1.10.3"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Elixir
-        uses: erlef/setup-beam@v1.16.0
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@v1
         with:
-          elixir-version: "1.10.3"
-          otp-version: ["23.3.4"]
-          version-type: "strict"
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
       - name: Restore dependencies cache
         uses: actions/cache@v2
         with:
