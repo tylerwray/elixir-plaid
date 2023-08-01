@@ -195,9 +195,9 @@ defmodule Plaid.MixProject do
     [
       {:bypass, "~> 2.1", only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
-      {:httpoison, "~> 1.7", optional: true},
+      {:httpoison, "~> 2.0", optional: true},
       {:jason, "~> 1.3"},
       {:joken, "~> 2.4"},
       {:secure_compare, "~> 0.1.0"}
