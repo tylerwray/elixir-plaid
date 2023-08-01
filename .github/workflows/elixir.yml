@@ -1,41 +1,118 @@
-name: CI
+name: Elixir CI
 
 on:
   push:
-    branches: [master]
+    branches: ["master"] # adapt branch for project
   pull_request:
-    branches: [master]
+    branches: ["master"] # adapt branch for project
+
+# Sets the ENV `MIX_ENV` to `test` for running tests
+env:
+  MIX_ENV: test
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    name: Test on OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
+      # Specify the OTP and Elixir versions to use when building
+      # and running the workflow steps.
       matrix:
-        otp: ["23"]
-        elixir: ["1.10.3"]
+        otp: ["25.0.4"] # Define the OTP version [required]
+        elixir: ["1.14.1"] # Define the elixir version [required]
     steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@v1
+      # Step: Setup Elixir + Erlang image as the base.
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
-      - name: Restore dependencies cache
-        uses: actions/cache@v2
+
+      # Step: Check out the code.
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step: Define how to cache the `_build` directory. After the first run,
+      # this speeds up tests runs a lot. This includes not re-compiling our
+      # project's downloaded deps every run.
+      - name: Cache PLTS
+        id: cache-plts
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-plts
         with:
-          path: |
-            deps
-            _build
-            priv/plts
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: ${{ runner.os }}-mix-
+          path: priv/plts
+          key: ${{ runner.os }}-mix-${{ env.cache-name }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}-
+
+      # Step: Define how to cache deps. Restores existing cache if present.
+      - name: Cache deps
+        id: cache-deps
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-elixir-deps
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ env.cache-name }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}-
+
+      # Step: Define how to cache the `_build` directory. After the first run,
+      # this speeds up tests runs a lot. This includes not re-compiling our
+      # project's downloaded deps every run.
+      - name: Cache compiled build
+        id: cache-build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-compiled-build
+        with:
+          path: _build
+          key: ${{ runner.os }}-mix-${{ env.cache-name }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}-
+            ${{ runner.os }}-mix-
+
+      # Step: Conditionally bust the cache when job is re-run.
+      # Sometimes, we may have issues with incremental builds that are fixed by
+      # doing a full recompile. In order to not waste dev time on such trivial
+      # issues (while also reaping the time savings of incremental builds for
+      # *most* day-to-day development), force a full recompile only on builds
+      # that are retried.
+      - name: Clean to rule out incremental build as a source of flakiness
+        if: github.run_attempt != '1'
+        run: |
+          mix deps.clean --all
+          mix clean
+        shell: sh
+
+      # Step: Download project dependencies. If unchanged, uses
+      # the cached version.
       - name: Install dependencies
         run: mix deps.get
-      - name: Run tests
-        run: mix test
+
+      # Step: Compile the project treating any warnings as errors.
+      # Customize this step if a different behavior is desired.
+      - name: Compiles without warnings
+        run: mix compile --warnings-as-errors
+
+      # Step: Check that the checked in code has already been formatted.
+      # This step fails if something was found unformatted.
+      # Customize this step as desired.
+      - name: Check Formatting
+        run: mix format --check-formatted
+
+      # Step: Run the linter.
       - name: Lint
         run: mix credo
-      - name: Format Check
-        run: mix format --check-formatted
+
+      # Step: Execute the tests.
+      - name: Run tests
+        run: mix test
+
+      # Step: Run dialyzer to check typespecs.
       - name: Type Check
         run: mix dialyzer --quiet
