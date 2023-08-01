@@ -10,8 +10,8 @@ defmodule Plaid.Webhooks do
   @doc """
   Verify that a webhook is actually from plaid, constructing the raw body into an event struct.
 
-  Adheres to the guidelines outlined in [this guide](https://plaid.com/docs/api/webhook-verification/) 
-  from plaid to verify webhooks. 
+  Adheres to the guidelines outlined in [this guide](https://plaid.com/docs/api/webhook-verification/)
+  from plaid to verify webhooks.
 
   > 🏗  Only missing piece from the plaid guidelines is public key caching.
 
@@ -69,7 +69,7 @@ defmodule Plaid.Webhooks do
   defp body_hash(raw_body) do
     :sha256
     |> :crypto.hash(raw_body)
-    |> Base.encode16(padding: false, case: :lower)
+    |> Base.encode16(case: :lower)
   end
 
   defmodule GetVerificationKeyResponse do
