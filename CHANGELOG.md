@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2023-08-01
+
+- Adds Plaid Identity Match API's. [PR](https://github.com/tylerwray/elixir-plaid/pull/10). Thanks [@robacarp](https://github.com/robacarp) and [@mackshkatz](https://github.com/mackshkatz)!
+- Bumps Supported elixir version to 1.15 and supported erlang version to 26.
+- Bumps [httpoison](https://hexdocs.pm/httpoison/HTTPoison.html) version to 2.0.
+
 ## [1.1.2] - 2022-03-19
 
 ### Chore
