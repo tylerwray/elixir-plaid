@@ -6,7 +6,7 @@ defmodule Plaid.Identity do
   @behaviour Plaid.Castable
 
   alias Plaid.Castable
-  alias Plaid.Identity.{Address, Email, PhoneNumber}
+  alias Plaid.Identity.{Address, Email, Match, PhoneNumber}
 
   @type t :: %__MODULE__{
           addresses: [Address.t()],
@@ -94,12 +94,14 @@ defmodule Plaid.Identity do
 
     @behaviour Plaid.Castable
 
-    defstruct [:accounts]
+    defstruct [:accounts, :item, :request_id]
 
     @impl true
     def cast(generic_map) do
       %__MODULE__{
-        accounts: Plaid.Castable.cast_list(Plaid.Identity.Match.Account, generic_map["accounts"])
+        accounts: Plaid.Castable.cast_list(Match.Account, generic_map["accounts"]),
+        item: Plaid.Castable.cast(Match.Item, generic_map["item"]),
+        request_id: generic_map["request_id"]
       }
     end
   end
@@ -111,44 +113,29 @@ defmodule Plaid.Identity do
   for each connected account.
 
   ## Params:
-  * `access_token` - Plaid access token.
+    * `access_token` - Plaid access token.
 
   ## Options:
+    * `user` - User details for identity check match.
 
-      %{
-        user: %{
-          legal_name: "full legal name",
-          phone_number: "123-456-7890",
-          email_address: "email@address.com"
-          address: %{
-            street: "123 Main St",
-            city: "New York",
-            region: "NY",
-            postal_code: "10001",
-            country: "US"
-          }
+  ## Examples
+
+    Identity.match("access-sandbox-123xxx", %{
+      user: %Match.User{
+        legal_name: "full legal name",
+        phone_number: "123-456-7890",
+        email_address: "email@address.com",
+        address: %Match.User.Address{
+          street: "123 Main St",
+          city: "New York",
+          region: "NY",
+          postal_code: "10001",
+          country: "US"
         }
       }
+    }, client_id: "123", secret: "abc")
+    {:ok, %Identity.MatchResponse{}}
 
-  ## Example
-
-      user_identity = %{
-        user: %{
-          legal_name: "full legal name",
-          phone_number: "123-456-7890",
-          email_address: "email@address.com",
-          address: %{
-            street: "123 Main St",
-            city: "New York",
-            region: "NY",
-            postal_code: "10001",
-            country: "US"
-          }
-        }
-      }
-
-      Match.get(access_token, user_identity, config)
-      # => {:ok, %Match.GetResponse{}}
   """
   def match(access_token, options, config) do
     payload =

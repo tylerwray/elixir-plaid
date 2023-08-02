@@ -156,7 +156,7 @@ defmodule Plaid.Item do
   Update a webhook for an access_token.
 
   Does a `POST /item/webhook/update` call which is used to update webhook
-  for a particular access_token. 
+  for a particular access_token.
 
   ## Params
 
@@ -275,7 +275,7 @@ defmodule Plaid.Item do
   @doc """
   Invalidate an access token.
 
-  Does a `POST /item/access_token/invalidate` call which rotates an access token 
+  Does a `POST /item/access_token/invalidate` call which rotates an access token
   for an item. Immediately invalidating it and returning a new access token.
 
   ## Params

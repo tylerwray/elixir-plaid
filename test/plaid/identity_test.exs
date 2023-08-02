@@ -5,16 +5,16 @@ defmodule Plaid.IdentityTest do
 
   setup do
     bypass = Bypass.open()
-    api_host = "http://localhost:#{bypass.port}/"
+    api_host = "http://localhost:#{bypass.port}"
     {:ok, bypass: bypass, api_host: api_host}
   end
 
-  def user_identity do
-    %{
-      legal_name: "full legal name",
+  def user_identity(opts \\ []) do
+    %Plaid.Identity.Match.User{
+      legal_name: Keyword.get(opts, :legal_name, "full legal name"),
       phone_number: "123-456-7890",
       email_address: "email@address.com",
-      address: %{
+      address: %Plaid.Identity.Match.User.Address{
         street: "123 Main St",
         city: "New York",
         region: "NY",
@@ -786,6 +786,8 @@ defmodule Plaid.IdentityTest do
               "limit": null,
               "unofficial_currency_code": null
             },
+            "verification_status": "automatically_verified",
+            "persistent_account_id": "acct_123xxx",
             "email_address": { "score": 100 },
             "legal_name": {
               "is_business_name_detected": false,
@@ -800,7 +802,26 @@ defmodule Plaid.IdentityTest do
             "subtype": "checking",
             "type": "depository"
           }
-        ]
+        ],
+        "item": {
+          "available_products": [
+            "balance",
+            "investments"
+          ],
+          "billed_products": [
+            "assets",
+            "auth",
+            "identity",
+            "liabilities",
+            "transactions"
+          ],
+          "consent_expiration_time": null,
+          "error": null,
+          "institution_id": "ins_3",
+          "item_id": "eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBFL9DrE6",
+          "update_type": "background",
+          "webhook": "https://www.genericwebhookurl.com/webhook"
+        }
       }>)
     end)
 
@@ -821,20 +842,41 @@ defmodule Plaid.IdentityTest do
                   official_name: "Plaid Instant Daily Checking Account",
                   type: "depository",
                   subtype: "checking",
-                  legal_name: %Plaid.Identity.Match.LegalName{
+                  verification_status: "automatically_verified",
+                  persistent_account_id: "acct_123xxx",
+                  legal_name: %Plaid.Identity.Match.Account.LegalName{
                     score: 87,
                     is_nickname_match: true,
                     is_first_name_or_last_name_match: false,
                     is_business_name_detected: false
                   },
-                  phone_number: %Plaid.Identity.Match.Score{score: 23},
-                  email_address: %Plaid.Identity.Match.Score{score: 100},
-                  address: %Plaid.Identity.Match.Address{
+                  phone_number: %Plaid.Identity.Match.Account.PhoneNumber{score: 23},
+                  email_address: %Plaid.Identity.Match.Account.EmailAddress{score: 100},
+                  address: %Plaid.Identity.Match.Account.Address{
                     score: 100,
                     is_postal_code_match: true
                   }
                 }
-              ]
+              ],
+              item: %Plaid.Identity.Match.Item{
+                available_products: [
+                  "balance",
+                  "investments"
+                ],
+                billed_products: [
+                  "assets",
+                  "auth",
+                  "identity",
+                  "liabilities",
+                  "transactions"
+                ],
+                consent_expiration_time: nil,
+                error: nil,
+                institution_id: "ins_3",
+                item_id: "eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBFL9DrE6",
+                update_type: "background",
+                webhook: "https://www.genericwebhookurl.com/webhook"
+              }
             }} =
              Plaid.Identity.match(
                "access-prod-123xxx",
@@ -859,6 +901,8 @@ defmodule Plaid.IdentityTest do
               "limit": null,
               "unofficial_currency_code": null
             },
+            "verification_status": "automatically_verified",
+            "persistent_account_id": "acct_123xxx",
             "email_address": { "score": 100 },
             "legal_name": {
               "is_business_name_detected": null,
@@ -873,7 +917,26 @@ defmodule Plaid.IdentityTest do
             "subtype": "checking",
             "type": "depository"
           }
-        ]
+        ],
+        "item": {
+          "available_products": [
+            "balance",
+            "investments"
+          ],
+          "billed_products": [
+            "assets",
+            "auth",
+            "identity",
+            "liabilities",
+            "transactions"
+          ],
+          "consent_expiration_time": null,
+          "error": null,
+          "institution_id": "ins_3",
+          "item_id": "eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBFL9DrE6",
+          "update_type": "background",
+          "webhook": "https://www.genericwebhookurl.com/webhook"
+        }
       }>)
     end)
 
@@ -894,24 +957,45 @@ defmodule Plaid.IdentityTest do
                   official_name: "Plaid Instant Daily Checking Account",
                   type: "depository",
                   subtype: "checking",
-                  legal_name: %Plaid.Identity.Match.LegalName{
+                  verification_status: "automatically_verified",
+                  persistent_account_id: "acct_123xxx",
+                  legal_name: %Plaid.Identity.Match.Account.LegalName{
                     score: nil,
                     is_nickname_match: nil,
                     is_first_name_or_last_name_match: nil,
                     is_business_name_detected: nil
                   },
-                  phone_number: %Plaid.Identity.Match.Score{score: 23},
-                  email_address: %Plaid.Identity.Match.Score{score: 100},
-                  address: %Plaid.Identity.Match.Address{
+                  phone_number: %Plaid.Identity.Match.Account.PhoneNumber{score: 23},
+                  email_address: %Plaid.Identity.Match.Account.EmailAddress{score: 100},
+                  address: %Plaid.Identity.Match.Account.Address{
                     score: nil,
                     is_postal_code_match: nil
                   }
                 }
-              ]
+              ],
+              item: %Plaid.Identity.Match.Item{
+                available_products: [
+                  "balance",
+                  "investments"
+                ],
+                billed_products: [
+                  "assets",
+                  "auth",
+                  "identity",
+                  "liabilities",
+                  "transactions"
+                ],
+                consent_expiration_time: nil,
+                error: nil,
+                institution_id: "ins_3",
+                item_id: "eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBFL9DrE6",
+                update_type: "background",
+                webhook: "https://www.genericwebhookurl.com/webhook"
+              }
             }} =
              Plaid.Identity.match(
                "access-prod-123xxx",
-               %{user: user_identity() |> Map.delete(:legal_name)},
+               %{user: user_identity(legal_name: nil)},
                test_api_host: api_host,
                client_id: "123",
                secret: "abc"

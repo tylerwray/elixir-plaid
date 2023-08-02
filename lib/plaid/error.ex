@@ -10,10 +10,10 @@ defmodule Plaid.Error do
           error_code: String.t(),
           error_message: String.t(),
           display_message: String.t() | nil,
-          request_id: String.t() | nil,
+          request_id: String.t(),
           causes: [],
           status: integer() | nil,
-          documentation_url: String.t() | nil,
+          documentation_url: String.t(),
           suggested_action: String.t() | nil
         }
 

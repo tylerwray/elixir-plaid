@@ -1,5 +1,15 @@
-defmodule Plaid.Identity.Match.LegalName do
+defmodule Plaid.Identity.Match.Account.LegalName do
+  @moduledoc """
+  [Plaid Identity Match Legal Name schema.](https://plaid.com/docs/api/products/identity/#identity-match-response-accounts-legal-name).
+  """
   @behaviour Plaid.Castable
+
+  @type t :: %__MODULE__{
+          score: integer() | nil,
+          is_nickname_match: boolean() | nil,
+          is_first_name_or_last_name_match: boolean() | nil,
+          is_business_name_detected: boolean() | nil
+        }
 
   defstruct [
     :score,
