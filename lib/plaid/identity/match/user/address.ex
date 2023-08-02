@@ -30,7 +30,7 @@ defmodule Plaid.Identity.Match.User.Address do
       region: map["region"],
       street: map["street"],
       postal_code: map["postal_code"],
-      country: map["country"],
+      country: map["country"]
     }
   end
 end
