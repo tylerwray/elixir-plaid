@@ -111,16 +111,23 @@ For information about what has changed between API versions, head to the [versio
 | [Bank Transfers (beta)](https://plaid.com/docs/api/products/#bank-transfers-beta)                           | 🗺      |
 | [Deposit Switch (beta)](https://plaid.com/docs/api/products/#deposit-switch-beta)                           | 🗺      |
 | [Employer](https://plaid.com/docs/api/employers/)                                                           | 🏗      |
+| [Enrich](https://plaid.com/docs/api/products/enrich/)                                                       | 🗺️     |
+| [Identity Verification](https://plaid.com/docs/api/products/identity-verification/)                         | 🗺️     |
 | [Identity](https://plaid.com/docs/api/products/#identity)                                                   | ✅     |
+| [Income](https://plaid.com/docs/api/products/income/)                                                       | 🗺️     |
 | [Institution](https://plaid.com/docs/api/institutions/)                                                     | ✅     |
 | [Investments](https://plaid.com/docs/api/products/#investments)                                             | ✅     |
 | [Item](https://plaid.com/docs/api/items/)                                                                   | ✅     |
 | [Liabilities](https://plaid.com/docs/api/products/#liabilities)                                             | ✅     |
+| [Monitor](https://plaid.com/docs/api/products/monitor/)                                                     | 🗺️     |
 | [Payment Initiation (UK and Europe)](https://plaid.com/docs/api/products/#payment-initiation-uk-and-europe) | ✅     |
 | [Processor](https://plaid.com/docs/api/processors/)                                                         | ✅     |
 | [Sandbox](https://plaid.com/docs/api/sandbox/)                                                              | 🏗      |
+| [Signal](https://plaid.com/docs/api/products/signal/)                                                       | 🗺️     |
 | [Token](https://plaid.com/docs/api/tokens/)                                                                 | ✅     |
 | [Transactions](https://plaid.com/docs/api/products/#transactions)                                           | ✅     |
+| [Transfer](https://plaid.com/docs/api/products/transfer/)                                                   | 🗺️     |
+| [Virtual Accounts](https://plaid.com/docs/api/products/virtual-accounts/)                                   | 🗺️     |
 | [Webhooks](https://plaid.com/docs/api/webhooks/)                                                            | 🏗      |
 
 ## Contributing
