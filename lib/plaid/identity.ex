@@ -120,21 +120,21 @@ defmodule Plaid.Identity do
 
   ## Examples
 
-    Identity.match("access-sandbox-123xxx", %{
-      user: %Match.User{
-        legal_name: "full legal name",
-        phone_number: "123-456-7890",
-        email_address: "email@address.com",
-        address: %Match.User.Address{
-          street: "123 Main St",
-          city: "New York",
-          region: "NY",
-          postal_code: "10001",
-          country: "US"
+      Identity.match("access-sandbox-123xxx", %{
+        user: %Match.User{
+          legal_name: "full legal name",
+          phone_number: "123-456-7890",
+          email_address: "email@address.com",
+          address: %Match.User.Address{
+            street: "123 Main St",
+            city: "New York",
+            region: "NY",
+            postal_code: "10001",
+            country: "US"
+          }
         }
-      }
-    }, client_id: "123", secret: "abc")
-    {:ok, %Identity.MatchResponse{}}
+      }, client_id: "123", secret: "abc")
+      {:ok, %Identity.MatchResponse{}}
 
   """
   def match(access_token, options, config) do
